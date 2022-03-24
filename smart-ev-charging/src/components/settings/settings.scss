@@ -1,0 +1,74 @@
+.setting-wrapper{
+
+  border-top: 1px solid #C6C6C8;
+  border-bottom: 1px solid #C6C6C8;
+
+  .header{
+    background: #F2F2F2;
+    display: flex;
+    padding: 20px 24px;
+    justify-content: center;
+
+    .title{
+      font-size: 24px;
+      color: black;
+      margin-right: auto;
+    }
+
+    .add-new-car{
+
+      align-items: center;
+      display: flex;
+      color: #0057B8;
+      font-size: 16px;
+      cursor: pointer;
+      margin-left: auto;
+    }
+  }
+
+  .prop-wrapper{
+
+    .title-row{
+      font-weight: 400;
+      font-size: 16px;
+      background: #F2F2F2;
+      height: 50px;
+      color: #000;
+      text-align: start;
+      padding-left: 24px;
+      line-height: 50px;
+      text-transform: uppercase;
+    }
+  }
+}
+.row {
+
+  display: flex;
+  line-height: 65px;
+  text-align: center;
+  padding: 0 24px;
+  border-top: 1px solid #C6C6C8;
+  .item-name{
+    font-weight: 700;
+    font-size: 16px;
+    width: 85%;
+    text-align: left;
+
+  }
+  .item-value{
+    margin-left: auto;
+    cursor: pointer;
+    color: #1D2329;
+    line-height: 20px;
+    text-align: right;
+    align-self: center;
+    margin-right: 10px;
+  }
+
+  &:first-child {
+    border-top: none;
+    .item-name{
+      width: 30%;
+    }
+  }
+}

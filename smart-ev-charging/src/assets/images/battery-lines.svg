@@ -1,0 +1,12 @@
+<svg width="64" height="156" viewBox="0 0 64 156" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="64" height="4" fill="#FFFFFF"/>
+<rect y="32" width="64" height="4" fill="#FFFFFF"/>
+<rect y="16" width="64" height="4" fill="#FFFFFF"/>
+<rect y="48" width="64" height="4" fill="#FFFFFF"/>
+<rect y="64" width="64" height="4" fill="#FFFFFF"/>
+<rect y="8" width="64" height="4" fill="#FFFFFF"/>
+<rect y="40" width="64" height="4" fill="#FFFFFF"/>
+<rect y="24" width="64" height="4" fill="#FFFFFF"/>
+<rect y="56" width="64" height="4" fill="#FFFFFF"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M0 72H64V76H0V72ZM0 80H64V84H0V80ZM0 112H64V116H0V112ZM64 96H0V100H64V96ZM0 128H64V132H0V128ZM64 144H0V148H64V144ZM0 88H64V92H0V88ZM64 120H0V124H64V120ZM0 104H64V108H0V104ZM64 136H0V140H64V136ZM64 152H0V156H64V152Z" fill="#FFFFFF"/>
+</svg>
