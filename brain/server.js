@@ -1,7 +1,5 @@
 const WebSocket = require('ws')
 const wss = new WebSocket.Server({ port: 7000 });
-const min = 6;
-const max = 18;
 
 let counter = 0;
 let isPower = true;
@@ -48,12 +46,6 @@ const corsOptions = {
     },
     credentials: true,
 }
-
-// app.use(
-//     express.urlencoded({
-//         extended: true
-//     })
-// )
 
 app.use(express.json());
 

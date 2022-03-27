@@ -24,6 +24,7 @@ function Status(props) {
     const [minBattery, setMinBattery] = useState(50);
     const [showMinBattery, setShowMinBattery] = useState(false);
     const [hours, setHours] = useState(Math.floor(car.batteryTime));
+    const [prevIsPower, setPrevIsPower] = useState(true);
 
     useEffect(() => {
         if (props.isPower) {
@@ -34,12 +35,13 @@ function Status(props) {
                     setIsCharged(true);
                 }
 
-            } else if (!isSmartCharging && (percent < maxBattery)){
+            } else if (!isSmartCharging && !prevIsPower && (percent < maxBattery)){
                 setIsCharged(true);
             }
         } else {
             setIsCharged(false);
         }
+        setPrevIsPower(props.isPower);
 
     }, [props.electric, props.isPower]);
 
