@@ -6,7 +6,7 @@ import moment from "moment";
 import ElectricRegion from "../electric-region/electric-region";
 import {ReactComponent as Logo} from "../../assets/images/logo-con.svg";
 
-const ENDPOINT = "ws://localhost:7000/";
+const ENDPOINT = "ws://iltlvmac0171.intl.att.com:7000/";
 
 const Chart = require("react-chartjs-2").Chart;
 
@@ -144,13 +144,13 @@ function Home() {
         <div className="chart-wrapper">
             <div className={"header"}>
                 <Logo className={"logo-icon"} width={190} height={37}/>
+                <div className={'cost-wrapper'}>
+                    <span className={'title'}>Now:</span>
+                    <span className={'cost'}></span>
+                </div>
                 <ElectricRegion />
             </div>
 
-            <div className={'cost-wrapper'}>
-                <span className={'title'}>Now:</span>
-                <span className={'cost'}></span>
-            </div>
             <Bubble data={data} options={options}/>
         </div>
     );

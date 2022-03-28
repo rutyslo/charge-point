@@ -4,26 +4,33 @@
   border-bottom: 1px solid #C6C6C8;
 
   .header{
-    background: #F2F2F2;
+    background: #1D2329;
     display: flex;
     padding: 20px 24px;
     justify-content: center;
 
     .title{
       font-size: 24px;
-      color: black;
+      color: white;
       margin-right: auto;
+      &:hover {
+        color: #F2F2F2;
+      }
     }
 
     .add-new-car{
 
       align-items: center;
       display: flex;
-      color: #0057B8;
+      color: white;
       font-size: 16px;
       cursor: pointer;
       margin-left: auto;
+      &:hover {
+        color: #F2F2F2;
+      }
     }
+
   }
 
   .prop-wrapper{

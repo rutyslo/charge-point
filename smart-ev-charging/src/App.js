@@ -4,7 +4,7 @@ import { Routes, Route} from "react-router-dom";
 import Status from "./components/settings/status/status";
 import {useState} from "react";
 
-const ENDPOINT = "ws://localhost:7000/";
+const ENDPOINT = "ws://iltlvmac0171.intl.att.com:7000/";
 const socket = new WebSocket(ENDPOINT);
 function App() {
 
@@ -12,10 +12,9 @@ function App() {
     const [isPower, setIsPower] = useState(true);
 
     socket.onopen = function(evt) {
-        // const bn_req = JSON.stringify([2, "wwwwww", "BootNotification", {}]);
-        // socket.send(bn_req);
         console.log("onopen");
     }
+
     socket.onmessage = function(msg) {
         console.log("RECEIVE: " + msg.data);
         const object = JSON.parse(msg.data);
@@ -27,8 +26,8 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Settings/>} />
-          <Route path="/info" element={<Status isPower={isPower} electric={electric}/>} />
+        <Route path="/" element={<Settings isPower={isPower} electric={electric}/>} />
+          <Route path="/info" element={<Status socket={socket} isPower={isPower} electric={electric}/>} />
       </Routes>
     </div>
   );

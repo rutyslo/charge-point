@@ -1,18 +1,76 @@
 .electric-wrapper {
   align-self: center;
-  margin-left: auto;
   margin-right: 60px;
+  width: 300px;
 
-  .is-power-toggle {
+  .is-power-toggle, .auto-actions {
     display: flex;
     align-items: center;
+    border : 1px solid #DCDFE3;
+    padding: 13px;
+
     .label{
       font-weight: 600;
       margin-right: 10px;
     }
-    .toggle{
-      margin-right: 10px;
-      width: 30px;
+
+    .toggle-wrapper{
+      display: flex;
+      align-items: center;
+      margin-left: auto;
+      .toggle{
+        margin-right: 10px;
+        width: 30px;
+      }
+    }
+
+  }
+
+  .auto-actions{
+    border-top: none;
+    flex-direction: column;
+    .auto-price-wrapper{
+      display: flex;
+      align-items: center;
+      margin-right: 0;
+      align-self: normal;
+
+      .switch-is-smart{
+        margin-left: auto ;
+      }
+    }
+
+    .set-price-wrapper{
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+      margin-right: 0;
+      align-self: normal;
+      .set-wrapper{
+        display: flex;
+        margin-left: auto;
+
+        input{
+          font-size: 16px;
+          line-height: 16px;
+          padding: 3px;
+          text-align: center;
+        }
+        .set-value {
+          cursor: pointer;
+          color: #0070D2;
+          text-decoration: underline;
+          padding-left: 10px;
+        }
+      }
+
+      &.auto-toggle{
+          color: #DCDFE3;
+          .set-value {
+            cursor: none;
+            color: #DCDFE3;
+          }
+      }
     }
   }
 }

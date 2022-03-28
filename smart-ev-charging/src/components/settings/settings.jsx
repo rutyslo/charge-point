@@ -1,15 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './settings.scss';
 import CarDetail from "./car-detail/car-detail";
-import carImg1 from './../../assets/images/car-img-1.png';
-import carImg2 from './../../assets/images/car-img-2.png';
-import carImg1Small from './../../assets/images/small_car.png';
+import {observer} from "mobx-react-lite";
+import appState from "../../app.state";
 
-function Settings() {
-
-
-    const carList = [{id: 1, name : `Mom's car`, type : 'VOLKSWAGEN iD.3', image : carImg1, smallImg: carImg1Small, batteryTime: 220},
-                     {id: 2, name : `Dad's car`, type : 'Kia Ev6', image : carImg2, smallImg: carImg1Small, batteryTime: 166}]
+const Settings = observer((props) => {
 
     const properties  = { my_charging_station  : [ { key : 'Address', value : '1938 Fairburn Ave. L.A. California 12345-1234'},
                                       { key : 'Operator', value : 'California Energy'}],
@@ -28,8 +23,8 @@ function Settings() {
                 </div>
             </div>
             <div className="car-detail-wrapper">
-                {carList.map(car => {
-                    return <CarDetail key={car.name} car={car} />
+                {appState.carList.map((car, index) => {
+                    return <CarDetail key={car.name} index={index} carIndex={index} isPower={props.isPower} electric={props.electric}/>
                 })}
             </div>
             {
@@ -52,7 +47,7 @@ function Settings() {
         </div>
     );
 
-}
+});
 
 
 export default Settings;

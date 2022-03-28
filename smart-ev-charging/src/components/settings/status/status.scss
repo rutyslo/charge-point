@@ -8,7 +8,7 @@
   .header{
 
     cursor: pointer;
-    background: #F2F2F2;
+    background: #1D2329;
     display: flex;
     padding: 20px 24px;
     justify-content: start;
@@ -16,16 +16,20 @@
     .title {
       font-weight: 400;
       font-size: 16px;
-      color: #0057B8;
+      color: white;
       text-align: left;
+      &:hover {
+        color: #F2F2F2;
+      }
     }
 
     .chevron-right{
       transform: rotate(180deg);
+      color: white;
+      &:hover {
+        color: #F2F2F2;
+      }
     }
-
-
-
   }
 
   .car-info{
@@ -47,6 +51,8 @@
 
     .image {
       margin-left: auto;
+      padding-top: 20px;
+      padding-right: 20px;
     }
   }
 
@@ -105,7 +111,7 @@
 
   .electric-wrapper{
     display: flex;
-    margin-left: 25px;
+    margin-left: 20px;
     text-align: left;
 
     .sidebar-left{
@@ -127,7 +133,42 @@
         }
       }
     }
+    &.power-off{
+      .sidebar-left{
+        justify-content: center;
 
+        .name-outage{
+          margin-top: 20px;
+          display: flex;
+          align-items: center;
+          margin-bottom: 90px;
+          span {
+            color: #C70032;
+            font-weight: 600;
+            font-size: 18px;
+            padding-left: 10px;
+          }
+        }
+        .msg {
+          height: 48px;
+          background: linear-gradient(180deg, #C70032 0%, #FF7A00 176.92%);
+          font-weight: 600;
+          font-size: 16px;
+          color: white;
+          padding: 5px;
+          text-align: center;
+          line-height: 48px;
+          font-family: "ATTAleckSans";
+        }
+      }
+
+      .sidebar-right{
+        .battery-wrapper .battery .battery-percent{
+            background: linear-gradient(to top, #FF7A00 10%, #C70032 100%);
+        }
+      }
+
+    }
     .sidebar-right{
       color: #1D2329;
       margin-left: auto;
@@ -251,7 +292,7 @@
     }
 
     .home-charging{
-      border-top: 1px solid gray;
+      border-top: 8px solid #F2F2F2;
     }
     .row {
       i.chevron-right {

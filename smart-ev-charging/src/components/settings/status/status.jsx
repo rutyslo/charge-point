@@ -1,29 +1,30 @@
 import React, {useState, useEffect} from 'react';
 import './status.scss'
 import {useLocation, useNavigate} from "react-router-dom";
-import carImg1 from "../../../assets/images/car-img-1.png";
 import {ReactComponent as BatteryLines} from "../../../assets/images/battery-lines.svg";
 import Switch from "react-switch";
 import SuperSimple from "../../range/SuperSimple";
+import {ReactComponent as PowerOutageIcon} from "../../../assets/images/power_outage.svg";
+import appState from "../../../app.state";
+
 
 function Status(props) {
     const { state } = useLocation();
     const navigate = useNavigate();
-
-    const car = state?.car ? state?.car : {id: 1, name : `Mom's car`, type : 'VOLKSWAGEN iD.3', image : carImg1, batteryTime: 621} ;
-    const [isCharged, setIsCharged] = useState(true);
-    const [minutesLeft, setMinutesLeft] = useState(181);
-    const [isSmartCharging, setIsSmartCharging] = useState(false);
-    const [isHomeCharging, setIsHomeCharging] = useState(false);
-    const [percent, setPercent] = useState(55);
-    const [kw, setKw] = useState(55 * 0.75);
-    const [price, setPrice] = useState(0.13);
-    const [mile, setMile] = useState(220);
-    const [maxBattery, setMaxBattery] = useState(100);
+    const car = appState.carList[appState.carIndex];
+    const [isCharged, setIsCharged] = useState(car.isCharged);
+    const [minutesLeft, setMinutesLeft] = useState(car.minutesLeft);
+    const [isSmartCharging, setIsSmartCharging] = useState(car.isSmartCharging);
+    const [isHomeCharging, setIsHomeCharging] = useState(car.isHomeCharging);
+    const [percent, setPercent] = useState(car.percent);
+    const [kw, setKw] = useState(car.kw);
+    const [price, setPrice] = useState(car.price);
+    const [mile, setMile] = useState(car.mile);
+    const [maxBattery, setMaxBattery] = useState(car.maxBattery);
     const [showMaxBattery, setShowMaxBattery] = useState(false);
-    const [minBattery, setMinBattery] = useState(50);
+    const [minBattery, setMinBattery] = useState(car.minBattery);
     const [showMinBattery, setShowMinBattery] = useState(false);
-    const [hours, setHours] = useState(Math.floor(car.batteryTime));
+    const [hours, setHours] = useState(Math.floor(car.hours));
     const [prevIsPower, setPrevIsPower] = useState(true);
 
     useEffect(() => {
@@ -48,6 +49,22 @@ function Status(props) {
     useEffect(() => {
         setMinutesLeft(Math.ceil(400 / maxBattery) * maxBattery * (maxBattery - percent) / 100);
     }, [isSmartCharging, maxBattery]);
+
+    useEffect(() => {
+        const req = JSON.stringify({"ChargeNotification" : isCharged });
+        if (req) {
+            handleSend(req);
+        }
+    }, [isCharged]);
+
+    const handleSend = (req) => {
+        if (props.socket.readyState === WebSocket.OPEN) {
+            console.log('sendChargingNotification', req)
+            props.socket.send(req)
+        } else {
+            setTimeout(() => { handleSend() }, 1000)
+        }
+    };
 
     useEffect(() => {
         const timerId = setInterval(() => {
@@ -107,9 +124,27 @@ function Status(props) {
         return `${hour > 0 ? `${hour}h` : `` } ${Math.floor(minutesLeft % 60 > 0 ? minutesLeft % 60 : 0)}m left`;
     }
 
+    const goBack = () => {
+        let carCopy = {...car};
+        carCopy.isCharged = isCharged;
+        carCopy.hours = hours;
+        carCopy.minutesLeft = minutesLeft;
+        carCopy.percent = percent;
+        carCopy.mile = mile;
+
+        carCopy.isSmartCharging = isSmartCharging;
+        carCopy.isHomeCharging = isHomeCharging;
+        carCopy.kw = kw;
+        carCopy.maxBattery = maxBattery;
+        carCopy.minBattery = minBattery;
+        carCopy.price = price;
+        appState.setCar(carCopy, appState.carIndex);
+        navigate("../", { replace: true});
+    }
+
     return (
         <div className={`status-wrapper ${isCharged ? 'charging' : 'not-charging'}`}>
-            <div className="header" onClick={() => { navigate("../", { replace: true})}}>
+            <div className="header" onClick={ goBack }>
                 <i className="chevron-right"></i>
                 <div className="title">
                     Home
@@ -121,7 +156,7 @@ function Status(props) {
                     <div className="car-type">{car.type}</div>
                 </div>
                 <div className="image">
-                    <img src={car.smallImg} height={88} width={145}/>
+                    <img src={car.image} height={70} width={130}/>
                 </div>
             </div>
             <div className="switch-wrapper">
@@ -147,9 +182,11 @@ function Status(props) {
                 />
             </div>
 
-            <div className="electric-wrapper">
+            <div className={`electric-wrapper ${props.isPower ? 'power-on' : 'power-off'}`}>
                 <div className="sidebar-left">
-                    <div className="item">
+                    {props.isPower ?
+                    <>
+                        <div className="item">
                         <div className={"name"}>Energy supplied</div>
                         <div className={"value"}>{kw}<span>kW</span></div>
                     </div>
@@ -157,6 +194,16 @@ function Status(props) {
                         <div className={"name"}>Cost</div>
                         <div className={"value"}>${price.toLocaleString('en-US',{minimumFractionDigits: 2, maximumFractionDigits: 2})}</div>
                     </div>
+                    </> :
+                        <>
+                            <div className={"name-outage"}>
+                                <PowerOutageIcon />
+                                <span>Power outage</span>
+                            </div>
+                            <div className={"msg"}>
+                                Emergency home power on
+                            </div>
+                        </>}
                 </div>
                 <div className="sidebar-right">
                     <div className={"percent"}>{percent}%</div>
@@ -217,7 +264,7 @@ function Status(props) {
                     <div className={"home-charging-wrapper"}>
                         <div className="smart-text-wrapper">
                             <div className="section-title">
-                                Home charging
+                                Emergency home battery
                             </div>
                             <div className="text-area">
                                 Upon a power outage, supply energy to home from the car battery.
@@ -238,7 +285,7 @@ function Status(props) {
 
                     {isHomeCharging && <>
                         <div className="row">
-                            <div className="item-name">Battery minimum level
+                            <div className="item-name">Supply energy while battery is over
                                 <div className={"desc"}>Disconnect from home when battery reaches this level</div>
                             </div>
                             <div className="item-value">{minBattery}%</div>
@@ -257,6 +304,6 @@ function Status(props) {
         </div>
     );
 
-}
+};
 
 export default Status;
