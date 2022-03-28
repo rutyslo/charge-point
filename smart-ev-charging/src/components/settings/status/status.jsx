@@ -200,9 +200,9 @@ function Status(props) {
                                 <PowerOutageIcon />
                                 <span>Power outage</span>
                             </div>
-                            <div className={"msg"}>
+                            {isHomeCharging && (percent > minBattery) && <div className={"msg"}>
                                 Emergency home power on
-                            </div>
+                            </div>}
                         </>}
                 </div>
                 <div className="sidebar-right">

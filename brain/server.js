@@ -7,7 +7,7 @@ let price = 10;
 let autoToggle = true;
 
 const costs = [12,12,12,12,12,12,12,11,11,10,10,9,9,10,10,11,12,12,12,11,12,12,11,10,9,9,9,9,10,11,12];
-const STEVE_URL = "http://135.76.94.163:8080/steve/rest/operations/v1.6/";
+const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
 
     wss.on('connection', ws => {
 
@@ -62,7 +62,7 @@ const app = express();
 const cors = require("cors");
 const axios = require("axios");
 
-const whitelist = ["http://iltlvmac0171.intl.att.com:3001"]
+const whitelist = ["http://iltlvmac0171.intl.att.com:3001", "http://localhost:3001"]
 const corsOptions = {
     origin: function (origin, callback) {
         if (!origin || whitelist.indexOf(origin) !== -1) {

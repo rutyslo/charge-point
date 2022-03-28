@@ -4,6 +4,7 @@ import axios from "axios";
 import './electric-region.scss';
 import {ReactComponent as Icon} from "../../assets/images/power-outage.svg";
 
+const BE_URL = 'http://iltlvmac0171.intl.att.com:4000';
 
 const ElectricRegion = memo(({props}) => {
 
@@ -12,7 +13,7 @@ const ElectricRegion = memo(({props}) => {
     const [price, setPrice] = useState(true);
 
     const sendIsPower = () => {
-        axios.post('http://iltlvmac0171.intl.att.com:4000/power', { isPower : !isPowerToggle })
+        axios.post(`${BE_URL}/power`, { isPower : !isPowerToggle })
             .then(response => {
                 setIsPowerToggle(response.data.isPower);
             });
@@ -20,7 +21,7 @@ const ElectricRegion = memo(({props}) => {
 
     const sendPrice = () => {
         if (!isAutoToggle) {
-            axios.post('http://iltlvmac0171.intl.att.com:4000/price', { price : price })
+            axios.post(`${BE_URL}/price`, { price : price })
                 .then(response => {
 
                 });
@@ -28,7 +29,7 @@ const ElectricRegion = memo(({props}) => {
     }
 
     const sendAutoToggle = () => {
-        axios.post('http://iltlvmac0171.intl.att.com:4000/auto-toggle', { autoToggle : !isAutoToggle })
+        axios.post(`${BE_URL}/auto-toggle`, { autoToggle : !isAutoToggle })
             .then(response => {
                 setIsAutoToggle(response.data.autoToggle);
             });
