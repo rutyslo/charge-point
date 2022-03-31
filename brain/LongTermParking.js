@@ -18,7 +18,7 @@ const longTermParking = {
         console.log("START");
         cpList = [];
         for (let index = 0; index < cpLength; index++) {
-            cpList.push({stationId: index + 1, status: 0, connectorType: 'J1772'});
+            cpList.push({stationId: index + 1, status: 0, connectorType: 'J1772', totalChargeCycle: 0, totalDisChargeCycle: 0});
         }
         console.log('cpList', cpList);
     },
@@ -61,6 +61,7 @@ const longTermParking = {
                 if (cpList[index].currentBattery < cpList[index].maxBattery) {
                     cpList[index].status = 1;
                     cpList[index].currentBattery += 5;
+                    cpList[index].totalChargeCycle += 1;
                 } else {
                     cpList[index].status = 0;
                 }
@@ -69,6 +70,7 @@ const longTermParking = {
                     cpList[index].status = 0;
                 } else if (cpList[index].currentBattery > 30 ) {
                     cpList[index].status = 2;
+                    cpList[index].totalDisChargeCycle += 1;
                     cpList[index].currentBattery -= 5;
                 } else {
                     cpList[index].status = 0;
