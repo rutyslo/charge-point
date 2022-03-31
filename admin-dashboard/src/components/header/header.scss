@@ -1,0 +1,46 @@
+.App-header {
+  .att-logo {
+    display: flex;
+    width: 390px;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 20px 40px 20px 25px;
+
+    .att-name {
+      font-weight: bold;
+      font-size: 20px;
+      padding-left: 5px;
+    }
+
+    .app-name {
+      font-size: 18px;
+      letter-spacing: 3px;
+      line-height: 1.4;
+    }
+  }
+
+  .navbar {
+    display: flex;
+    flex: 1;
+    padding: 0 50px;
+
+    a {
+      font-size: 22px;
+      color: #ffffff;
+      text-decoration: none;
+      margin-right: 70px;
+
+      &.active {
+        font-weight: bold;
+
+        &::after {
+          content: '';
+          height: 4px;
+          background-color: #009fdb;
+          display: block;
+          position: relative;
+          top: 16px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,55 @@
+.charging-points-wrapper {
+  text-align: left;
+  width: 230px;
+
+  .box {
+    .line {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px 10px;
+      width: 145px;
+
+      &:nth-child(1) span::before {
+        content: "\2022";
+        color: #3DA930;
+        font-weight: bold;
+        display: inline-block;
+        margin-right: 3px;
+      }
+
+      &:nth-child(2) span::before {
+        content: "\2022";
+        color: #FF585D;
+        font-weight: bold;
+        display: inline-block;
+        margin-right: 3px;
+      }
+
+      &:nth-child(3) span::before {
+        content: "\2022";
+        color: #FFB000;
+        font-weight: bold;
+        display: inline-block;
+        margin-right: 3px;
+      }
+
+      & + .line {
+        border-top: 1px solid #878C94;
+      }
+
+      &:nth-child(4) {
+        border-top-width: 2px;
+      }
+
+      span,
+      &:nth-child(4) > b {
+        align-self: center;
+      }
+
+      b.number {
+        font-size: 24px;
+        font-weight: 500;
+      }
+    }
+  }
+}

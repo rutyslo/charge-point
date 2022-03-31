@@ -1,0 +1,16 @@
+.grid-table {
+  width: 100%;
+
+  .ag-layout-normal {
+    display: flex;
+    flex: 1;
+  }
+
+  .ag-center-cols-container {
+    width: 100% !important;
+  }
+
+  .ag-body-viewport {
+    min-height: 160px;
+  }
+}

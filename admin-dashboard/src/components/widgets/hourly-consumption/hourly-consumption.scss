@@ -1,0 +1,33 @@
+.hourly-consumption-wrapper {
+
+  .title {
+    margin-bottom: 20px;
+  }
+
+  .widget-container {
+    flex-direction: column;
+    border-top: 1px solid #878C94;
+
+    .input {
+      padding: 30px 0;
+
+      input {
+        width: 130px;
+        font-size: 32px;
+        font-weight: 400;
+        margin-right: 5px;
+        border-radius: 4px;
+        border: 1px solid #878C94;
+        text-align: right;
+        padding: 5px;
+      }
+    }
+
+    a {
+      color: #0057B8;
+      text-align: left;
+      text-decoration: underline;
+      margin-top: 10px;
+    }
+  }
+}
