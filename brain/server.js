@@ -1,18 +1,21 @@
 const WebSocket = require('ws')
 const wss = new WebSocket.Server({ port: 7000 });
+const longTermParking = require('./LongTermParking');
 
 let counter = 0;
 let isPower = true;
 let price = 10;
 let autoToggle = true;
-
+let hourDay = 0;
+longTermParking.start();
+longTermParking.init();
 const costs = [12,12,12,12,12,12,12,11,11,10,10,9,9,10,10,11,12,12,12,11,12,12,11,10,9,9,9,9,10,11,12];
 const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
 
     wss.on('connection', ws => {
 
-    console.log(`Connection`);
-    ws.send(JSON.stringify({isPower: true, cent : 12}));
+        console.log(`Connection`);
+        ws.send(JSON.stringify({isPower: true, cent : 12}));
 
     ws.on('message', message => {
         console.log(`Received message => ${message}`);
@@ -55,12 +58,28 @@ const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
             }
         }, 10000);
 
+        setInterval(() => {
+            const tariff = hourDay > 12 ? 11 : 8;
+            longTermParking.tick(tariff);
+            wss.clients.forEach(function (client) {
+                console.log('getDate:',longTermParking.getDate());
+                client.send(JSON.stringify({type: "logTermParking" , value : {
+                    dateNow: longTermParking.getDate(),
+                    cpList : longTermParking.get() }}));
+            });
+            hourDay+= 0.5;
+            if (hourDay >= 24) {
+                hourDay = 0;
+            }
+        }, 1000);
+
 });
 
 const express = require('express');
 const app = express();
 const cors = require("cors");
 const axios = require("axios");
+const moment = require("moment");
 
 const whitelist = ["http://iltlvmac0171.intl.att.com:3001", "http://localhost:3001"]
 const corsOptions = {

@@ -16,7 +16,7 @@ function App() {
     }
 
     socket.onmessage = function(msg) {
-        console.log("RECEIVE: " + msg.data);
+        //console.log("RECEIVE: " + msg.data);
         const object = JSON.parse(msg.data);
         setElectric(parseInt(object.cent));
         setIsPower(Boolean(object.isPower));
