@@ -15,7 +15,7 @@ const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
     wss.on('connection', ws => {
 
         console.log(`Connection`);
-        ws.send(JSON.stringify({isPower: true, cent : 12}));
+        ws.send(JSON.stringify({type: "electricity", value: {isPower: true, cent : 12}}));
 
     ws.on('message', message => {
         console.log(`Received message => ${message}`);
@@ -47,13 +47,13 @@ const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
                 const cent = costs[counter];
                 console.log(`Send message cent : => ${cent}`);
                 wss.clients.forEach(function (client) {
-                    client.send(JSON.stringify({isPower: isPower, cent: cent}));
+                    client.send(JSON.stringify({type: "electricity", value: {isPower: isPower, cent: cent}}));
                 });
 
                 counter++;
             } else {
                 wss.clients.forEach(function (client) {
-                    client.send(JSON.stringify({isPower: isPower, cent: price}));
+                    client.send(JSON.stringify({type: "electricity", value: {isPower: isPower, cent: price}}));
                 });
             }
         }, 10000);

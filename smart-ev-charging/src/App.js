@@ -12,14 +12,16 @@ function App() {
     const [isPower, setIsPower] = useState(true);
 
     socket.onopen = function(evt) {
-        console.log("onopen");
+        console.log("onOpen");
     }
 
     socket.onmessage = function(msg) {
-        //console.log("RECEIVE: " + msg.data);
+        console.log("RECEIVE");
         const object = JSON.parse(msg.data);
-        setElectric(parseInt(object.cent));
-        setIsPower(Boolean(object.isPower));
+        if (object.type === 'electricity') {
+            setElectric(parseInt(object.value.cent));
+            setIsPower(Boolean(object.value.isPower));
+        }
     };
 
 

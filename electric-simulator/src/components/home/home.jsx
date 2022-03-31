@@ -126,18 +126,21 @@ function Home() {
     const socket = new WebSocket(ENDPOINT);
 
     socket.onopen = function(evt) {
-        console.log("onopen");
+        console.log("onOpen");
     }
 
     socket.onmessage = function(msg) {
-        console.log("RECEIVE: " + msg.data);
+        console.log("RECEIVE");
         const object = JSON.parse(msg.data);
-        number = parseInt(object.cent);
-        isPower = Boolean(object.isPower);
-        document.getElementsByClassName("cost")[0].innerHTML = number.toString();
-        const colorLine = (isPower) ? chartColors.blue : chartColors.grey;
-        data.datasets[0].backgroundColor = colorLine;
-        data.datasets[0].borderColor = colorLine;
+        if (object.type === 'electricity') {
+            number = parseInt(object.value.cent);
+            isPower = Boolean(object.value.isPower);
+            document.getElementsByClassName("cost")[0].innerHTML = number.toString();
+            const colorLine = (isPower) ? chartColors.blue : chartColors.grey;
+            data.datasets[0].backgroundColor = colorLine;
+            data.datasets[0].borderColor = colorLine;
+        }
+
     };
 
     return (
