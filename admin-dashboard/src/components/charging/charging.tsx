@@ -9,30 +9,11 @@ import {ReactComponent as Waiting} from "../../assets/waiting.svg";
 import ChargingPoints from "../widgets/charging-points/charging-points";
 import HourlyConsumption from "../widgets/hourly-consumption/hourly-consumption";
 
-const ENDPOINT = "ws://iltlvmac0175.intl.att.com:7000/";
-const socket = new WebSocket(ENDPOINT);
 
-const Charging = () => {
+const Charging = (props: any) => {
 
-  const [rowData, setRowData] = useState<any[]>([]);
-  const [dateNow, setDateNow] = useState<string>('');
-
-  useEffect(() => {
-    setRowData(data);
-  }, []);
-
-  socket.onopen = function(evt) {
-    console.log("onopen");
-  }
-  socket.onmessage = function(msg) {
-    console.log("RECEIVE: " + msg.data);
-    const message = JSON.parse(msg.data);
-    if (message.type === 'logTermParking') {
-      console.log(message.value)
-      setRowData(message.value.cpList);
-      setDateNow(message.value.dateNow);
-    }
-  };
+  const rowData: any[] = props.rowData ;
+  const dateNow: string = props.dateNow ;
 
   return (
     <>

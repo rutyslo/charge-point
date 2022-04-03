@@ -81,7 +81,14 @@ const longTermParking = {
         }
 
         for (let index = 0; index < isRemoveList.length; index++) {
-            cpList.splice(isRemoveList[index], 1);
+            let cp = cpList[isRemoveList[index]];
+            cpList[isRemoveList[index]] = {
+                stationId: cp.stationId,
+                status: 0,
+                connectorType: cp.connectorType,
+                totalChargeCycle: cp.totalChargeCycle,
+                totalDisChargeCycle: cp.totalDisChargeCycle
+            };
         }
         cpLength = cpList.length;
     },
