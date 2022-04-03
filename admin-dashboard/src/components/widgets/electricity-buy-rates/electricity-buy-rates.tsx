@@ -6,9 +6,8 @@ import {
   SeriesTemplate,
   Animation,
   ArgumentAxis,
-  Tick,
   Title,
-  CommonAxisSettings, Size, VisualRange
+  CommonAxisSettings, Size, VisualRange, Subtitle
 } from 'devextreme-react/chart';
 import dataSource from './data.js';
 
@@ -35,12 +34,13 @@ const ElectricityBuyRates = () => {
         </ArgumentAxis>
         <Title text="Electricity buy rates"
                font={{family: 'Helvetica Neue, sans-serif', size: '16px', weight: 600}}
-               alignment={'left'} margin={0}
-               subtitle={{
-                 text: "(Future costs are based on charging history per day and hour)",
-                 font: {family: 'Helvetica Neue, sans-serif', size: '14px'}
-               }}
-        />
+               horizontalAlignment={'left'} margin={{bottom: 15, top: 0, left: 0}}>
+               <Subtitle
+                 text={"(Future costs are based on charging history per day and hour)"}
+                 font={{family: 'Helvetica Neue, sans-serif', size: '14px'}}
+                 wordWrap={'none'}
+               />
+        </Title>
         <CommonAxisSettings grid={{visible: true}} minorGrid={{visible: true}} allowDecimals={false} />
         <CommonSeriesSettings
           type="rangeBar"

@@ -5,13 +5,11 @@
     height: 250px;
     background-color: #ffffff;
     display: flex;
+    padding: 0 20px;
 
     > div {
       padding: 16px;
-
-      & + div {
-        border-left: 1px solid #ccc;
-      }
+      border-left: 1px solid #ccc;
     }
 
     .title {
