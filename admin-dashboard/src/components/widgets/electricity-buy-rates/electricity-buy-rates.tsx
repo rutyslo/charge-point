@@ -16,7 +16,7 @@ const ElectricityBuyRates = () => {
   const [data, setData] = useState<any[]>([]);
 
   useEffect(() => {
-    const sortedData = {...dataSource}.sort((a: any, b: any) => a.cent > b.cent ? 1 : -1);
+    const sortedData = dataSource.sort((a: any, b: any) => a.cent > b.cent ? 1 : -1);
     setData(sortedData);
   }, []);
 
