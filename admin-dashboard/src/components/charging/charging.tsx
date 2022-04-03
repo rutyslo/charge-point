@@ -6,6 +6,7 @@ import {ReactComponent as Lightning} from "../../assets/charging.svg";
 import {ReactComponent as Waiting} from "../../assets/waiting.svg";
 import ChargingPoints from "../widgets/charging-points/charging-points";
 import HourlyConsumption from "../widgets/hourly-consumption/hourly-consumption";
+import ElectricityBuyRates from "../widgets/electricity-buy-rates/electricity-buy-rates";
 
 const Charging = (props: any) => {
 
@@ -18,6 +19,7 @@ const Charging = (props: any) => {
         <div className={'widgets'}>
           <ChargingPoints />
           <HourlyConsumption />
+          <ElectricityBuyRates />
         </div>
         <div className={'table-wrapper'}>
         <div className={'charging-queue-summary'}>
