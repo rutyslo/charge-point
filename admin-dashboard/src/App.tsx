@@ -3,7 +3,7 @@ import {HashRouter, Route, Routes} from 'react-router-dom';
 import './App.scss';
 import Header from "./components/header/header";
 import Charging from "./components/charging/charging";
-import Map from "./components/map/map";
+// import Map from "./components/map/map";
 
 const ENDPOINT = "ws://iltlvmac0171.intl.att.com:7000/";
 const socket = new WebSocket(ENDPOINT);
@@ -39,7 +39,7 @@ function App() {
             <Route path="charging" element={<Charging rowData={rowData} dateNow={dateNow}/>} />
             <Route path="consumption" />
             <Route path="expenses" />
-            <Route path="map"  element={<Map rowData={rowData} dateNow={dateNow}/>} />
+            {/*<Route path="map"  element={<Map rowData={rowData} dateNow={dateNow}/>} />*/}
           </Routes>
         </div>
       </HashRouter>

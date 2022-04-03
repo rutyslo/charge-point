@@ -21,7 +21,7 @@ const ChargingPoints = () => {
             <span>Out of service:</span><b className={'number'}>0</b>
           </div>
           <div className={'line'}>
-            <span>Maintenance:</span><b className={'number'}>16</b>
+            <span>Maintenance:</span><b className={'number'}>0</b>
           </div>
           <div className={'line'}>
             <b>Total:</b><b className={'number'}>16</b>
