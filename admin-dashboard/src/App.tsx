@@ -4,6 +4,7 @@ import './App.scss';
 import Header from "./components/header/header";
 import Charging from "./components/charging/charging";
 import Map from "./components/map/map";
+import Home from "./components/home/home";
 
 const ENDPOINT = "ws://iltlvmac0171.intl.att.com:7000/";
 const socket = new WebSocket(ENDPOINT);
@@ -39,8 +40,8 @@ function App() {
 
         <div className={'App-content'}>
           <Routes>
-            <Route path="/" />
-            <Route path="charging" element={<Charging rowData={rowData} dateNow={dateNow}/>} />
+            <Route path="/" element={<Home rowData={rowData} />} />
+            <Route path="charging" element={<Charging rowData={rowData} dateNow={dateNow} />} />
             <Route path="consumption" />
             <Route path="expenses" />
             <Route path="map" element={<Map rowData={rowData} dateNow={dateNow} newIndex={newIndex} removeIndex={removeIndex}/>} />
