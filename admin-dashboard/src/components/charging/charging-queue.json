@@ -7,7 +7,9 @@
     "licensePlate": "876-54-321",
     "currentBattery": 10,
     "maxBattery": 95,
-    "leaveTime": "03/31/2022 4:30 PM"
+    "leaveTime": "03/31/2022 4:30 PM",
+    "estimatedCycles": 7,
+    "currentCycle": 3
   },
   {
     "queue": 4,
@@ -17,7 +19,9 @@
     "licensePlate": "876-54-321",
     "currentBattery": 10,
     "maxBattery": 95,
-    "leaveTime": "03/31/2022 4:30 PM"
+    "leaveTime": "03/31/2022 4:30 PM",
+    "estimatedCycles": 20,
+    "currentCycle": 5
   },
   {
     "queue": 3,
@@ -27,7 +31,9 @@
     "licensePlate": "135-79-024",
     "currentBattery": 90,
     "maxBattery": 90,
-    "leaveTime": "03/31/2022 4:30 PM"
+    "leaveTime": "03/31/2022 4:30 PM",
+    "estimatedCycles": 10,
+    "currentCycle": 3
   },
   {
     "queue": 1,
@@ -37,6 +43,8 @@
     "licensePlate": "123-45-678",
     "currentBattery": 5,
     "maxBattery": 90,
-    "leaveTime": "03/29/2022 4:20 PM"
+    "leaveTime": "03/29/2022 4:20 PM",
+    "estimatedCycles": 14,
+    "currentCycle": 12
   }
 ]

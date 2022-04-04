@@ -1,24 +1,22 @@
 .charging-queue-wrapper {
-  padding: 30px 40px 0 40px;
+  //padding: 30px 40px 0 40px;
 
   .widgets {
     height: 250px;
     background-color: #ffffff;
     display: flex;
+    padding: 0 20px;
 
     > div {
       padding: 16px;
-
-      & + div {
-        border-left: 1px solid #ccc;
-      }
+      border-left: 1px solid #ccc;
     }
 
     .title {
       text-align: left;
       font-size: 16px;
       font-weight: 600;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
     }
 
     .widget-container {
@@ -27,39 +25,108 @@
     }
   }
 
-  .charging-queue-summary {
-    display: flex;
-    padding: 20px 0;
-    justify-content: space-between;
+  .table-wrapper {
+    padding: 0 40px;
 
-    span {
-      padding: 0 20px;
+    .charging-queue-summary {
+      display: flex;
+      padding: 20px 0;
+      justify-content: space-between;
+
+      span {
+        padding: 0 20px;
+
+        &:nth-child(1) {
+          margin-left: 85px;
+        }
+      }
+
+      svg {
+        width: 26px;
+        height: 24px;
+        vertical-align: middle;
+        margin-right: 5px;
+      }
     }
 
-    svg {
-      width: 26px;
-      height: 24px;
-      vertical-align: middle;
-      margin-right: 5px;
-    }
-  }
+    .grid-table {
+      .ag-header-cell-label {
+        justify-content: center;
+      }
 
-  .grid-table {
-    .ag-header-cell-label {
-      justify-content: center;
-    }
+      .ag-row.ag-row-odd {
+        background-color: #ffffff;
+      }
 
-    .ag-row.ag-row-odd {
-      background-color: #ffffff;
-    }
+      .ag-row.is-stopped {
+        background-color: #f5f5f5;
 
-    .ag-row.is-stopped {
-      background-color: #f5f5f5;
-    }
+        .current-cycle {
+          background-color: #878C94;
 
-    .charge-status {
-      width: 16px;
-      margin: auto;
+          span.cycle-point {
+            background-color: #ffffff;
+            border: 1px solid #878C94;
+          }
+        }
+      }
+
+      .charging {
+        [col-id="status"] {
+          background-color: rgba(175, 41, 187, 0.4);
+        }
+
+        .current-cycle {
+          background-color: #DFA9E4;
+
+          span.cycle-point {
+            background-color: #AF29BB;
+            border: 1px solid #AF29BB;
+          }
+        }
+      }
+
+      .discharging {
+        [col-id="status"] {
+          background-color: rgba(0, 220, 35, 0.4);
+        }
+
+        .current-cycle {
+          background-color: #7BEA8E;
+
+          span.cycle-point {
+            background-color: #15C432;
+            border: 1px solid #15C432;
+          }
+        }
+      }
+
+      .charge-status {
+        //width: 16px;
+        //margin: auto;
+      }
+
+      .current-cycle {
+        height: 1px;
+        position: relative;
+        top: 70%;
+        margin: auto;
+
+        span.cycle-number {
+          position: absolute;
+          top: -32px;
+          font-weight: 400;
+          width: 20px;
+        }
+
+        span.cycle-point {
+          position: absolute;
+          top: -3px;
+          width: 5px;
+          height: 5px;
+          border-radius: 5px;
+        }
+      }
     }
   }
 }

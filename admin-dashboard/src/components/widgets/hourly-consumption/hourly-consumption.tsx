@@ -4,15 +4,16 @@ const HourlyConsumption = () => {
 
   return (
     <div className={'hourly-consumption-wrapper'}>
-      <div className={'title'}>Limit hourly consumption to:</div>
+      <div className={'title'}>Consumption</div>
       <div className={'widget-container'}>
-        <div className={'input'}>
-          <input value={132}/>kWh
+        Current
+        <div className={'current'}>
+          132 kWh
         </div>
-        <div style={{textAlign: 'left'}}>Recommended: 132 Kw/h</div>
-        <a>
-          Learn more
-        </a>
+        Limit consumption to
+        <div className={'limit'}>
+          <input defaultValue={132} /> kWh
+        </div>
       </div>
     </div>
   );

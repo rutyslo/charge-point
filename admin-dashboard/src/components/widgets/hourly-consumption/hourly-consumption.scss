@@ -6,10 +6,17 @@
 
   .widget-container {
     flex-direction: column;
-    border-top: 1px solid #878C94;
 
-    .input {
-      padding: 30px 0;
+    .current {
+      font-size: 32px;
+      font-weight: 400;
+      padding: 8px 0;
+      border-bottom: 1px solid #878C94;
+      margin-bottom: 8px;
+    }
+
+    .limit {
+      padding: 8px 0;
 
       input {
         width: 130px;
