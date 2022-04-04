@@ -1,0 +1,35 @@
+.power-consumption-thresholds {
+  display: flex;
+  flex-direction: column;
+
+  .widget-container {
+    flex: 1;
+
+    section {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 10px;
+      padding: 23px 16px;
+      text-align: left;
+
+      .type-title {
+        font-size: 16px;
+        font-weight: 700;
+      }
+
+      input {
+        width: 100px;
+        border: 1px solid #878C94;
+        border-radius: 4px;
+        font-weight: 400;
+        font-size: 32px;
+        color: #0057B8;
+      }
+
+      & + section {
+        border-left: 1px solid rgba(135, 140, 148, 0.5);
+      }
+    }
+  }
+}

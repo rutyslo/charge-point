@@ -20,7 +20,7 @@ const Map = (props: any) => {
 
     const sendIsSimulatorPlay = () => {
         axios.post(`${BE_URL}/is-simulator-play`, { isSimulatorPlay : !isSimulatorPlay })
-            .then(response => {
+            .then((response: any) => {
                 setIsSimulatorPlay(response.data.isSimulatorPlay);
             });
     }
@@ -33,7 +33,7 @@ const Map = (props: any) => {
 
     const startAgain = () => {
         axios.get(`${BE_URL}/start-long-parking`)
-            .then(response => {
+            .then((response: any) => {
             });
     }
 

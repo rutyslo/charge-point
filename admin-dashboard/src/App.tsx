@@ -4,6 +4,7 @@ import './App.scss';
 import Header from "./components/header/header";
 import Charging from "./components/charging/charging";
 import Map from "./components/map/map";
+import Home from "./components/home/home";
 
 export const BE_URL = 'http://localhost:4000';
 
@@ -42,7 +43,7 @@ function App() {
 
         <div className={'App-content'}>
           <Routes>
-            <Route path="/" />
+            <Route path="/" element={<Home rowData={rowData} />}/>
             <Route path="charging" element={<Charging rowData={rowData} dateNow={dateNow} currentIndex={currentIndex}/>} />
             <Route path="consumption" />
             <Route path="expenses" />
