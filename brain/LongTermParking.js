@@ -9,6 +9,8 @@ let cpList =  [];
 const batteryMaxList = [80,85,90,95];
 let dateNow;
 let tickInterval = 0;
+let newIndex = 0;
+let removeIndex = 0;
 const longTermParking = {
 
     get: function(){
@@ -28,6 +30,7 @@ const longTermParking = {
         let interval = setInterval(function() {
             if(timesRun >= cpLength) {
                 clearInterval(interval);
+                newIndex = 0;
             }
             else {
                 //const leaveTime = moment().add(getRandomArbitrary(1, 8), 'day');
@@ -40,17 +43,21 @@ const longTermParking = {
                 cpList[timesRun].leaveTime = leaveTime.format('MM-DD-YYYY HH:mm');
                 cpList[timesRun].arrivalTime = moment().valueOf();
                 cpList[timesRun].arrivalTimeFormat = moment().format();
-                cpList[timesRun].offsetTime = Math.ceil((leaveTime.valueOf() - cpList[timesRun].arrivalTime) / 1000) / 60 / 60 ;
+                cpList[timesRun].offsetTime = Math.ceil((leaveTime.valueOf() - cpList[timesRun].arrivalTime) / 1000) / 60 / 60;
                 timesRun++;
+                if (timesRun <= 16 ) {
+                    newIndex = timesRun;
+                }
             }
 
-        }, 2000);
+        }, 4000);
     },
     tick: function (cent) {
         tickInterval++;
         dateNow.add(0.5, 'hour');
         const isCharged = cent <= 10;
         let isRemoveList = [];
+        removeIndex = 0;
         for (let index = 0; index < cpLength; index++) {
             cpList[index].offsetTime -= 0.5;
             if (cpList[index].offsetTime <= 0) {
@@ -62,18 +69,18 @@ const longTermParking = {
                     cpList[index].status = 1;
                     cpList[index].currentBattery += 5;
                     cpList[index].totalChargeCycle += 1;
-                } else {
-                    cpList[index].status = 0;
+                } else if (cpList[index].leaveTime) {
+                    cpList[index].status = 3;
                 }
             } else {
                 if (cpList[index].offsetTime < 12) {
-                    cpList[index].status = 0;
-                } else if (cpList[index].currentBattery > 30 ) {
+                    cpList[index].status = 3;
+                } else if (cpList[index].currentBattery > 20 ) {
                     cpList[index].status = 2;
                     cpList[index].totalDisChargeCycle += 1;
                     cpList[index].currentBattery -= 5;
-                } else {
-                    cpList[index].status = 0;
+                } else if (cpList[index].leaveTime) {
+                    cpList[index].status = 3;
                 }
             }
 
@@ -89,11 +96,18 @@ const longTermParking = {
                 totalChargeCycle: cp.totalChargeCycle,
                 totalDisChargeCycle: cp.totalDisChargeCycle
             };
+            removeIndex = isRemoveList[index];
         }
         cpLength = cpList.length;
     },
     getDate: function() {
         return dateNow.format('MM-DD-YYYY HH:mm');
+    },
+    getNewIndex: function() {
+        return newIndex;
+    },
+    getRemoveIndex: function() {
+        return removeIndex;
     }
 
 };
