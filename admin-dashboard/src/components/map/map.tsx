@@ -5,15 +5,15 @@ import axios from "axios";
 import {ReactComponent as Play} from "../../assets/play.svg";
 import {ReactComponent as Pause} from "../../assets/pause.svg";
 import {ReactComponent as Start} from "../../assets/back.svg";
+import {BE_URL} from "../../App";
 
 const Map = (props: any) => {
-
-  const BE_URL = 'http://iltlvmac0171.intl.att.com:4000';
 
   const rowData: any[] = props.rowData;
   const dateNow: string = props.dateNow;
   const newIndex: number = props.newIndex;
   const removeIndex : number = props.removeIndex;
+  const currentIndex: number = props.currentIndex;
 
   const [isSimulatorPlay, setIsSimulatorPlay] = useState(true);
   const statusArray = ['disabled', 'charged', 'discharged', 'free'];
@@ -25,13 +25,18 @@ const Map = (props: any) => {
             });
     }
 
+    const setCurrentIndex = (index: number) => {
+        axios.post(`${BE_URL}/set-current-index`, { currentIndex : index })
+            .then(response => {
+            });
+    }
+
     const startAgain = () => {
         axios.get(`${BE_URL}/start-long-parking`)
             .then(response => {
             });
     }
 
-  const header = ['Car','Status','Estimated Cycles','Current Cycle'];
   return (
       (rowData.length) ?
           <>
@@ -42,7 +47,7 @@ const Map = (props: any) => {
                   </div>
                   <div className={"button-wrapper"}>
                       <Start onClick={startAgain} />
-                      {!isSimulatorPlay ? <Play onClick={sendIsSimulatorPlay} /> : <Pause onClick={sendIsSimulatorPlay}/>}
+                      {!isSimulatorPlay ? <Play className={"icon"} onClick={sendIsSimulatorPlay} /> : <Pause className={"icon"} onClick={sendIsSimulatorPlay}/>}
                   </div>
               </div>
           <div className={"map-area"}>
@@ -68,10 +73,10 @@ const Map = (props: any) => {
                       <div className={"parking-wrapper"}>
                           {rowData.map((row, index) => {
                               return <div key={index}
-                                          className={`item ${statusArray[row.status]} ${index < 8 ? `first-line` : `second-line`}`}>
-                                  {index < 8 ? <div className={"number-up"}>{index + 1 }</div> : <></>}
-                                  <div className={`item-${(index+1).toString()}`}></div>
-                                  {index >= 8 ? <div className={"number-down"}>{index + 1 }</div> : <></>}
+                                  className={`item ${currentIndex === index ? `active` : ``}  ${statusArray[row.status]} ${index < 8 ? `first-line` : `second-line`}`}
+                              onClick={()=> setCurrentIndex(index)}>
+                                  <div className={`${index > 7 ? `number-down` :  `number-up`}`}>{index + 1 }</div>
+                                  <div className={`car item-${(index+1).toString()}`}></div>
                               </div>
                           })}
                       </div>

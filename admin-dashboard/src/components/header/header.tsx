@@ -1,12 +1,14 @@
-import { NavLink } from 'react-router-dom';
+import {NavLink, useNavigate} from 'react-router-dom';
 import logo from '../../assets/logo.svg';
 import './header.scss';
 
 const Header = () => {
 
+  const navigate = useNavigate();
+
   return (
     <>
-      <div className='att-logo'>
+      <div className='att-logo' onClick={ () =>  navigate("../", { replace: true})}>
         <div style={{display: 'flex', paddingRight: '17px'}}>
           <img src={logo} alt='logo' />
           <span className={'att-name'}>AT&T</span>

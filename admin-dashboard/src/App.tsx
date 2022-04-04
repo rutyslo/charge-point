@@ -5,7 +5,9 @@ import Header from "./components/header/header";
 import Charging from "./components/charging/charging";
 import Map from "./components/map/map";
 
-const ENDPOINT = "ws://iltlvmac0171.intl.att.com:7000/";
+export const BE_URL = 'http://localhost:4000';
+
+const ENDPOINT = "ws://localhost:7000/";
 const socket = new WebSocket(ENDPOINT);
 
 function App() {
@@ -14,19 +16,20 @@ function App() {
   const [dateNow, setDateNow] = useState<string>('');
   const [newIndex, setNewIndex] = useState<number>(0);
   const [removeIndex, setRemoveIndex] = useState<number>(0);
+  const [currentIndex, setCurrentIndex] = useState<number>(-1);
 
   socket.onopen = function(evt) {
     console.log("onopen");
   }
   socket.onmessage = function(msg) {
-    console.log("RECEIVE: " + msg.data);
+    console.log("RECEIVE");
     const message = JSON.parse(msg.data);
     if (message.type === 'logTermParking') {
-      console.log(message.value)
       setRowData(message.value.cpList);
       setDateNow(message.value.dateNow);
       setNewIndex(message.value.newIndex);
       setRemoveIndex(message.value.removeIndex)
+      setCurrentIndex(message.value.currentIndex)
     }
   };
 
@@ -40,10 +43,11 @@ function App() {
         <div className={'App-content'}>
           <Routes>
             <Route path="/" />
-            <Route path="charging" element={<Charging rowData={rowData} dateNow={dateNow}/>} />
+            <Route path="charging" element={<Charging rowData={rowData} dateNow={dateNow} currentIndex={currentIndex}/>} />
             <Route path="consumption" />
             <Route path="expenses" />
-            <Route path="map" element={<Map rowData={rowData} dateNow={dateNow} newIndex={newIndex} removeIndex={removeIndex}/>} />
+            <Route path="map" element={<Map rowData={rowData} dateNow={dateNow} newIndex={newIndex}
+                 currentIndex={currentIndex} removeIndex={removeIndex}/>} />
           </Routes>
         </div>
       </HashRouter>

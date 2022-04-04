@@ -11,6 +11,7 @@ let dateNow;
 let tickInterval = 0;
 let newIndex = 0;
 let removeIndex = 0;
+let currentIndex = -1;
 const longTermParking = {
 
     get: function(){
@@ -18,9 +19,14 @@ const longTermParking = {
     },
     start:  function () {
         console.log("START");
+        tickInterval = 0;
+        newIndex = 0;
+        removeIndex = 0;
+        currentIndex = -1;
         cpList = [];
+        cpLength = 16;
         for (let index = 0; index < cpLength; index++) {
-            cpList.push({stationId: index + 1, status: 0, connectorType: 'J1772', totalChargeCycle: 0, totalDisChargeCycle: 0});
+            cpList.push({stationId: index + 1, status: 0, connectorType: 'J1772'});
         }
         console.log('cpList', cpList);
     },
@@ -44,6 +50,9 @@ const longTermParking = {
                 cpList[timesRun].arrivalTime = moment().valueOf();
                 cpList[timesRun].arrivalTimeFormat = moment().format();
                 cpList[timesRun].offsetTime = Math.ceil((leaveTime.valueOf() - cpList[timesRun].arrivalTime) / 1000) / 60 / 60;
+                cpList[timesRun].estimatedCycles = Math.floor(cpList[timesRun].offsetTime / 12) - 1;
+                cpList[timesRun].currentCycle = 0;
+                cpList[timesRun].isNewCycle = true;
                 timesRun++;
                 if (timesRun <= 16 ) {
                     newIndex = timesRun;
@@ -52,7 +61,7 @@ const longTermParking = {
 
         }, 4000);
     },
-    tick: function (cent) {
+    tick: function (cent, isNewCycle) {
         tickInterval++;
         dateNow.add(0.5, 'hour');
         const isCharged = cent <= 10;
@@ -68,7 +77,11 @@ const longTermParking = {
                 if (cpList[index].currentBattery < cpList[index].maxBattery) {
                     cpList[index].status = 1;
                     cpList[index].currentBattery += 5;
-                    cpList[index].totalChargeCycle += 1;
+                    if (isNewCycle || cpList[index].isNewCycle) {
+                        cpList[index].currentCycle += 1;
+                        cpList[index].isNewCycle = false
+                    }
+
                 } else if (cpList[index].leaveTime) {
                     cpList[index].status = 3;
                 }
@@ -79,6 +92,12 @@ const longTermParking = {
                     cpList[index].status = 2;
                     cpList[index].totalDisChargeCycle += 1;
                     cpList[index].currentBattery -= 5;
+
+                    if (isNewCycle || cpList[index].isNewCycle) {
+                        cpList[index].currentCycle += 1;
+                        cpList[index].isNewCycle = false
+                    }
+
                 } else if (cpList[index].leaveTime) {
                     cpList[index].status = 3;
                 }
@@ -92,11 +111,9 @@ const longTermParking = {
             cpList[isRemoveList[index]] = {
                 stationId: cp.stationId,
                 status: 0,
-                connectorType: cp.connectorType,
-                totalChargeCycle: cp.totalChargeCycle,
-                totalDisChargeCycle: cp.totalDisChargeCycle
+                connectorType: cp.connectorType
             };
-            removeIndex = isRemoveList[index];
+            removeIndex = isRemoveList[index] + 1;
         }
         cpLength = cpList.length;
     },
@@ -108,6 +125,12 @@ const longTermParking = {
     },
     getRemoveIndex: function() {
         return removeIndex;
+    },
+    getCurrentIndex: function() {
+        return currentIndex;
+    },
+    setCurrentIndex: function(current) {
+        currentIndex = current;
     }
 
 };

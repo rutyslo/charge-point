@@ -62,9 +62,11 @@ const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
         setInterval(() => {
             if (isSimulatorPlay) {
                 const tariff = hourDay > 12 ? 11 : 8;
-                longTermParking.tick(tariff);
+                const isNewCycle = hourDay % 12 === 0;
+                longTermParking.tick(tariff, isNewCycle);
                 wss.clients.forEach(function (client) {
                     client.send(JSON.stringify({type: "logTermParking" , value : {
+                            currentIndex: longTermParking.getCurrentIndex(),
                             newIndex: longTermParking.getNewIndex(),
                             removeIndex: longTermParking.getRemoveIndex(),
                             dateNow: longTermParking.getDate(),
@@ -85,7 +87,7 @@ const cors = require("cors");
 const axios = require("axios");
 const moment = require("moment");
 
-const whitelist = ["http://iltlvmac0171.intl.att.com:3001","http://iltlvmac0171.intl.att.com:3002", "http://localhost:3001","http://localhost:3002"]
+const whitelist = ["http://iltlvmac0171.intl.att.com:3001", "http://iltlvmac0171.intl.att.com:3002", "http://localhost:3001","http://localhost:3002"]
 const corsOptions = {
     origin: function (origin, callback) {
         if (!origin || whitelist.indexOf(origin) !== -1) {
@@ -132,6 +134,11 @@ app.get('/start-long-parking', (req, res) => {
     res.send({});
 })
 
+app.post('/set-current-index', (req, res) => {
+    console.log('currentIndex', req.body.currentIndex);
+    longTermParking.setCurrentIndex(req.body.currentIndex);
+    res.send({ currentIndex: req.body.currentIndex });
+})
 
 const port = 4000;
 app.listen(port);

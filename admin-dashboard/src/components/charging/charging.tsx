@@ -33,7 +33,7 @@ const Charging = (props: any) => {
             {dateNow}
           </div>
         </div>
-        <GridTable config={chargingGridOptions} rowData={rowData} />
+        <GridTable config={chargingGridOptions} rowData={rowData} currentIndex={props.currentIndex} />
         </div>
       </div>
     </>
