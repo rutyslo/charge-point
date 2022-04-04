@@ -12,6 +12,8 @@ function App() {
 
   const [rowData, setRowData] = useState<any[]>([]);
   const [dateNow, setDateNow] = useState<string>('');
+  const [newIndex, setNewIndex] = useState<number>(0);
+  const [removeIndex, setRemoveIndex] = useState<number>(0);
 
   socket.onopen = function(evt) {
     console.log("onopen");
@@ -23,6 +25,8 @@ function App() {
       console.log(message.value)
       setRowData(message.value.cpList);
       setDateNow(message.value.dateNow);
+      setNewIndex(message.value.newIndex);
+      setRemoveIndex(message.value.removeIndex)
     }
   };
 
@@ -39,7 +43,7 @@ function App() {
             <Route path="charging" element={<Charging rowData={rowData} dateNow={dateNow}/>} />
             <Route path="consumption" />
             <Route path="expenses" />
-            <Route path="map"  element={<Map rowData={rowData} dateNow={dateNow}/>} />
+            <Route path="map" element={<Map rowData={rowData} dateNow={dateNow} newIndex={newIndex} removeIndex={removeIndex}/>} />
           </Routes>
         </div>
       </HashRouter>
