@@ -3,6 +3,7 @@ import ChargingPoints from "../widgets/charging-points/charging-points";
 import HourlyConsumption from "../widgets/hourly-consumption/hourly-consumption";
 import ElectricityBuyRates from "../widgets/electricity-buy-rates/electricity-buy-rates";
 import ConnectedCars from "../widgets/connected-cars/connected-cars";
+import PowerConsumptionThresholds from "../widgets/power-consumption-thresholds/power-consumption-thresholds";
 
 const Home = (props: any) => {
   return (
@@ -18,6 +19,7 @@ const Home = (props: any) => {
       <div className={'row'}>
         <div className={'row-title'}>Electricity consumption</div>
         <div className={'widgets-wrapper'}>
+          <PowerConsumptionThresholds />
           <ElectricityBuyRates />
         </div>
       </div>

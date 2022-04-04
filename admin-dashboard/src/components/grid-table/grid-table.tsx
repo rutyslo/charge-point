@@ -6,16 +6,6 @@ import './grid-table.scss';
 
 const GridTable = (props: {config: GridOptions, rowData: any[]}) => {
 
-
-  // useEffect(() => {
-  //   fetch('https://www.ag-grid.com/example-assets/olympic-winners.json')
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       gridOptions.api!.setRowData(data);
-  //       setRowData(data);
-  //     });
-  // }, []);
-
   return (
     <div className={'grid-table ag-theme-alpine'}>
       <AgGridReact

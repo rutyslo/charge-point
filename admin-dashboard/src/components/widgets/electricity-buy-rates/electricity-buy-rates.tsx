@@ -6,7 +6,7 @@ import {
   SeriesTemplate,
   Animation,
   ArgumentAxis,
-  CommonAxisSettings, Size, VisualRange
+  CommonAxisSettings, Size, VisualRange, Tick
 } from 'devextreme-react/chart';
 import dataSource from './data.js';
 
@@ -20,7 +20,7 @@ const ElectricityBuyRates = () => {
 
   return (
     <div className={'electricity-buy-rates'}>
-      <div className={'title'}>Electricity buy rates
+      <div className={'title'}>Electricity BUY rates
        <span style={{fontWeight: 'normal'}}>  (Future costs are based on charging history per day and hour)</span>
       </div>
       <div className={'widget-container'}>
