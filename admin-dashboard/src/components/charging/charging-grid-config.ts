@@ -16,7 +16,6 @@ export const chargingGridOptions: GridOptions = {
     { field: 'currentBattery', headerName: 'Current Battery %', minWidth: 200 },
   ],
   defaultColDef: {
-    // width: 170,
     sortable: true,
     flex: 1,
     resizable: true,
@@ -28,7 +27,7 @@ export const chargingGridOptions: GridOptions = {
   animateRows: true,
   rowClassRules: {
     "is-stopped": (params: any) => {
-      return params.data?.status === 0 || params.data?.status === 3;
+      return params.data?.status === 3 || params.data?.status === 4;
     },
     "charging": (params: any) => {
       return params.data?.status === 1;

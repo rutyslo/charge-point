@@ -1,5 +1,9 @@
 [
   {
+    "status": 0,
+    "stationId": 2
+  },
+  {
     "status": 1,
     "stationId": 13,
     "connectorType": "CHAdeMO",
@@ -33,7 +37,7 @@
     "currentCycle": 3
   },
   {
-    "status": 0,
+    "status": 4,
     "stationId": 12,
     "connectorType": "J1772",
     "licensePlate": "123-45-678",
@@ -50,7 +54,7 @@
     "licensePlate": "123-45-678",
     "currentBattery": 5,
     "maxBattery": 90,
-    "leaveTime": "04/05/2022 13:00 PM",
+    "leaveTime": "04/05/2022 16:23 PM",
     "estimatedCycles": 12,
     "currentCycle": 12
   }

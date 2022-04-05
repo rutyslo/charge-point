@@ -17,7 +17,7 @@ const ConnectedCarsContent = (props: any) => {
       <section>
         {props.isHome ? <ConnectedPurple/> : <Connected/>}
         <span className={'status'}>Connected</span>
-        <span className={'count'}>{props.rowData.length}</span>
+        <span className={'count'}>{props.rowData.filter((item: any) => item.status !== 0).length}</span>
       </section>
       <section>
         {props.isHome ? <ChargingPurple/> : <Charging/>}
@@ -32,12 +32,12 @@ const ConnectedCarsContent = (props: any) => {
       <section>
         {props.isHome ? <IdlePurple/> : <Idle/>}
         <span className={'status'}>Idle</span>
-        <span className={'count'}>{props.rowData.filter((item: any) => item.status === 0).length}</span>
+        <span className={'count'}>{props.rowData.filter((item: any) => item.status === 3).length}</span>
       </section>
       <section>
         {props.isHome ? <DonePurple/> : <Done/>}
         <span className={'status'}>Waiting for pickup</span>
-        <span className={'count'}>{props.rowData.filter((item: any) => item.status === 3).length}</span>
+        <span className={'count'}>{props.rowData.filter((item: any) => item.status === 4).length}</span>
       </section>
     </>
   )
