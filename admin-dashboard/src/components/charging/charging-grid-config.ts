@@ -27,7 +27,7 @@ export const chargingGridOptions: GridOptions = {
   animateRows: true,
   rowClassRules: {
     "is-stopped": (params: any) => {
-      return params.data?.status === 0;
+      return params.data?.status === 0 || params.data?.status === 3;
     },
     "charging": (params: any) => {
       return params.data?.status === 1;

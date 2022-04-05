@@ -1,6 +1,5 @@
 [
   {
-    "queue": 2,
     "status": 1,
     "stationId": 13,
     "connectorType": "CHAdeMO",
@@ -12,7 +11,6 @@
     "currentCycle": 3
   },
   {
-    "queue": 4,
     "status": 1,
     "stationId": 4,
     "connectorType": "CHAdeMO",
@@ -24,7 +22,6 @@
     "currentCycle": 5
   },
   {
-    "queue": 3,
     "status": 2,
     "stationId": 8,
     "connectorType": "CCS Type 1",
@@ -36,7 +33,6 @@
     "currentCycle": 3
   },
   {
-    "queue": 1,
     "status": 0,
     "stationId": 12,
     "connectorType": "J1772",
@@ -45,6 +41,17 @@
     "maxBattery": 90,
     "leaveTime": "03/29/2022 4:20 PM",
     "estimatedCycles": 14,
+    "currentCycle": 12
+  },
+  {
+    "status": 3,
+    "stationId": 10,
+    "connectorType": "J1772",
+    "licensePlate": "123-45-678",
+    "currentBattery": 5,
+    "maxBattery": 90,
+    "leaveTime": "03/29/2022 4:20 PM",
+    "estimatedCycles": 12,
     "currentCycle": 12
   }
 ]
