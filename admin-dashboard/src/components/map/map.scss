@@ -73,7 +73,13 @@
               background: #7BEA8E;
             }
             &.discharged {
-              background: #EDB6F2;;;
+              background: #EDB6F2;
+            }
+            &.free {
+              background: #F2F2F2;
+            }
+            &.pickup {
+              background: #75EBE4;
             }
 
             &.charged, &.discharged, &.free {
@@ -145,9 +151,6 @@
               }
             }
 
-            &.free {
-              background: #75EBE4;
-            }
             .car {
               width: 70px;
               height: 130px;
@@ -376,6 +379,60 @@
 
     }
 
+    .color-map {
+      font-weight: 400;
+      font-size: 14px;
+      color: #000000;
+      position: absolute;
+      top: 78vh;
+      left: 40px;
+      text-align: left;
+
+      .label{
+        font-weight: 600;
+        margin-bottom: 15px;
+      }
+
+      .status-row{
+        margin-bottom: 10px;
+
+        &:before{
+          content: " ";
+          height: 20px;
+          width: 20px;
+          padding-right: 20px;
+          line-height: 20px;
+          margin-right: 10px;
+        }
+        &.disabled {
+          &:before {
+            background: #878C94;
+          }
+        }
+        &.charged {
+          &:before {
+            background: #7BEA8E;
+          }
+        }
+        &.discharged {
+          &:before {
+            background: #EDB6F2;
+          }
+        }
+        &.free {
+          &:before {
+            background: #F2F2F2;
+          }
+        }
+        &.pickup {
+          &:before {
+            background: #75EBE4;
+          }
+        }
+      }
+
+    }
+
     .road-half{
       background: #454B52;
       height: 60px;
@@ -383,6 +440,80 @@
       align-self: center;
       position: relative;
 
+      .msg-enter {
+        width: 156px;
+        background: #0057B8;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 2px;
+        position: absolute;
+        right: 140px;
+        bottom: 22px;
+        z-index: 1;
+        .msg-wrapper{
+            padding: 15px;
+            text-align: left;
+
+          .line{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 7px;
+            .p-icon {
+              font-weight: 400;
+              font-size: 14px;
+              line-height: 18px;
+              text-align: center;
+              text-transform: uppercase;
+              color: #FFFFFF;
+              border : 1px solid white;
+              padding: 2px;
+
+            }
+
+            .title {
+              padding-left: 7px;
+              font-size: 18px;
+              line-height: 24px;
+              text-align: center;
+              color: #FFFFFF;
+
+            }
+
+            .p-wrapper{
+              align-self: end;
+              background: white;
+              justify-content: space-between;
+              padding: 1px ;
+              .p-white {
+                font-weight: 700;
+                font-size: 14px;
+                line-height: 18px;
+                text-align: center;
+                text-transform: uppercase;
+                color: #000000;
+              }
+              .p-number {
+                font-weight: 700;
+                font-size: 9px;
+                line-height: 12px;
+                text-align: center;
+                text-transform: uppercase;
+                color: #000000;
+              }
+            }
+          }
+
+
+          .text {
+            border-top: 1px solid white;
+            padding-top: 5px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+          }
+
+        }
+      }
       .msg{
         width: 160px;
         height: 70px;
@@ -426,6 +557,30 @@
         &:last-child{
           bottom: 0;
           top: 22px
+        }
+      }
+
+      .msg-exit{
+        width: 156px;
+        height: 72px;
+        background: #FFFFFF;
+        border: 2px solid #2D7E24;
+        box-sizing: border-box;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 2px;
+        position: absolute;
+        right: 140px;
+        bottom: 0;
+        top: 22px;
+        z-index: 1;
+
+        .title{
+          font-weight: 700;
+          font-size: 48px;
+          line-height: 63px;
+          text-align: center;
+          text-transform: uppercase;
+          color: #2D7E24;
         }
       }
     }
@@ -484,5 +639,76 @@
     }
   }
 
+}
+
+@media (max-width: 1440px) {
+  .map-area .map .map-wrapper .parking .parking-wrapper .item {
+    margin: 25px 10px;
+  }
+  .map-area .map .road-half{
+    height: calc((100vh - (80vh - 65px - 200px - 120px) - 65px - 200px ) / 2);
+  }
+  .map-area .map .map-wrapper .parking{
+    height: calc(80vh - 65px - 200px - 120px);
+  }
+  .map-area .map .road-half .msg:last-child {
+    bottom: 0;
+    top: 100px;
+  }
+
+  .map-area .map .map-wrapper  .road {
+
+
+    .car{
+      &.car-1 {
+        offset-path: path('M 100 70 h 500 v 430 h -430 v -100');
+      }
+      &.car-2 {
+        offset-path: path('M 100 70 h 500 v 430 h -310 v -100');
+      }
+      &.car-3 {
+        offset-path: path('M 100 70 h 500 v 430 h -200 v -100');
+      }
+      &.car-4 {
+        offset-path: path('M 100 70 h 500 v 430 h -90 v -100');
+      }
+      &.car-5 {
+        offset-path: path('M 100 70 h 500 v 430 h 140 v -100');
+      }
+      &.car-6 {
+        offset-path: path('M 100 70 h 500 v 430 h 250 v -100');
+      }
+      &.car-7 {
+        offset-path: path('M 100 70 h 500 v 430 h 360 v -100');
+      }
+      &.car-8 {
+        offset-path: path('M 100 70 h 500 v 430 h 470 v -100');
+      }
+      &.car-9 {
+        offset-path: path('M 100 70 h 500 v 500 h -420 v 100');
+      }
+      &.car-10 {
+        offset-path: path('M 100 70 h 500 v 500 h -300 v 100');
+      }
+      &.car-11 {
+        offset-path: path('M 100 70 h 500 v 500 h -190 v 100');
+      }
+      &.car-12 {
+        offset-path: path('M 100 70 h 500 v 500 h -80 v 100');
+      }
+      &.car-13 {
+        offset-path: path('M 100 70 h 500 v 500 h 140 v 100');
+      }
+      &.car-14 {
+        offset-path: path('M 100 70 h 500 v 500 h 260 v 100');
+      }
+      &.car-15 {
+        offset-path: path('M 100 70 h 500 v 500 h 370 v 100');
+      }
+      &.car-16 {
+        offset-path: path('M 100 70 h 500 v 500 h 480 v 100');
+      }
+    }
+  }
 }
 

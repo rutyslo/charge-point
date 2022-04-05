@@ -12,12 +12,14 @@ let tickInterval = 0;
 let newIndex = 0;
 let removeIndex = 0;
 let currentIndex = -1;
+const limitConsumption = 200;
+let currentConsumption = 0;
 const longTermParking = {
 
     get: function(){
         return cpList;
     },
-    start:  function () {
+    start: function () {
         console.log("START");
         tickInterval = 0;
         newIndex = 0;
@@ -61,10 +63,17 @@ const longTermParking = {
 
         }, 4000);
     },
-    tick: function (cent, isNewCycle) {
+    tick: function (centPrice, lowPrice, highPrice, isNewCycle) {
         tickInterval++;
         dateNow.add(0.5, 'hour');
-        const isCharged = cent <= 10;
+        let chargeList = [];
+        let disChargeList = [];
+        let statusCharging = 0;
+        if (centPrice <= lowPrice) {
+            statusCharging = 1;
+        } else if (centPrice >= highPrice) {
+            statusCharging = 2;
+        }
         let isRemoveList = [];
         removeIndex = 0;
         for (let index = 0; index < cpLength; index++) {
@@ -73,37 +82,64 @@ const longTermParking = {
                 isRemoveList.push(index);
                 continue;
             }
-            if (isCharged) {
-                if (cpList[index].currentBattery < cpList[index].maxBattery) {
+            if (statusCharging === 1) {
+                if (cpList[index].offsetTime < 12) {
+                    if (cpList[index].currentBattery < cpList[index].maxBattery) {
+                        chargeList.push(index);
+                        cpList[index].status = 1;
+                        //cpList[index].currentBattery += 5;
+                    }
+                    cpList[index].status = 4;
+                } else if (cpList[index].currentBattery < 40) {
                     cpList[index].status = 1;
-                    cpList[index].currentBattery += 5;
+                    //cpList[index].currentBattery += 5;
+                    chargeList.push(index);
                     if (isNewCycle || cpList[index].isNewCycle) {
                         cpList[index].currentCycle += 1;
                         cpList[index].isNewCycle = false
                     }
-
+                } else if (cpList[index].leaveTime) {
+                    cpList[index].status = 3;
+                }
+            } else if (statusCharging === 2) {
+                if (cpList[index].offsetTime < 12) {
+                    cpList[index].status = 4;
+                } else if (cpList[index].currentBattery > 0 ) {
+                    cpList[index].status = 2;
+                    // cpList[index].currentBattery -= 5;
+                    disChargeList.push(index);
+                    if (isNewCycle || cpList[index].isNewCycle) {
+                        cpList[index].currentCycle += 1;
+                        cpList[index].isNewCycle = false;
+                    }
                 } else if (cpList[index].leaveTime) {
                     cpList[index].status = 3;
                 }
             } else {
-                if (cpList[index].offsetTime < 12) {
-                    cpList[index].status = 3;
-                } else if (cpList[index].currentBattery > 20 ) {
-                    cpList[index].status = 2;
-                    cpList[index].totalDisChargeCycle += 1;
-                    cpList[index].currentBattery -= 5;
-
-                    if (isNewCycle || cpList[index].isNewCycle) {
-                        cpList[index].currentCycle += 1;
-                        cpList[index].isNewCycle = false
-                    }
-
-                } else if (cpList[index].leaveTime) {
-                    cpList[index].status = 3;
-                }
+                cpList[index].status = 3;
             }
+        }
 
-
+        let walt = 5;
+        if (statusCharging === 1) {
+            if (chargeList.length > 10) {
+                walt = Math.floor(limitConsumption / chargeList.length / 4);
+            }
+            for (let index = 0; index < chargeList.length; index++) {
+                cpList[chargeList[index]].currentBattery += walt;
+            }
+            currentConsumption = walt * chargeList.length;
+        }  else if (statusCharging === 2) {
+            if (disChargeList.length > 10) {
+                walt = Math.floor(limitConsumption / disChargeList.length / 4);
+            }
+            for (let index = 0; index < disChargeList.length; index++) {
+                if ((cpList[disChargeList[index]].currentBattery - walt) >= 0) {
+                    cpList[disChargeList[index]].currentBattery -= walt;
+                }
+                cpList[disChargeList[index]].currentBattery = 0;
+            }
+            currentConsumption = walt * disChargeList.length;
         }
 
         for (let index = 0; index < isRemoveList.length; index++) {
@@ -131,6 +167,9 @@ const longTermParking = {
     },
     setCurrentIndex: function(current) {
         currentIndex = current;
+    },
+    getCurrentConsumption: function() {
+        return currentConsumption;
     }
 
 };

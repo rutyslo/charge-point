@@ -4,18 +4,30 @@ const longTermParking = require('./LongTermParking');
 
 let counter = 0;
 let isPower = true;
-let price = 10;
+let price = 9;
+let centPrice = 8;
+let highPrice = 20;
+let lowPrice = 8;
 let autoToggle = true;
 let isSimulatorPlay = true;
-let hourDay = 0;
+let hourDay = 6;
+let hourIndex = 0;
 longTermParking.start();
 longTermParking.init();
-const costs = [12,12,12,12,12,12,12,11,11,10,10,9,9,10,10,11,12,12,12,11,12,12,11,10,9,9,9,9,10,11,12];
+//const costs = [12,12,12,12,12,12,12,11,11,10,10,9,9,10,10,11,12,12,12,11,12,12,11,10,9,9,9,9,10,11,12];
+const morning = [9,10, 11,12, 13,14, 14,15, 16,17, 15,16, 17,18, 16,15, 14,15, 16,17, 18,19];
+const afternoon = [20,21, 21,22, 21,22, 21,20];
+const evening = [19,18, 19,17, 15,12];
+const night = [10,8, 7,6, 5,5, 5,5, 6,6, 7,8];
+
+const allDay = morning.concat(afternoon).concat(evening).concat(night);
 const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
 
     wss.on('connection', ws => {
         console.log(`Connection`);
-        ws.send(JSON.stringify({type: "electricity", value: {isPower: true, cent : 12}}));
+        console.log(`Send message cent : =>  ${allDay[hourIndex]} , hour : ${hourDay} `);
+        ws.send(JSON.stringify({type: "electricity", value: {isPower: true, cent : allDay[hourIndex++], highPrice: highPrice, lowPrice, lowPrice}}));
+        hourDay+=0.5;
 
 
     ws.on('message', message => {
@@ -39,45 +51,64 @@ const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
 
         setInterval(() => {
 
-            if (autoToggle) {
-                if (counter > 30) {
-                    counter = 0;
-                    console.log(`counter : => 0`);
-                }
+            if (autoToggle && isSimulatorPlay) {
+                // FOR First DEmo
+                // if (counter > 30) {
+                //     counter = 0;
+                //     console.log(`counter : => 0`);
+                // }
 
-                const cent = costs[counter];
-                console.log(`Send message cent : => ${cent}`);
+                centPrice = allDay[hourIndex++];
+                console.log(`Send message cent : =>  ${centPrice} , hour : ${hourDay} `);
                 wss.clients.forEach(function (client) {
-                    client.send(JSON.stringify({type: "electricity", value: {isPower: isPower, cent: cent}}));
+                    client.send(JSON.stringify({type: "electricity", value: {isPower: isPower, cent: centPrice , highPrice: highPrice, lowPrice, lowPrice}}));
                 });
 
-                counter++;
-            } else {
-                wss.clients.forEach(function (client) {
-                    client.send(JSON.stringify({type: "electricity", value: {isPower: isPower, cent: price}}));
-                });
-            }
-        }, 10000);
-
-        setInterval(() => {
-            if (isSimulatorPlay) {
-                const tariff = hourDay > 12 ? 11 : 8;
                 const isNewCycle = hourDay % 12 === 0;
-                longTermParking.tick(tariff, isNewCycle);
+
+                longTermParking.tick(centPrice, lowPrice, highPrice, isNewCycle);
                 wss.clients.forEach(function (client) {
                     client.send(JSON.stringify({type: "logTermParking" , value : {
                             currentIndex: longTermParking.getCurrentIndex(),
+                            currentConsumption: longTermParking.getCurrentConsumption(),
                             newIndex: longTermParking.getNewIndex(),
                             removeIndex: longTermParking.getRemoveIndex(),
                             dateNow: longTermParking.getDate(),
                             cpList : longTermParking.get() }}));
                 });
                 hourDay+= 0.5;
-                if (hourDay >= 24) {
-                    hourDay = 0;
+                if (hourIndex >= 48) {
+                    hourDay = 6;
+                    hourIndex = 0;
                 }
+
+                //counter++;
+            } else {
+                wss.clients.forEach(function (client) {
+                    client.send(JSON.stringify({type: "electricity", value: {isPower: isPower, cent: price, highPrice: highPrice, lowPrice, lowPrice}}));
+                });
             }
         }, 2000);
+
+        // setInterval(() => {
+        //     if (isSimulatorPlay) {
+        //         const tariff = hourDay > 12 ? 11 : 8;
+        //         const isNewCycle = hourDay % 12 === 0;
+        //         longTermParking.tick(tariff, isNewCycle);
+        //         wss.clients.forEach(function (client) {
+        //             client.send(JSON.stringify({type: "logTermParking" , value : {
+        //                     currentIndex: longTermParking.getCurrentIndex(),
+        //                     newIndex: longTermParking.getNewIndex(),
+        //                     removeIndex: longTermParking.getRemoveIndex(),
+        //                     dateNow: longTermParking.getDate(),
+        //                     cpList : longTermParking.get() }}));
+        //         });
+        //         hourDay+= 0.5;
+        //         if (hourDay >= 24) {
+        //             hourDay = 0;
+        //         }
+        //     }
+        // }, 2000);
 
 });
 

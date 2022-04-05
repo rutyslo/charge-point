@@ -53,7 +53,31 @@ function Home() {
                 pointStyle: 'line',
                 type: 'line',
                 order: 2
-            }
+            },
+            {
+                label: 'Electricity Provider',
+                backgroundColor: chartColors.green,
+                borderColor: chartColors.green,
+                fill: false,
+                lineTension: 0,
+                borderDash: [4, 2],
+                pointStyle: 'rect',
+                radius: 6,
+                data: [],
+                order: 3
+            },
+            {
+                label: 'Power the Airport',
+                backgroundColor: chartColors.red,
+                borderColor: chartColors.red,
+                fill: false,
+                lineTension: 0,
+                borderDash: [4, 2],
+                pointStyle: 'rect',
+                radius: 6,
+                data: [],
+                order: 4
+            },
         ]
     };
     const options = {
@@ -84,6 +108,14 @@ function Home() {
                             chart.data.datasets[1].data.push({
                                 x: moment(),
                                 y: 10
+                            });
+                            chart.data.datasets[2].data.push({
+                                x: moment(),
+                                y: 8
+                            });
+                            chart.data.datasets[3].data.push({
+                                x: moment(),
+                                y: 20
                             });
                         },
                         duration: 20000,

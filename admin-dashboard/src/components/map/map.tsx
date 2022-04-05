@@ -16,7 +16,8 @@ const Map = (props: any) => {
   const currentIndex: number = props.currentIndex;
 
   const [isSimulatorPlay, setIsSimulatorPlay] = useState(true);
-  const statusArray = ['disabled', 'charged', 'discharged', 'free'];
+  const statusArray = ['disabled', 'charged', 'discharged', 'free', 'pickup' ];
+  const statusNames = ['Available', 'Charging', 'Discharging', 'idle',  'Waiting for pickup'];
 
     const sendIsSimulatorPlay = () => {
         axios.post(`${BE_URL}/is-simulator-play`, { isSimulatorPlay : !isSimulatorPlay })
@@ -58,12 +59,17 @@ const Map = (props: any) => {
                       {removeIndex ? <div className={`car-left car-left-${removeIndex}`}></div> : <></>}
                   </div>
                   <div className={"road-half"}>
-                      <div className={"msg"}>
+                      <div className={"msg-enter"}>
                           <div className={"msg-wrapper"}>
-                              <span className={"title"}>ENTER</span>
-                              <span className={"text"}>Spaces: {rowData.filter(function (el) {
+                              <div className={"line"}>
+                                  <div><span className={"p-icon"}>P</span><span className={"title"}>Parking</span></div>
+                                  <div className={"p-wrapper"}>
+                                      <span className={"p-white"}>P</span><span className={"p-number"}>2</span>
+                                  </div>
+                              </div>
+                              <div className={"text"}><span>Free spaces:</span> <span>{rowData.filter(function (el) {
                                   return el.status === 0
-                              }).length}</span>
+                              }).length}</span></div>
                           </div>
 
                       </div>
@@ -75,7 +81,7 @@ const Map = (props: any) => {
                               return <div key={index}
                                   className={`item ${currentIndex === index ? `active` : ``}  ${statusArray[row.status]} ${index < 8 ? `first-line` : `second-line`}`}
                               onClick={()=> setCurrentIndex(index)}>
-                                  <div className={`${index > 7 ? `number-down` :  `number-up`}`}>{index + 1 }</div>
+                                  <div className={`${index > 7 ? `number-down` :  `number-up`}`}>CP {index + 1 }</div>
                                   <div className={`car item-${(index+1).toString()}`}></div>
                               </div>
                           })}
@@ -83,11 +89,20 @@ const Map = (props: any) => {
 
                   </div>
 
+                  <div className={"color-map"}>
+                      <div className={"label"}>Legend:</div>
+                      {statusArray.map((status, index) => {
+                           return <div className={`status-row ${status}`}>
+                               {statusNames[index]}
+                           </div>
+                      })}
+                  </div>
+
               </div>
               <div className={"road-half"}>
-                  <div className={"msg"}>
+                  <div className={"msg-exit"}>
                       <div className={"msg-wrapper"}>
-                          <span className={"title"}>EXIT</span><span className={"text"}>Free: $9.00</span>
+                          <span className={"title"}>EXIT</span>
                       </div>
                   </div>
               </div>
