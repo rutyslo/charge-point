@@ -16,7 +16,7 @@ const Charging = (props: any) => {
       <div className={'charging-queue-wrapper'}>
         <div className={'widgets'}>
           <ChargingPoints />
-          <HourlyConsumption />
+          <HourlyConsumption currentConsumption={props.currentConsumption} />
           <ElectricityBuyRates />
         </div>
         <div className={'table-wrapper'}>

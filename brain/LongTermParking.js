@@ -33,7 +33,7 @@ const longTermParking = {
         console.log('cpList', cpList);
     },
     init: function() {
-        dateNow = moment();
+        dateNow = moment().startOf('day').add(6, 'hour');
         let timesRun = 0;
         let interval = setInterval(function() {
             if(timesRun >= cpLength) {
@@ -46,13 +46,13 @@ const longTermParking = {
                     .add(getRandomArbitrary(0, 59),'minute');
                 //cpList[timesRun].status = 1;
                 cpList[timesRun].licensePlate = new RandExp(/^[0-9]{3}-[0-9]{2}-[0-9]{3}$/).gen();
-                cpList[timesRun].currentBattery = Math.ceil(getRandomArbitrary(5, 30)/5)*5;
+                cpList[timesRun].currentBattery = Math.ceil(getRandomArbitrary(10, 70)/5)*5;
                 cpList[timesRun].maxBattery = batteryMaxList[getRandomArbitrary(0, 3)];
                 cpList[timesRun].leaveTime = leaveTime.format('MM-DD-YYYY HH:mm');
                 cpList[timesRun].arrivalTime = moment().valueOf();
                 cpList[timesRun].arrivalTimeFormat = moment().format();
                 cpList[timesRun].offsetTime = Math.ceil((leaveTime.valueOf() - cpList[timesRun].arrivalTime) / 1000) / 60 / 60;
-                cpList[timesRun].estimatedCycles = Math.floor(cpList[timesRun].offsetTime / 12) - 1;
+                cpList[timesRun].estimatedCycles = Math.round(cpList[timesRun].offsetTime / 12);
                 cpList[timesRun].currentCycle = 0;
                 cpList[timesRun].isNewCycle = true;
                 timesRun++;
@@ -86,7 +86,7 @@ const longTermParking = {
                 if (cpList[index].offsetTime < 12) {
                     if (cpList[index].currentBattery < cpList[index].maxBattery) {
                         chargeList.push(index);
-                        cpList[index].status = 1;
+                        //cpList[index].status = 1;
                         //cpList[index].currentBattery += 5;
                     }
                     cpList[index].status = 4;
@@ -94,9 +94,10 @@ const longTermParking = {
                     cpList[index].status = 1;
                     //cpList[index].currentBattery += 5;
                     chargeList.push(index);
+                    console.log('before-charge', isNewCycle, cpList[index].isNewCycle, cpList[index].currentCycle)
                     if (isNewCycle || cpList[index].isNewCycle) {
                         cpList[index].currentCycle += 1;
-                        cpList[index].isNewCycle = false
+                        cpList[index].isNewCycle = false;
                     }
                 } else if (cpList[index].licensePlate) {
                     cpList[index].status = 3;
@@ -130,7 +131,7 @@ const longTermParking = {
             for (let index = 0; index < chargeList.length; index++) {
                 cpList[chargeList[index]].currentBattery += walt;
             }
-            currentConsumption = walt * chargeList.length;
+            currentConsumption = walt * chargeList.length  * 4;
         }  else if (statusCharging === 2) {
             if (disChargeList.length > 10) {
                 walt = Math.floor(limitConsumption / disChargeList.length / 4);
@@ -138,10 +139,14 @@ const longTermParking = {
             for (let index = 0; index < disChargeList.length; index++) {
                 if ((cpList[disChargeList[index]].currentBattery - walt) >= 0) {
                     cpList[disChargeList[index]].currentBattery -= walt;
+                } else {
+                    cpList[disChargeList[index]].currentBattery = 0;
                 }
-                cpList[disChargeList[index]].currentBattery = 0;
+
             }
-            currentConsumption = walt * disChargeList.length;
+            currentConsumption = walt * disChargeList.length * 4;
+        } else {
+            currentConsumption = 0;
         }
 
         for (let index = 0; index < isRemoveList.length; index++) {

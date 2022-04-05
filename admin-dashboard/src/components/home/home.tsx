@@ -11,7 +11,7 @@ const Home = (props: any) => {
       <div className={'row'}>
         <div className={'row-title'}>Charging</div>
         <div className={'widgets-wrapper'}>
-          <HourlyConsumption />
+          <HourlyConsumption currentConsumption={props.currentConsumption}/>
           <ChargingPoints />
           <ConnectedCars rowData={props.rowData} />
         </div>
