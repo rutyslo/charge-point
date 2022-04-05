@@ -75,14 +75,14 @@
             &.discharged {
               background: #EDB6F2;
             }
-            &.free {
+            &.idle {
               background: #F2F2F2;
             }
             &.pickup {
               background: #75EBE4;
             }
 
-            &.charged, &.discharged, &.free {
+            &.charged, &.discharged, &.idle {
 
               .item-1 {
                 background-image: url("./images/Car_1.svg");
@@ -419,7 +419,7 @@
             background: #EDB6F2;
           }
         }
-        &.free {
+        &.idle {
           &:before {
             background: #F2F2F2;
           }

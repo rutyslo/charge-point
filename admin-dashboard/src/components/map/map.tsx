@@ -16,7 +16,7 @@ const Map = (props: any) => {
   const currentIndex: number = props.currentIndex;
 
   const [isSimulatorPlay, setIsSimulatorPlay] = useState(true);
-  const statusArray = ['disabled', 'charged', 'discharged', 'free', 'pickup' ];
+  const statusArray = ['disabled', 'charged', 'discharged', 'idle', 'pickup' ];
   const statusNames = ['Available', 'Charging', 'Discharging', 'idle',  'Waiting for pickup'];
 
     const sendIsSimulatorPlay = () => {

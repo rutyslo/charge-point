@@ -44,7 +44,7 @@ const longTermParking = {
                 //const leaveTime = moment().add(getRandomArbitrary(1, 8), 'day');
                 const leaveTime = moment().add(carList[timesRun], 'day').add(getRandomArbitrary(0, 23),'hour')
                     .add(getRandomArbitrary(0, 59),'minute');
-                cpList[timesRun].status = 1;
+                //cpList[timesRun].status = 1;
                 cpList[timesRun].licensePlate = new RandExp(/^[0-9]{3}-[0-9]{2}-[0-9]{3}$/).gen();
                 cpList[timesRun].currentBattery = Math.ceil(getRandomArbitrary(5, 30)/5)*5;
                 cpList[timesRun].maxBattery = batteryMaxList[getRandomArbitrary(0, 3)];
@@ -98,7 +98,7 @@ const longTermParking = {
                         cpList[index].currentCycle += 1;
                         cpList[index].isNewCycle = false
                     }
-                } else if (cpList[index].leaveTime) {
+                } else if (cpList[index].licensePlate) {
                     cpList[index].status = 3;
                 }
             } else if (statusCharging === 2) {
@@ -112,11 +112,13 @@ const longTermParking = {
                         cpList[index].currentCycle += 1;
                         cpList[index].isNewCycle = false;
                     }
-                } else if (cpList[index].leaveTime) {
+                } else if (cpList[index].licensePlate) {
                     cpList[index].status = 3;
                 }
             } else {
-                cpList[index].status = 3;
+                if (cpList[index].licensePlate) {
+                    cpList[index].status = 3;
+                }
             }
         }
 
