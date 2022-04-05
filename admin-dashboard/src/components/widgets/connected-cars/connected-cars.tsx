@@ -7,7 +7,7 @@ const ConnectedCars = (props: any) => {
     <div className={'connected-cars-wrapper'}>
       <div className={'title'}>Connected cars</div>
       <div className={'widget-container'}>
-        <ConnectedCarsContent {...props} />
+        <ConnectedCarsContent {...props} isHome={true} />
       </div>
     </div>
   );

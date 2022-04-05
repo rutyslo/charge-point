@@ -9,19 +9,19 @@ const PowerConsumptionThresholds = () => {
         <section>
           <div>
             <div className={'type-title'}>Electricity Provider</div>
-            <div className={'type-condition'}>if under:</div>
+            <div className={'type-condition'}>if rate is under:</div>
           </div>
           <div className={'input'}>
-            <input defaultValue={8.888} /> ¢/kWh
+            <input defaultValue={8} /> ¢/kWh
           </div>
         </section>
         <section>
           <div>
-            <div className={'type-title'}>Power the Airport</div>
-            <div className={'type-condition'}>if over:</div>
+            <div className={'type-title'}>Supply power to the airport</div>
+            <div className={'type-condition'}>if rate is over:</div>
           </div>
           <div className={'input'}>
-            <input defaultValue={8.888} /> ¢/kWh
+            <input defaultValue={20} /> ¢/kWh
           </div>
         </section>
       </div>

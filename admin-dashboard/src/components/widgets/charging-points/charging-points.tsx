@@ -27,7 +27,7 @@ const ChargingPoints = () => {
             <b>Total:</b><b className={'number'}>16</b>
           </div>
         </div>
-        <div className={'box'} style={{height: '185px', columnCount: 2, columnWidth: '12px', columnGap: 0, columnFill: 'auto'}}>
+        <div className={'box'} style={{columnCount: 2, columnWidth: '12px', columnGap: 0, columnFill: 'auto'}}>
           {renderPoints()}
         </div>
       </div>

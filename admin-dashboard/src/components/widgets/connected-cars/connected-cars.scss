@@ -2,6 +2,7 @@
   .connected-cars-wrapper {
     display: flex;
     flex-direction: column;
+    flex: 1;
 
     .widget-container {
       flex: 1;

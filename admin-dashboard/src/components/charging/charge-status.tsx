@@ -1,6 +1,6 @@
 import {ReactComponent as Charging} from '../../assets/car-charge.svg';
 import {ReactComponent as Discharging} from '../../assets/car-discharge.svg';
-import {ReactComponent as Paused} from '../../assets/car-paused.svg';
+import {ReactComponent as Paused} from '../../assets/car-idle.svg';
 import {ReactComponent as Done} from '../../assets/car-done.svg';
 
 const ChargeStatus = (props: any) => {

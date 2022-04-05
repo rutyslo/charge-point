@@ -1,6 +1,7 @@
 import {GridOptions} from "ag-grid-community";
 import ChargeStatus from "./charge-status";
 import CurrentCycle from "./current-cycle";
+import LeaveTime from "./leave-time";
 
 export const chargingGridOptions: GridOptions = {
   columnDefs: [
@@ -9,7 +10,7 @@ export const chargingGridOptions: GridOptions = {
     { field: 'status', cellRenderer: ChargeStatus},
     { field: 'estimatedCycles' },
     { field: 'currentCycle', cellRenderer: CurrentCycle },
-    { field: 'leaveTime', headerName: 'Pickup Time', minWidth: 200 },
+    { field: 'leaveTime', cellRenderer: LeaveTime, headerName: 'Pickup Time', minWidth: 230 },
     { field: 'licensePlate' },
     { field: 'maxBattery', headerName: 'Recommended Battery %', minWidth: 230 },
     { field: 'currentBattery', headerName: 'Current Battery %', minWidth: 200 },
