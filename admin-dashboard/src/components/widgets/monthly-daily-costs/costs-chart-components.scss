@@ -1,0 +1,13 @@
+.prices-summary {
+   display: flex;
+   flex-direction: column;
+   gap: 38px;
+   height: 175px;
+   padding: 20px 0;
+  font-weight: 600;
+
+   .price {
+     display: flex;
+     align-items: center;
+   }
+}

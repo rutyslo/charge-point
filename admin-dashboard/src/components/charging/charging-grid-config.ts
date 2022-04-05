@@ -11,7 +11,7 @@ export const chargingGridOptions: GridOptions = {
     { field: 'estimatedCycles' },
     { field: 'currentCycle', cellRenderer: CurrentCycle },
     { field: 'leaveTime', cellRenderer: LeaveTime, headerName: 'Pickup Time', minWidth: 230 },
-    { field: 'licensePlate' },
+    { field: 'licensePlate', minWidth: 130 },
     { field: 'maxBattery', headerName: 'Recommended Battery %', minWidth: 230 },
     { field: 'currentBattery', headerName: 'Current Battery %', minWidth: 200 },
   ],
