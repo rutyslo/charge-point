@@ -1,6 +1,7 @@
 .power-consumption-thresholds {
   display: flex;
   flex-direction: column;
+  width: 30%;
 
   .widget-container {
     flex: 1;
@@ -12,6 +13,7 @@
       gap: 10px;
       padding: 23px 16px;
       text-align: left;
+      width: 50%;
 
       .type-title {
         font-size: 16px;
@@ -19,12 +21,13 @@
       }
 
       input {
-        width: 100px;
+        width: 55%;
         border: 1px solid #878C94;
         border-radius: 4px;
         font-weight: 400;
         font-size: 32px;
         color: #0057B8;
+        text-align: right;
       }
 
       & + section {

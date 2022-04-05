@@ -1,30 +1,33 @@
-.connected-cars-wrapper {
-  display: flex;
-  flex-direction: column;
-
-  .widget-container {
-    flex: 1;
-    padding-bottom: 10px;
-  }
-
-  section {
+.home-wrapper {
+  .connected-cars-wrapper {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 30px;
+    flex: 1;
 
-    svg {
-      height: 29px;
+    .widget-container {
+      flex: 1;
+      padding-bottom: 10px;
     }
 
-    .count {
-      font-size: 48px;
-      font-weight: 500;
-    }
+    section {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 30px;
 
-    & + section {
-      border-left: 1px solid rgba(135, 140, 148, 0.5);
+      svg {
+        height: 29px;
+      }
+
+      .count {
+        font-size: 48px;
+        font-weight: 500;
+      }
+
+      & + section {
+        border-left: 1px solid rgba(135, 140, 148, 0.5);
+      }
     }
   }
 }
