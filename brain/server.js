@@ -9,7 +9,6 @@ let centPrice = 8;
 let highPrice = 20;
 let lowPrice = 8;
 let autoToggle = true;
-let isSimulatorPlay = true;
 const hourStart = 6;
 let hourDay = hourStart;
 let hourIndex = 0;
@@ -55,7 +54,7 @@ const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
 
         setInterval(() => {
 
-            if (autoToggle && isSimulatorPlay) {
+            if (autoToggle && longTermParking.getIsSimulatorPlay()) {
                 // FOR First DEmo
                 // if (counter > 30) {
                 //     counter = 0;
@@ -159,12 +158,15 @@ app.post('/auto-toggle', (req, res) => {
 
 app.post('/is-simulator-play', (req, res) => {
     console.log('isSimulatorPlay', req.body.isSimulatorPlay);
-    isSimulatorPlay = req.body.isSimulatorPlay;
+    longTermParking.setIsSimulatorPlay(req.body.isSimulatorPlay);
     res.send({ isSimulatorPlay: req.body.isSimulatorPlay });
 })
 
 app.get('/start-long-parking', (req, res) => {
     console.log('start-long-parking');
+    hourDay = 6.5;
+    hourIndex = 1;
+    longTermParking.setIsSimulatorPlay(true);
     longTermParking.start();
     longTermParking.init();
     res.send({});
