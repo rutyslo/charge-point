@@ -120,6 +120,17 @@
         }
       }
 
+      [col-id="leaveTime"] {
+        text-align: left;
+      }
+
+      .waiting-for-pickup [col-id="leaveTime"]:after {
+        content: 'Soon';
+        font-weight: 700;
+        color: #FF585D;
+        margin-left: 5px;
+      }
+
       .charge-status {
         padding-top: 5px;
       }
