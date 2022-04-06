@@ -50,7 +50,7 @@ const longTermParking = {
                     const leaveTime = moment().add(carList[timesRun], 'day').add(getRandomArbitrary(0, 23),'hour')
                         .add(getRandomArbitrary(0, 59),'minute');
                     //cpList[timesRun].status = 1;
-                    cpList[timesRun].licensePlate = new RandExp(/^[0-9]{3}-[0-9]{2}-[0-9]{3}$/).gen();
+                    cpList[timesRun].licensePlate = new RandExp(/^[0-9]{1}[A-Z]{3}[0-9]{3}$/).gen();
                     if (timesRun != 3 && timesRun !== 6 && timesRun !== 11) {
                         cpList[timesRun].attuid = new RandExp(/^[0-9]{9}$/).gen();
                     }
@@ -62,8 +62,11 @@ const longTermParking = {
                     cpList[timesRun].offsetTime = Math.ceil((leaveTime.valueOf() - cpList[timesRun].arrivalTime) / 1000) / 60 / 60;
                     cpList[timesRun].estimatedCycles = Math.round(cpList[timesRun].offsetTime / 12);
                     if (leaveTime.hour() >= 17) {
-                        cpList[timesRun].estimatedCycles-=1;
+                        //cpList[timesRun].estimatedCycles-=1;
+                    } else {
+                        cpList[timesRun].estimatedCycles+=1;
                     }
+                    cpList[timesRun].estimatedCycles = Math.round(cpList[timesRun].estimatedCycles / 2);
                     cpList[timesRun].currentCycle = 0;
                     cpList[timesRun].isNewCycle = true;
                     timesRun++;
@@ -136,7 +139,7 @@ const longTermParking = {
                     cpList[index].status = 2;
                     // cpList[index].currentBattery -= 5;
                     disChargeList.push(index);
-                    if (isNewCycle || cpList[index].isNewCycle) {
+                    if (isNewCycle && cpList[index].isNewCycle) {
                         cpList[index].currentCycle += 1;
                         cpList[index].isNewCycle = false;
                     }

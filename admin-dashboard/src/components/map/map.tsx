@@ -90,7 +90,7 @@ const Map = (props: any) => {
                   </div>
 
                   <div className={"color-map"}>
-                      <div className={"label"}>Legend:</div>
+                      <div className={"label"}></div>
                       {statusArray.map((status, index) => {
                            return <div className={`status-row ${status}`}>
                                {statusNames[index]}

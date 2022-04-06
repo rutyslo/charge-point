@@ -6,9 +6,9 @@ import Charging from "./components/charging/charging";
 import Map from "./components/map/map";
 import Home from "./components/home/home";
 
-export const BE_URL = 'http://localhost:4000';
+export const BE_URL = 'http://iltlvmac0171.intl.att.com:4000';
 
-const ENDPOINT = "ws://localhost:7000/";
+const ENDPOINT = "ws://iltlvmac0171.intl.att.com:7000/";
 const socket = new WebSocket(ENDPOINT);
 
 function App() {
@@ -24,9 +24,9 @@ function App() {
     console.log("onopen");
   }
   socket.onmessage = function(msg) {
-    console.log("RECEIVE");
     const message = JSON.parse(msg.data);
     if (message.type === 'logTermParking') {
+      console.log("RECEIVE", message.value.newIndex);
       setRowData(message.value.cpList);
       setDateNow(message.value.dateNow);
       setNewIndex(message.value.newIndex);

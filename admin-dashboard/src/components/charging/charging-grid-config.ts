@@ -4,15 +4,15 @@ import CurrentCycle from "./current-cycle";
 
 export const chargingGridOptions: GridOptions = {
   columnDefs: [
-    { field: 'stationId', headerName: 'CP ID', maxWidth: 150 },
+    { field: 'stationId', headerName: 'CP ID', maxWidth: 90 },
     { field: 'connectorType' },
     { field: 'status', cellRenderer: ChargeStatus},
     { field: 'estimatedCycles' },
     { field: 'currentCycle', cellRenderer: CurrentCycle },
     { field: 'leaveTime', headerName: 'Pickup Time', minWidth: 220 },
-    { field: 'attuid', headerName: 'AT&T ID', minWidth: 180 },
+    { field: 'attuid', headerName: 'AT&T ID', minWidth: 90 },
     { field: 'licensePlate', minWidth: 130 },
-    { field: 'maxBattery', headerName: 'Recommended Battery %', minWidth: 230 },
+    { field: 'maxBattery', headerName: 'Recommended Battery %', minWidth: 90 },
     { field: 'currentBattery', headerName: 'Current Battery %', minWidth: 200 },
   ],
   defaultColDef: {
