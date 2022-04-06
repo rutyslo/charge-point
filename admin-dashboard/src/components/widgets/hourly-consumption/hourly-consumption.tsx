@@ -8,7 +8,7 @@ const HourlyConsumption = (props: any) => {
       <div className={'widget-container'}>
         Current
         <div className={'current'}>
-            {props.currentConsumption} kWh
+            {props.currentConsumption > 200 ? 200 : props.currentConsumption.toFixed(1)} kWh
         </div>
         Limit consumption to
         <div className={'limit'}>

@@ -85,13 +85,13 @@
             &.charged, &.discharged, &.idle, &.pickup {
 
               .item-1 {
-                background-image: url("./images/Car_1.svg");
+                background-image: url("./images/Car_3.svg");
                 opacity: 1;
                 animation: delayDisplay 10s ;
               }
               .item-2 {
                 animation: delayDisplay 10s ;
-                background-image: url("./images/Car_2.svg");
+                background-image: url("./images/Car_3.svg");
               }
               .item-3 {
                 animation: delayDisplay 10s ;
@@ -99,56 +99,60 @@
               }
               .item-4 {
                 animation: delayDisplay 10s;
-                background-image: url("./images/Car_4.svg");
+                background-image: url("./images/Car_9.svg");
               }
               .item-5 {
-                background-image: url("./images/Car_5.svg");
+                background-image: url("./images/Car_3.svg");
                 animation: delayDisplay 10s;
               }
               .item-6 {
                 animation: delayDisplay 10s;
-                background-image: url("./images/Car_6.svg");
+                background-image: url("./images/Car_3.svg");
               }
               .item-7 {
                 animation: delayDisplay 10s ;
-                background-image: url("./images/Car_7.svg");
+                background-image: url("./images/Car_9.svg");
               }
               .item-8 {
                 animation: delayDisplay 10s ;
-                background-image: url("./images/Car_8.svg");
+                background-image: url("./images/Car_3.svg");
               }
               .item-9 {
                 animation: delayDisplay 10s ;
-                background-image: url("./images/Car_9.svg");
+                background-image: url("./images/Car_3.svg");
               }
               .item-10 {
                 animation: delayDisplay 10s ;
-                background-image: url("./images/Car_1.svg");
+                background-image: url("./images/Car_3.svg");
               }
               .item-11 {
                 animation: delayDisplay 10s ;
-                background-image: url("./images/Car_2.svg");
+                background-image: url("./images/Car_3.svg");
               }
               .item-12 {
                 animation: delayDisplay 10s ;
-                background-image: url("./images/Car_3.svg");
+                background-image: url("./images/Car_9.svg");
               }
               .item-13 {
                 animation: delayDisplay 10s ;
-                background-image: url("./images/Car_4.svg");
+                background-image: url("./images/Car_3.svg");
               }
               .item-14 {
                 animation: delayDisplay 10s ;
-                background-image: url("./images/Car_5.svg");
+                background-image: url("./images/Car_3.svg");
               }
               .item-15 {
                 animation: delayDisplay 10s ;
-                background-image: url("./images/Car_6.svg");
+                background-image: url("./images/Car_3.svg");
               }
               .item-16 {
                 animation: delayDisplay 10s ;
-                background-image: url("./images/Car_7.svg");
+                background-image: url("./images/Car_3.svg");
               }
+
+              //.no-attuid{
+              //  background-image: url("./images/Car_9.svg");
+              //}
             }
 
             .car {
@@ -225,11 +229,11 @@
         //offset-path: path('M 100 70 h 720 v 350 h -580 v -110');
         &.car-1 {
           offset-path: path('M 100 70 h 720 v 350 h -580 v -110');
-          background-image: url("./images/Car_1.svg");
+          background-image: url("./images/Car_3.svg");
         }
         &.car-2 {
           offset-path: path('M 100 70 h 720 v 350 h -440 v -110');
-          background-image: url("./images/Car_2.svg");
+          background-image: url("./images/Car_3.svg");
         }
         &.car-3 {
           offset-path: path('M 100 70 h 720 v 350 h -300 v -110');
@@ -237,131 +241,136 @@
         }
         &.car-4 {
           offset-path: path('M 100 70 h 720 v 350 h -160 v -110');
-          background-image: url("./images/Car_4.svg");
+          background-image: url("./images/Car_9.svg");
         }
         &.car-5 {
           offset-path: path('M 100 70 h 720 v 350 h 80 v -110');
-          background-image: url("./images/Car_5.svg");
+          background-image: url("./images/Car_3.svg");
         }
         &.car-6 {
           offset-path: path('M 100 70 h 720 v 350 h 220 v -110');
-          background-image: url("./images/Car_6.svg");
+          background-image: url("./images/Car_3.svg");
         }
         &.car-7 {
           offset-path: path('M 100 70 h 720 v 350 h 360 v -110');
-          background-image: url("./images/Car_7.svg");
+          background-image: url("./images/Car_9.svg");
         }
         &.car-8 {
           offset-path: path('M 100 70 h 720 v 350 h 500 v -110');
-          background-image: url("./images/Car_8.svg");
+          background-image: url("./images/Car_3.svg");
         }
         &.car-9 {
           offset-path: path('M 100 70 h 720 v 350 h -580 v 150');
-          background-image: url("./images/Car_9.svg");
+          background-image: url("./images/Car_3.svg");
         }
         &.car-10 {
           offset-path: path('M 100 70 h 720 v 350 h -440 v 150');
-          background-image: url("./images/Car_1.svg");
+          background-image: url("./images/Car_3.svg");
         }
         &.car-11 {
           offset-path: path('M 100 70 h 720 v 350 h -300 v 150');
-          background-image: url("./images/Car_2.svg");
+          background-image: url("./images/Car_3.svg");
         }
         &.car-12 {
           offset-path: path('M 100 70 h 720 v 350 h -160 v 150');
-          background-image: url("./images/Car_3.svg");
+          background-image: url("./images/Car_9.svg");
         }
         &.car-13 {
           offset-path: path('M 100 70 h 720 v 350 h 90 v 150');
-           background-image: url("./images/Car_4.svg");
+           background-image: url("./images/Car_3.svg");
         }
         &.car-14 {
           offset-path: path('M 100 70 h 720 v 350 h 230 v 150');
-          background-image: url("./images/Car_5.svg");
+          background-image: url("./images/Car_3.svg");
         }
         &.car-15 {
           offset-path: path('M 100 70 h 720 v 350 h 370 v 150');
-          background-image: url("./images/Car_6.svg");
+          background-image: url("./images/Car_3.svg");
         }
         &.car-16 {
           offset-path: path('M 100 70 h 720 v 350 h 510 v 150');
-          background-image: url("./images/Car_7.svg");
+          background-image: url("./images/Car_3.svg");
+        }
+
+
+        &.no-attuid{
+          background-image: url("./images/Car_9.svg") !important;
         }
 
 
       }
 
       .car-left{
-        position: absolute;
-        animation: move 4s infinite;
-        z-index: 2;
-        transform: rotate(90deg);
-        width: 70px;
-        height: 130px;
-        &.car-left-1 {
-          offset-path: path('M 200 400 h 550 v 400 h -820');
-          background-image: url("./images/Car_1.svg");
-        }
-        &.car-left-2 {
-          offset-path: path('M 340 400 h 410 v 400 h -850');
-          background-image: url("./images/Car_2.svg");
-        }
-        &.car-left-3 {
-          offset-path: path('M 480 400 h 270 v 400 h -850');
-          background-image: url("./images/Car_3.svg");
-        }
-        &.car-left-4 {
-          offset-path: path('M 620 400 h 130 v 400 h -850');
-          background-image: url("./images/Car_4.svg");
-        }
-        &.car-left-5 {
-          offset-path: path('M 100 70 h 720 v 350 h 80 v -110');
-          background-image: url("./images/Car_5.svg");
-        }
-        &.car-left-6 {
-          offset-path: path('M 100 70 h 720 v 350 h 220 v -110');
-          background-image: url("./images/Car_6.svg");
-        }
-        &.car-left-7 {
-          offset-path: path('M 100 70 h 720 v 350 h 360 v -110');
-          background-image: url("./images/Car_7.svg");
-        }
-        &.car-left-8 {
-          offset-path: path('M 100 70 h 720 v 350 h 500 v -110');
-          background-image: url("./images/Car_8.svg");
-        }
-        &.car-left-9 {
-          offset-path: path('M 200 460 h 550 v 340 h -820');
-          background-image: url("./images/Car_9.svg");
-        }
-        &.car-left-10 {
-          offset-path: path('M 340 460 h 410 v 340 h -820');
-          background-image: url("./images/Car_1.svg");
-        }
-        &.car-left-11 {
-          offset-path: path('M 480 460 h 270 v 340 h -820');
-          background-image: url("./images/Car_2.svg");
-        }
-        &.car-left-12 {
-          offset-path: path('M 620 460 h 130 v 340 h -820');
-          background-image: url("./images/Car_3.svg");
-        }
-        &.car-left-13 {
-          offset-path: path('M 100 70 h 720 v 350 h 90 v 150');
-          background-image: url("./images/Car_4.svg");
-        }
-        &.car-left-14 {
-          offset-path: path('M 100 70 h 720 v 350 h 230 v 150');
-          background-image: url("./images/Car_5.svg");
-        }
-        &.car-left-15 {
-          offset-path: path('M 100 70 h 720 v 350 h 370 v 150');
-          background-image: url("./images/Car_6.svg");
-        }
-        &.car-left-16 {
-          offset-path: path('M 100 70 h 720 v 350 h 510 v 150');
-          background-image: url("./images/Car_7.svg");
-        }
+        //position: absolute;
+        //animation: move 4s infinite;
+        //z-index: 2;
+        //transform: rotate(90deg);
+        //width: 70px;
+        //height: 130px;
+        //&.car-left-1 {
+        //  offset-path: path('M 200 400 h 550 v 400 h -820');
+        //  background-image: url("./images/Car_1.svg");
+        //}
+        //&.car-left-2 {
+        //  offset-path: path('M 340 400 h 410 v 400 h -850');
+        //  background-image: url("./images/Car_2.svg");
+        //}
+        //&.car-left-3 {
+        //  offset-path: path('M 480 400 h 270 v 400 h -850');
+        //  background-image: url("./images/Car_3.svg");
+        //}
+        //&.car-left-4 {
+        //  offset-path: path('M 620 400 h 130 v 400 h -850');
+        //  background-image: url("./images/Car_4.svg");
+        //}
+        //&.car-left-5 {
+        //  offset-path: path('M 100 70 h 720 v 350 h 80 v -110');
+        //  background-image: url("./images/Car_5.svg");
+        //}
+        //&.car-left-6 {
+        //  offset-path: path('M 100 70 h 720 v 350 h 220 v -110');
+        //  background-image: url("./images/Car_6.svg");
+        //}
+        //&.car-left-7 {
+        //  offset-path: path('M 100 70 h 720 v 350 h 360 v -110');
+        //  background-image: url("./images/Car_7.svg");
+        //}
+        //&.car-left-8 {
+        //  offset-path: path('M 100 70 h 720 v 350 h 500 v -110');
+        //  background-image: url("./images/Car_8.svg");
+        //}
+        //&.car-left-9 {
+        //  offset-path: path('M 200 460 h 550 v 340 h -820');
+        //  background-image: url("./images/Car_9.svg");
+        //}
+        //&.car-left-10 {
+        //  offset-path: path('M 340 460 h 410 v 340 h -820');
+        //  background-image: url("./images/Car_1.svg");
+        //}
+        //&.car-left-11 {
+        //  offset-path: path('M 480 460 h 270 v 340 h -820');
+        //  background-image: url("./images/Car_2.svg");
+        //}
+        //&.car-left-12 {
+        //  offset-path: path('M 620 460 h 130 v 340 h -820');
+        //  background-image: url("./images/Car_3.svg");
+        //}
+        //&.car-left-13 {
+        //  offset-path: path('M 100 70 h 720 v 350 h 90 v 150');
+        //  background-image: url("./images/Car_4.svg");
+        //}
+        //&.car-left-14 {
+        //  offset-path: path('M 100 70 h 720 v 350 h 230 v 150');
+        //  background-image: url("./images/Car_5.svg");
+        //}
+        //&.car-left-15 {
+        //  offset-path: path('M 100 70 h 720 v 350 h 370 v 150');
+        //  background-image: url("./images/Car_6.svg");
+        //}
+        //&.car-left-16 {
+        //  offset-path: path('M 100 70 h 720 v 350 h 510 v 150');
+        //  background-image: url("./images/Car_7.svg");
+        //}
 
 
       }

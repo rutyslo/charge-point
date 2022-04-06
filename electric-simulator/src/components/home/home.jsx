@@ -38,7 +38,7 @@ function Home() {
                 lineTension: 0,
                 borderDash: [2, 1],
                 pointStyle: 'rect',
-                radius: 3,
+                radius: 4,
                 data: [],
                 order: 1,
             },
@@ -81,6 +81,7 @@ function Home() {
         ]
     };
     const options = {
+        maintainAspectRatio: false,
         elements: {
             line: {
                 tension: 10
