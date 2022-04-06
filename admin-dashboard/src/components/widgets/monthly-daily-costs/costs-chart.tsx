@@ -17,7 +17,7 @@ const CostsChart = (props: any) => {
       palette={['#009FDB90', '#009FDB60', '#009FDB30']}
       rotated={true}
       dataSource={props.data}>
-      <Size height={220} />
+      <Size height={220} width={props.format === 'monthly' ? 300 : 250} />
       <CommonSeriesSettings
         argumentField="category"
         valueField="cost"

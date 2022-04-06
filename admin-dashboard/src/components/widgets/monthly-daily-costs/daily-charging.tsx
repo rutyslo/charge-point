@@ -11,7 +11,7 @@ const DailyCharging = () => {
   ].reverse();
 
   return (
-    <div className={'daily-charging-chart'}>
+    <div className={'daily-charging-chart costs-chart'}>
       <div className={'title'}>Daily <b>charging</b></div>
       <div className={'widget-container'}>
         <CostsChart data={data} format={'daily'} />

@@ -38,6 +38,16 @@
         display: flex;
         justify-content: space-between;
       }
+
+      .costs-chart {
+        .title {
+          font-weight: normal;
+        }
+      }
+    }
+
+    &:nth-child(3) .item {
+      width: 50%;
     }
   }
 }
