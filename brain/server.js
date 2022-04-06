@@ -70,6 +70,7 @@ const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
                 console.log(`Send message cent : =>  ${centPrice} , hour : ${hourDay} isNewCycle: ${isNewCycle} prevCycle: ${prevCycle}`);
 
                 longTermParking.tick(centPrice, lowPrice, highPrice, prevCycle === false && isNewCycle === true);
+
                 wss.clients.forEach(function (client) {
                     client.send(JSON.stringify({type: "logTermParking" , value : {
                             currentIndex: longTermParking.getCurrentIndex(),
