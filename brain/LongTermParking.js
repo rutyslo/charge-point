@@ -14,7 +14,7 @@ let removeIndex = 0;
 let currentIndex = -1;
 const limitConsumption = 200;
 let currentConsumption = 0;
-let isSimulatorPlay = true;
+let isSimulatorPlay = false;
 const longTermParking = {
 
     get: function(){
@@ -22,6 +22,7 @@ const longTermParking = {
     },
     start: function () {
         console.log("START");
+        dateNow = moment().startOf('day').add(6, 'hour');
         tickInterval = 0;
         newIndex = 0;
         removeIndex = 0;
@@ -39,7 +40,6 @@ const longTermParking = {
         dateNow = moment().startOf('day').add(6, 'hour');
         let timesRun = 0;
         let interval = setInterval(function() {
-            console.log('isSimulatorPlay', isSimulatorPlay);
             if(timesRun >= cpLength) {
                 clearInterval(interval);
                 newIndex = 0;
@@ -51,13 +51,19 @@ const longTermParking = {
                         .add(getRandomArbitrary(0, 59),'minute');
                     //cpList[timesRun].status = 1;
                     cpList[timesRun].licensePlate = new RandExp(/^[0-9]{3}-[0-9]{2}-[0-9]{3}$/).gen();
+                    if (timesRun != 3 && timesRun !== 6 && timesRun !== 11) {
+                        cpList[timesRun].attuid = new RandExp(/^[0-9]{9}$/).gen();
+                    }
                     cpList[timesRun].currentBattery = Math.ceil(getRandomArbitrary(10, 70)/5)*5;
                     cpList[timesRun].maxBattery = batteryMaxList[getRandomArbitrary(0, 3)];
                     cpList[timesRun].leaveTime = leaveTime.format('MM-DD-YYYY HH:mm');
-                    cpList[timesRun].arrivalTime = moment().valueOf();
-                    cpList[timesRun].arrivalTimeFormat = moment().format();
+                    cpList[timesRun].arrivalTime = dateNow.valueOf();
+                    cpList[timesRun].arrivalTimeFormat = dateNow.format();
                     cpList[timesRun].offsetTime = Math.ceil((leaveTime.valueOf() - cpList[timesRun].arrivalTime) / 1000) / 60 / 60;
                     cpList[timesRun].estimatedCycles = Math.round(cpList[timesRun].offsetTime / 12);
+                    if (leaveTime.hour() >= 17) {
+                        cpList[timesRun].estimatedCycles-=1;
+                    }
                     cpList[timesRun].currentCycle = 0;
                     cpList[timesRun].isNewCycle = true;
                     timesRun++;
@@ -89,14 +95,29 @@ const longTermParking = {
                 isRemoveList.push(index);
                 continue;
             }
+            if (!statusCharging && (cpList[index].offsetTime < 8)) {
+                if (cpList[index].currentBattery < cpList[index].maxBattery) {
+                    chargeList.push(index);
+                    cpList[index].status = 1;
+                    continue;
+                } else {
+                    cpList[index].status = 4;
+                    continue;
+                }
+            }
             if (statusCharging === 1) {
-                if (cpList[index].offsetTime < 12) {
+                if (cpList[index].offsetTime < 8) {
                     if (cpList[index].currentBattery < cpList[index].maxBattery) {
                         chargeList.push(index);
-                        //cpList[index].status = 1;
+                        cpList[index].status = 1;
+                        if (isNewCycle || cpList[index].isNewCycle) {
+                            cpList[index].currentCycle += 1;
+                            cpList[index].isNewCycle = false;
+                        }
                         //cpList[index].currentBattery += 5;
+                    } else {
+                        cpList[index].status = 4;
                     }
-                    cpList[index].status = 4;
                 } else if (cpList[index].currentBattery < 40) {
                     cpList[index].status = 1;
                     //cpList[index].currentBattery += 5;
@@ -130,21 +151,37 @@ const longTermParking = {
         }
 
         let walt = 10;
-        if (statusCharging === 1) {
+        if (statusCharging === 1 || chargeList.length > 0) {
             if (chargeList.length > 10) {
-                walt = Math.floor(limitConsumption / chargeList.length / 2);
+                walt = (limitConsumption / chargeList.length / 2);
+                walt = Math.round(walt * 10) / 10;
+                console.log('walt', walt)
             }
             for (let index = 0; index < chargeList.length; index++) {
-                cpList[chargeList[index]].currentBattery += walt;
+                let relativeMaxBattery = 40;
+                if (cpList[chargeList[index]].offsetTime < 8) {
+                    relativeMaxBattery = cpList[chargeList[index]].maxBattery;
+                }
+                if ((cpList[chargeList[index]].currentBattery + walt) > relativeMaxBattery) {
+                    cpList[chargeList[index]].currentBattery = relativeMaxBattery;
+                } else {
+                    cpList[chargeList[index]].currentBattery += walt;
+                    cpList[chargeList[index]].currentBattery = Math.round(cpList[chargeList[index]].currentBattery * 10) / 10;
+                    //cpList[chargeList[index]].currentBattery = parseFloat(cpList[chargeList[index]].currentBattery).toFixed(1);
+                }
             }
             currentConsumption = walt * chargeList.length  * 2;
         }  else if (statusCharging === 2) {
             if (disChargeList.length > 10) {
-                walt = Math.floor(limitConsumption / disChargeList.length / 2);
+                walt = (limitConsumption / disChargeList.length / 2);
+                walt = Math.round(walt * 10) / 10;
+                console.log('walt', walt)
             }
             for (let index = 0; index < disChargeList.length; index++) {
                 if ((cpList[disChargeList[index]].currentBattery - walt) >= 0) {
                     cpList[disChargeList[index]].currentBattery -= walt;
+                    //cpList[disChargeList[index]].currentBattery = parseFloat((cpList[disChargeList[index]].currentBattery).toFixed(1));
+                    cpList[disChargeList[index]].currentBattery = Math.round(cpList[disChargeList[index]].currentBattery * 10) / 10;
                 } else {
                     cpList[disChargeList[index]].currentBattery = 0;
                 }

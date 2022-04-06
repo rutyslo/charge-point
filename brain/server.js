@@ -13,12 +13,12 @@ const hourStart = 6;
 let hourDay = hourStart;
 let hourIndex = 0;
 longTermParking.start();
-longTermParking.init();
 //const costs = [12,12,12,12,12,12,12,11,11,10,10,9,9,10,10,11,12,12,12,11,12,12,11,10,9,9,9,9,10,11,12];
 const morning = [9,10, 11,12, 13,14, 14,15, 16,17, 15,16, 17,18, 16,15, 14,15, 16,17, 18,19];
 const afternoon = [20,21, 21,22, 21,22, 21,20];
 const evening = [19,18, 19,17, 15,12];
 const night = [10,8, 7,6, 5,5, 5,5, 6,6, 7,8];
+let prevNewIndex = -1;
 
 const allDay = morning.concat(afternoon).concat(evening).concat(night);
 const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
@@ -27,6 +27,15 @@ const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
         console.log(`Connection`);
         console.log(`Send message cent : =>  ${allDay[hourIndex]} , hour : ${hourDay} `);
         ws.send(JSON.stringify({type: "electricity", value: {isPower: true, cent : allDay[hourIndex++], highPrice: highPrice, lowPrice, lowPrice}}));
+        wss.clients.forEach(function (client) {
+            client.send(JSON.stringify({type: "logTermParking" , value : {
+                    currentIndex: longTermParking.getCurrentIndex(),
+                    currentConsumption: longTermParking.getCurrentConsumption(),
+                    newIndex: longTermParking.getNewIndex(),
+                    removeIndex: longTermParking.getRemoveIndex(),
+                    dateNow: longTermParking.getDate(),
+                    cpList : longTermParking.get() }}));
+        });
         hourDay+=0.5;
 
 
@@ -66,10 +75,12 @@ const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
                 wss.clients.forEach(function (client) {
                     client.send(JSON.stringify({type: "electricity", value: {isPower: isPower, cent: centPrice , highPrice: highPrice, lowPrice, lowPrice}}));
                 });
-                isNewCycle = ((hourDay >= 17) && (hourDay <= 21)) || ((hourDay >= 24.5)  && (hourDay < 30));
+                //isNewCycle = ((hourDay >= 17) && (hourDay <= 21)) || ((hourDay >= 24.5)  && (hourDay < 30));
+                isNewCycle = hourDay === 17 || hourDay === 24.5;
                 console.log(`Send message cent : =>  ${centPrice} , hour : ${hourDay} isNewCycle: ${isNewCycle} prevCycle: ${prevCycle}`);
 
                 longTermParking.tick(centPrice, lowPrice, highPrice, prevCycle === false && isNewCycle === true);
+
                 wss.clients.forEach(function (client) {
                     client.send(JSON.stringify({type: "logTermParking" , value : {
                             currentIndex: longTermParking.getCurrentIndex(),
