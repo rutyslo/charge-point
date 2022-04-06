@@ -1,6 +1,5 @@
 import {ReactComponent as Connected} from "../../../assets/connected.svg";
-import {ReactComponent as Charging} from "../../../assets/car-charge.svg";
-import {ReactComponent as Discharging} from "../../../assets/car-discharge.svg";
+import {ReactComponent as ChargingGreen} from "../../../assets/car-charge-green.svg";
 import {ReactComponent as Idle} from "../../../assets/car-idle.svg";
 import {ReactComponent as Done} from "../../../assets/car-done.svg";
 
@@ -20,12 +19,12 @@ const ConnectedCarsContent = (props: any) => {
         <span className={'count'}>{props.rowData.filter((item: any) => item.status !== 0).length}</span>
       </section>
       <section>
-        {props.isHome ? <ChargingPurple/> : <Charging/>}
+        {props.isHome ? <ChargingPurple/> : <ChargingGreen/>}
         <span className={'status'}>Charging</span>
         <span className={'count'}>{props.rowData.filter((item: any) => item.status === 1).length}</span>
       </section>
       <section>
-        {props.isHome ? <DischargingPurple/> : <Discharging/>}
+        <DischargingPurple/>
         <span className={'status'}>Discharging</span>
         <span className={'count'}>{props.rowData.filter((item: any) => item.status === 2).length}</span>
       </section>
