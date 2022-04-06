@@ -36,26 +36,26 @@ function Home() {
                 borderColor: chartColors.blue,
                 fill: false,
                 lineTension: 0,
-                borderDash: [8, 4],
+                borderDash: [2, 1],
                 pointStyle: 'rect',
-                radius: 12,
+                radius: 3,
                 data: [],
                 order: 1,
             },
+            // {
+            //     label: 'Low tariff',
+            //     data: [],
+            //     backgroundColor: color(chartColors.green).alpha(0.2).rgbString(),
+            //     borderColor: 0,
+            //     borderWidth: 0,
+            //     fill: true,
+            //     lineTension: 0,
+            //     pointStyle: 'line',
+            //     type: 'line',
+            //     order: 2
+            // },
             {
-                label: 'Low tariff',
-                data: [],
-                backgroundColor: color(chartColors.green).alpha(0.2).rgbString(),
-                borderColor: 0,
-                borderWidth: 0,
-                fill: true,
-                lineTension: 0,
-                pointStyle: 'line',
-                type: 'line',
-                order: 2
-            },
-            {
-                label: 'Electricity Provider',
+                label: 'Charging threshold',
                 backgroundColor: chartColors.green,
                 borderColor: chartColors.green,
                 fill: false,
@@ -67,7 +67,7 @@ function Home() {
                 order: 3
             },
             {
-                label: 'Power the Airport',
+                label: 'Discharging threshold',
                 backgroundColor: chartColors.red,
                 borderColor: chartColors.red,
                 fill: false,
@@ -88,10 +88,10 @@ function Home() {
         },
         layout: {
             padding: {
-                left: 100,
-                right: 100,
+                left: 10,
+                right: 10,
                 top: 10,
-                bottom:200
+                bottom:10
             }
         },
         scales: {
@@ -105,15 +105,15 @@ function Home() {
                                 x: moment(),
                                 y: number
                             });
+                            // chart.data.datasets[1].data.push({
+                            //     x: moment(),
+                            //     y: 10
+                            // });
                             chart.data.datasets[1].data.push({
-                                x: moment(),
-                                y: 10
-                            });
-                            chart.data.datasets[2].data.push({
                                 x: moment(),
                                 y: 8
                             });
-                            chart.data.datasets[3].data.push({
+                            chart.data.datasets[2].data.push({
                                 x: moment(),
                                 y: 20
                             });
@@ -177,14 +177,14 @@ function Home() {
 
     return (
         <div className="chart-wrapper">
-            <div className={"header"}>
-                <Logo className={"logo-icon"} width={190} height={37}/>
-                <div className={'cost-wrapper'}>
-                    <span className={'title'}>Now:</span>
-                    <span className={'cost'}></span>
-                </div>
-                <ElectricRegion />
-            </div>
+            {/*<div className={"header"}>*/}
+            {/*    <Logo className={"logo-icon"} width={190} height={37}/>*/}
+            {/*    <div className={'cost-wrapper'}>*/}
+            {/*        <span className={'title'}>Now:</span>*/}
+            {/*        <span className={'cost'}></span>*/}
+            {/*    </div>*/}
+            {/*    <ElectricRegion />*/}
+            {/*</div>*/}
 
             <Bubble data={data} options={options}/>
         </div>
