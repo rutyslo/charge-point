@@ -31,9 +31,9 @@ const CostsChart = (props: any) => {
       </ArgumentAxis>
       <ValueAxis grid={{visible: true}} minorGrid={{visible: true}} name={'aaa'}>
         <Label>
-          <Format type={props.format === 'monthly' ? 'thousands' : 'fixedPoint'} />
+          <Format type={props.format === 'monthly' ? (props.type === 'discharging' ? 'millions' : 'thousands') : 'fixedPoint'} />
         </Label>
-        <VisualRange endValue={props.format === 'monthly' ? 2000 : 80} />
+        <VisualRange endValue={props.format === 'monthly' ? (props.type === 'discharging' ? 2000000 : 2000) : (props.type === 'discharging' ? 150 : 100)} />
       </ValueAxis>
       <SeriesTemplate nameField="category" />
       <Legend visible={false} />
