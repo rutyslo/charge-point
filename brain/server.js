@@ -26,7 +26,7 @@ const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
     wss.on('connection', ws => {
         console.log(`Connection`);
         console.log(`Send message cent : =>  ${allDay[hourIndex]} , hour : ${hourDay} `);
-        ws.send(JSON.stringify({type: "electricity", value: {isPower: true, cent : allDay[hourIndex++], highPrice: highPrice, lowPrice, lowPrice}}));
+        ws.send(JSON.stringify({type: "electricity", value: {isPower: true, cent : allDay[hourIndex], highPrice: highPrice, lowPrice, lowPrice}}));
         wss.clients.forEach(function (client) {
             client.send(JSON.stringify({type: "logTermParking" , value : {
                     currentIndex: longTermParking.getCurrentIndex(),
@@ -36,7 +36,8 @@ const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
                     dateNow: longTermParking.getDate(),
                     cpList : longTermParking.get() }}));
         });
-        hourDay+=0.5;
+
+        //hourDay+=0.5;
 
 
     ws.on('message', message => {
@@ -70,7 +71,7 @@ const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
                 //     console.log(`counter : => 0`);
                 // }
 
-                centPrice = allDay[hourIndex++];
+                centPrice = allDay[hourIndex];
 
                 wss.clients.forEach(function (client) {
                     client.send(JSON.stringify({type: "electricity", value: {isPower: isPower, cent: centPrice , highPrice: highPrice, lowPrice, lowPrice}}));
@@ -91,6 +92,7 @@ const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
                             cpList : longTermParking.get() }}));
                 });
                 hourDay+= 0.5;
+                hourIndex++;
                 prevCycle = isNewCycle;
                 if (hourIndex >= 48) {
                     hourDay = hourStart;
@@ -100,10 +102,10 @@ const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
                 //counter++;
             } else {
                 wss.clients.forEach(function (client) {
-                    client.send(JSON.stringify({type: "electricity", value: {isPower: isPower, cent: price, highPrice: highPrice, lowPrice, lowPrice}}));
+                    client.send(JSON.stringify({type: "electricity", value: {isPower: isPower, cent: allDay[hourIndex], highPrice: highPrice, lowPrice, lowPrice}}));
                 });
             }
-        }, 2000);
+        }, 3000);
 
         // setInterval(() => {
         //     if (isSimulatorPlay) {

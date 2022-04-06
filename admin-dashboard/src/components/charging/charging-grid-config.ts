@@ -7,16 +7,16 @@ export const getChargingGridOptions = (props: any): GridOptions => {
 
   return {
     columnDefs: [
-      {field: 'stationId', headerName: 'CP ID', maxWidth: 150, cellRenderer: StationId, cellRendererParams: props},
-      {field: 'connectorType'},
-      {field: 'status', cellRenderer: ChargeStatus},
-      {field: 'estimatedCycles'},
-      {field: 'currentCycle', cellRenderer: CurrentCycle},
-      {field: 'leaveTime', headerName: 'Pickup Time', minWidth: 220},
-      {field: 'attuid', headerName: 'AT&T ID', minWidth: 180 },
-      {field: 'licensePlate', minWidth: 130},
-      {field: 'maxBattery', headerName: 'Recommended Battery %', minWidth: 230},
-      {field: 'currentBattery', headerName: 'Current Battery %', minWidth: 200},
+      { field: 'stationId', headerName: 'CP ID', maxWidth: 90, cellRenderer: StationId, cellRendererParams: props },
+      { field: 'connectorType' },
+      { field: 'status', cellRenderer: ChargeStatus },
+      { field: 'estimatedCycles' },
+      { field: 'currentCycle', cellRenderer: CurrentCycle },
+      { field: 'leaveTime', headerName: 'Pickup Time', minWidth: 220 },
+      { field: 'attuid', headerName: 'AT&T ID', minWidth: 90 },
+      { field: 'licensePlate', minWidth: 130 },
+      { field: 'maxBattery', headerName: 'Recommended Battery %', minWidth: 90 },
+      { field: 'currentBattery', headerName: 'Current Battery %', minWidth: 200 },
     ],
     defaultColDef: {
       sortable: true,
