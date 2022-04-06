@@ -5,9 +5,9 @@ import CostsChart from "./costs-chart";
 const MonthlyDischarging = () => {
 
   const data = [
-    { category: `<b>Gained MTD</b><br />Mar 1 - 12`, cost: 1408000 },
-    { category: `<b>Proj. /month</b><br />Mar, 2022`, cost: 3068000 },
-    { category: `<b>Avg. /month</b><br />02/21 - 02/22`, cost: 2980000 }
+    { category: `<b>Gained MTD</b><br />Mar 1 - 12`, cost: 7040000 },
+    { category: `<b>Proj. /month</b><br />Mar, 2022`, cost: 15340000 },
+    { category: `<b>Avg. /month</b><br />02/21 - 02/22`, cost: 14900000 }
   ].reverse();
 
   return (

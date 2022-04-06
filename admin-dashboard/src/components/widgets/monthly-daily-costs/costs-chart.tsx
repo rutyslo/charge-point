@@ -11,6 +11,18 @@ import {
 } from "devextreme-react/chart";
 
 const CostsChart = (props: any) => {
+  const customizeText = (axisValue: any) => {
+    if (props.format === 'monthly') {
+      if (props.type === 'charging') {
+        return `$${axisValue.value/1000}K`;
+      } else {
+        return `${axisValue.value/1000000}MW`;
+      }
+    }
+
+    return `$${axisValue.value}`;
+  }
+
   return (
     <Chart
       id="chart"
@@ -30,10 +42,10 @@ const CostsChart = (props: any) => {
         <Tick visible={false} />
       </ArgumentAxis>
       <ValueAxis grid={{visible: true}} minorGrid={{visible: true}} name={'aaa'}>
-        <Label>
-          <Format type={props.format === 'monthly' ? (props.type === 'discharging' ? 'millions' : 'thousands') : 'fixedPoint'} />
+        <Label customizeText={customizeText}>
+          <Format type={props.format === 'monthly' ? (props.type === 'discharging' ? 'millions' : 'thousands') : 'fixedPoint'} currency={'USD'} />
         </Label>
-        <VisualRange endValue={props.format === 'monthly' ? (props.type === 'discharging' ? 2000000 : 2000) : (props.type === 'discharging' ? 150 : 100)} />
+        {/*<VisualRange endValue={props.format === 'monthly' ? (props.type === 'discharging' ? 3000000 : 2000) : (props.type === 'discharging' ? 150 : 100)} />*/}
       </ValueAxis>
       <SeriesTemplate nameField="category" />
       <Legend visible={false} />
