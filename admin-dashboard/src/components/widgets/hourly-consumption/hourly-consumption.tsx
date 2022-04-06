@@ -1,6 +1,6 @@
 import './hourly-consumption.scss';
 
-const HourlyConsumption = () => {
+const HourlyConsumption = (props: any) => {
 
   return (
     <div className={'hourly-consumption-wrapper'}>
@@ -8,11 +8,11 @@ const HourlyConsumption = () => {
       <div className={'widget-container'}>
         Current
         <div className={'current'}>
-          132 kWh
+            {props.currentConsumption} kWh
         </div>
         Limit consumption to
         <div className={'limit'}>
-          <input defaultValue={132} /> kWh
+          <input defaultValue={200} /> kWh
         </div>
       </div>
     </div>

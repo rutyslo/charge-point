@@ -18,6 +18,7 @@ function App() {
   const [newIndex, setNewIndex] = useState<number>(0);
   const [removeIndex, setRemoveIndex] = useState<number>(0);
   const [currentIndex, setCurrentIndex] = useState<number>(-1);
+  const [currentConsumption, setCurrentConsumption] = useState<number>(0);
 
   socket.onopen = function(evt) {
     console.log("onopen");
@@ -30,7 +31,8 @@ function App() {
       setDateNow(message.value.dateNow);
       setNewIndex(message.value.newIndex);
       setRemoveIndex(message.value.removeIndex)
-      setCurrentIndex(message.value.currentIndex)
+      setCurrentIndex(message.value.currentIndex);
+      setCurrentConsumption(message.value.currentConsumption);
     }
   };
 
@@ -43,8 +45,9 @@ function App() {
 
         <div className={'App-content'}>
           <Routes>
-            <Route path="/" element={<Home rowData={rowData} />}/>
-            <Route path="charging" element={<Charging rowData={rowData} dateNow={dateNow} currentIndex={currentIndex}/>} />
+            <Route path="/" element={<Home rowData={rowData} currentConsumption={currentConsumption}/>}/>
+            <Route path="charging" element={<Charging rowData={rowData} dateNow={dateNow} currentIndex={currentIndex}
+                                                      currentConsumption={currentConsumption}/>} />
             <Route path="consumption" />
             <Route path="expenses" />
             <Route path="map" element={<Map rowData={rowData} dateNow={dateNow} newIndex={newIndex}

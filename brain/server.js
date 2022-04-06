@@ -9,8 +9,8 @@ let centPrice = 8;
 let highPrice = 20;
 let lowPrice = 8;
 let autoToggle = true;
-let isSimulatorPlay = true;
-let hourDay = 6;
+const hourStart = 6;
+let hourDay = hourStart;
 let hourIndex = 0;
 longTermParking.start();
 longTermParking.init();
@@ -49,9 +49,12 @@ const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
         }
     });
 
+        let isNewCycle = false;
+        let prevCycle = false;
+
         setInterval(() => {
 
-            if (autoToggle && isSimulatorPlay) {
+            if (autoToggle && longTermParking.getIsSimulatorPlay()) {
                 // FOR First DEmo
                 // if (counter > 30) {
                 //     counter = 0;
@@ -59,14 +62,14 @@ const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
                 // }
 
                 centPrice = allDay[hourIndex++];
-                console.log(`Send message cent : =>  ${centPrice} , hour : ${hourDay} `);
+
                 wss.clients.forEach(function (client) {
                     client.send(JSON.stringify({type: "electricity", value: {isPower: isPower, cent: centPrice , highPrice: highPrice, lowPrice, lowPrice}}));
                 });
+                isNewCycle = ((hourDay >= 17) && (hourDay <= 21)) || ((hourDay >= 24.5)  && (hourDay < 30));
+                console.log(`Send message cent : =>  ${centPrice} , hour : ${hourDay} isNewCycle: ${isNewCycle} prevCycle: ${prevCycle}`);
 
-                const isNewCycle = hourDay % 12 === 0;
-
-                longTermParking.tick(centPrice, lowPrice, highPrice, isNewCycle);
+                longTermParking.tick(centPrice, lowPrice, highPrice, prevCycle === false && isNewCycle === true);
                 wss.clients.forEach(function (client) {
                     client.send(JSON.stringify({type: "logTermParking" , value : {
                             currentIndex: longTermParking.getCurrentIndex(),
@@ -77,8 +80,9 @@ const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
                             cpList : longTermParking.get() }}));
                 });
                 hourDay+= 0.5;
+                prevCycle = isNewCycle;
                 if (hourIndex >= 48) {
-                    hourDay = 6;
+                    hourDay = hourStart;
                     hourIndex = 0;
                 }
 
@@ -154,12 +158,15 @@ app.post('/auto-toggle', (req, res) => {
 
 app.post('/is-simulator-play', (req, res) => {
     console.log('isSimulatorPlay', req.body.isSimulatorPlay);
-    isSimulatorPlay = req.body.isSimulatorPlay;
+    longTermParking.setIsSimulatorPlay(req.body.isSimulatorPlay);
     res.send({ isSimulatorPlay: req.body.isSimulatorPlay });
 })
 
 app.get('/start-long-parking', (req, res) => {
     console.log('start-long-parking');
+    hourDay = 6.5;
+    hourIndex = 1;
+    longTermParking.setIsSimulatorPlay(true);
     longTermParking.start();
     longTermParking.init();
     res.send({});

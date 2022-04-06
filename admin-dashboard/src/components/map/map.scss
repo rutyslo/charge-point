@@ -82,7 +82,7 @@
               background: #75EBE4;
             }
 
-            &.charged, &.discharged, &.idle {
+            &.charged, &.discharged, &.idle, &.pickup {
 
               .item-1 {
                 background-image: url("./images/Car_1.svg");
@@ -217,6 +217,11 @@
         transform: rotate(90deg);
         width: 70px;
         height: 130px;
+
+        &.pause{
+          animation: none;
+          display: none;
+        }
         //offset-path: path('M 100 70 h 720 v 350 h -580 v -110');
         &.car-1 {
           offset-path: path('M 100 70 h 720 v 350 h -580 v -110');
@@ -588,7 +593,7 @@
 }
 .top {
   position: absolute;
-  top: 15px;
+  top: 210px;
   right: 20px;
   display: flex;
   font-weight: 400;
@@ -599,7 +604,6 @@
   .time-wrapper{
     display: flex;
     align-items: center;
-    background: #282c34;
     .date{
       width: 120px;
       background: #FFFFFF;

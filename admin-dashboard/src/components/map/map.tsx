@@ -55,7 +55,7 @@ const Map = (props: any) => {
              <div className={"map"}>
               <div className={"map-wrapper"}>
                   <div className={"road"}>
-                      {newIndex ? <div className={`car car-${newIndex}`}></div> : <></>}
+                      {newIndex ? <div className={`car car-${newIndex} ${isSimulatorPlay ? `play` : `pause`}`}></div> : <></>}
                       {removeIndex ? <div className={`car-left car-left-${removeIndex}`}></div> : <></>}
                   </div>
                   <div className={"road-half"}>
