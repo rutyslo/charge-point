@@ -8,11 +8,11 @@ const MonthlyCharging = () => {
   const data = [
     { category: `<b>Gained MTD</b><br />Mar 1 - 12`, cost: 854 },
     { category: `<b>Proj. /month</b><br />Mar, 2022`, cost: 2301 },
-    { category: `<b>Avg. /month</b><br />Feb 2021 - Feb 2022`, cost: 2311 }
+    { category: `<b>Avg. /month</b><br />02/21 - 02/21`, cost: 2311 }
   ].reverse();
 
   return (
-    <div className={'monthly-charging-chart'}>
+    <div className={'monthly-charging-chart costs-chart'}>
       <div className={'title'}>Monthly <b>charging</b></div>
       <div className={'widget-container'}>
         <CostsChart data={data} format={'monthly'} />

@@ -1,13 +1,23 @@
-.prices-summary {
-   display: flex;
-   flex-direction: column;
-   gap: 38px;
-   height: 175px;
-   padding: 20px 0;
-  font-weight: 600;
+.costs-chart {
 
-   .price {
-     display: flex;
-     align-items: center;
-   }
+  .widget-container {
+    position: relative;
+
+    .prices-summary {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 38px;
+      height: 175px;
+      padding: 20px 0;
+      font-weight: 600;
+      position: absolute;
+      right: 0;
+
+      .price {
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
 }
