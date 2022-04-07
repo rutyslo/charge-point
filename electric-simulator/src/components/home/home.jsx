@@ -178,9 +178,10 @@ function Home() {
 
     };
 
+    const isIframe = searchParams.get("type") === 'iframe';
     return (
-        <div className="chart-wrapper">
-            {searchParams.get("type") !== 'iframe' ? <div className={"header"}>
+        <div className={`chart-wrapper ${isIframe ? 'iframe' : ''}`}>
+            {!isIframe ? <div className={"header"}>
                 <Logo className={"logo-icon"} width={190} height={37}/>
                 <div className={'cost-wrapper'}>
                     <span className={'title'}>Now:</span>
