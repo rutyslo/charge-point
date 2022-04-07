@@ -13,4 +13,9 @@
   .ag-body-viewport {
     min-height: 160px;
   }
+  .ag-header-cell-text{
+    display: block;
+    overflow: auto;
+    white-space: break-spaces;
+  }
 }

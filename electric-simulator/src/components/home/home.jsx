@@ -5,6 +5,7 @@ import "./home.scss";
 import moment from "moment";
 import ElectricRegion from "../electric-region/electric-region";
 import {ReactComponent as Logo} from "../../assets/images/logo-con.svg";
+import {useSearchParams} from "react-router-dom";
 
 const ENDPOINT = "ws://iltlvmac0171.intl.att.com:7000/";
 
@@ -27,6 +28,7 @@ function Home() {
 
     let number;
     let isPower = true;
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const data = {
         datasets: [
@@ -178,14 +180,14 @@ function Home() {
 
     return (
         <div className="chart-wrapper">
-            {/*<div className={"header"}>*/}
-            {/*    <Logo className={"logo-icon"} width={190} height={37}/>*/}
-            {/*    <div className={'cost-wrapper'}>*/}
-            {/*        <span className={'title'}>Now:</span>*/}
-            {/*        <span className={'cost'}></span>*/}
-            {/*    </div>*/}
-            {/*    <ElectricRegion />*/}
-            {/*</div>*/}
+            {searchParams.get("type") !== 'iframe' ? <div className={"header"}>
+                <Logo className={"logo-icon"} width={190} height={37}/>
+                <div className={'cost-wrapper'}>
+                    <span className={'title'}>Now:</span>
+                    <span className={'cost'}></span>
+                </div>
+                <ElectricRegion />
+            </div> : <></>}
 
             <Bubble data={data} options={options}/>
         </div>

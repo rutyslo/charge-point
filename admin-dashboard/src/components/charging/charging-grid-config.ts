@@ -15,8 +15,8 @@ export const getChargingGridOptions = (props: any): GridOptions => {
       { field: 'leaveTime', headerName: 'Pickup Time', minWidth: 220 },
       { field: 'attuid', headerName: 'AT&T ID', minWidth: 90 },
       { field: 'licensePlate', minWidth: 130 },
-      { field: 'maxBattery', headerName: 'Recommended Battery %', minWidth: 90 },
-      { field: 'currentBattery', headerName: 'Current Battery %', minWidth: 200 },
+      { field: 'maxBattery', headerName: 'Recommended Battery %', minWidth: 150 },
+      { field: 'currentBattery', headerName: 'Current Battery %', minWidth: 150 }
     ],
     defaultColDef: {
       sortable: true,

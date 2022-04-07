@@ -18,7 +18,6 @@ const morning = [9,10, 11,12, 13,14, 14,15, 16,17, 15,16, 17,18, 16,15, 14,15, 1
 const afternoon = [20,21, 21,22, 21,22, 21,20];
 const evening = [19,18, 19,17, 15,12];
 const night = [10,8, 7,6, 5,5, 5,5, 6,6, 7,8];
-let prevNewIndex = -1;
 
 const allDay = morning.concat(afternoon).concat(evening).concat(night);
 const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
@@ -101,8 +100,12 @@ const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
 
                 //counter++;
             } else {
+                let rate = allDay[hourIndex];
+                if (autoToggle === false) {
+                    rate = price;
+                }
                 wss.clients.forEach(function (client) {
-                    client.send(JSON.stringify({type: "electricity", value: {isPower: isPower, cent: allDay[hourIndex], highPrice: highPrice, lowPrice, lowPrice}}));
+                    client.send(JSON.stringify({type: "electricity", value: {isPower: isPower, cent: rate, highPrice: highPrice, lowPrice, lowPrice}}));
                 });
             }
         }, 3000);
