@@ -20,13 +20,13 @@
 
 .map-area{
   display: flex;
+  flex-direction: column;
   .map {
     display: flex;
     flex-direction: column;
     height: calc(100vh - 65px);
 
     .map-wrapper {
-      flex: 1 0 auto;
       background: #E5E5E5;
       display: flex;
       flex-direction: column;
@@ -398,7 +398,7 @@
       font-size: 14px;
       color: #000000;
       position: absolute;
-      top: 75vh;
+      top: 76vh;
       left: 30px;
       text-align: left;
 
@@ -662,7 +662,9 @@
     height: calc((100vh - (80vh - 65px - 200px - 120px) - 65px - 200px ) / 2);
   }
   .map-area .map .map-wrapper .parking{
-    height: calc(80vh - 65px - 200px - 120px);
+    //height: calc(80vh - 65px - 200px - 120px);
+    width: 1019px;
+    height: 525px;
   }
   .map-area .map .road-half .msg:last-child {
     bottom: 0;

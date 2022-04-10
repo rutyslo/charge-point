@@ -64,24 +64,27 @@ const longTermParking = {
     init: function() {
 
         dateNow = moment().startOf('day').add(6, 'hour');
-        let timesRun = 14;
+        //let timesRun = 14;
+
+
         let interval = setInterval(function() {
-            if(timesRun >= cpLength) {
-                clearInterval(interval);
+            let timesRun = cpList.findIndex(x => x.status === 0);
+            if(timesRun === -1) {
+                //clearInterval(interval);
                 newIndex = 0;
             }
             else {
                 if (isSimulatorPlay) {
                     //const leaveTime = moment().add(getRandomArbitrary(1, 8), 'day');
-                    const leaveTime = moment().add(carList[timesRun], 'day').add(getRandomArbitrary(0, 23),'hour')
+                    const leaveTime = moment(dateNow).add(carList[timesRun], 'day').add(getRandomArbitrary(0, 23),'hour')
                         .add(getRandomArbitrary(0, 59),'minute');
-                    //cpList[timesRun].status = 1;
+                    cpList[timesRun].status = 3;
                     cpList[timesRun].licensePlate = new RandExp(/^[0-9]{1}[A-Z]{3}[0-9]{3}$/).gen();
                     if (timesRun != 3 && timesRun !== 6 && timesRun !== 11) {
                         cpList[timesRun].attuid = new RandExp(/^[0-9]{9}$/).gen();
                     }
                     cpList[timesRun].currentBattery = Math.ceil(getRandomArbitrary(10, 70)/5)*5;
-                    cpList[timesRun].maxBattery = batteryMaxList[getRandomArbitrary(0, 3)];
+                    cpList[timesRun].maxBattery = 80;
                     cpList[timesRun].leaveTime = leaveTime.format('MM-DD-YYYY HH:mm');
                     cpList[timesRun].arrivalTime = dateNow.valueOf();
                     cpList[timesRun].arrivalTimeFormat = dateNow.format();
@@ -95,9 +98,9 @@ const longTermParking = {
                     cpList[timesRun].estimatedCycles = Math.round(cpList[timesRun].estimatedCycles / 2);
                     cpList[timesRun].currentCycle = 0;
                     cpList[timesRun].isNewCycle = true;
-                    timesRun++;
+                    //timesRun++;
                     if (timesRun <= 16 ) {
-                        newIndex = timesRun;
+                        newIndex = timesRun + 1;
                     }
                 }
 

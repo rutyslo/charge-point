@@ -30,6 +30,11 @@ function Home() {
     let isPower = true;
     const [searchParams, setSearchParams] = useSearchParams();
 
+    const isIframe = searchParams.get("type") === 'iframe';
+    const size = isIframe ? 1 : 2;
+    const padding = isIframe ? 10 : 100;
+    const paddingBottom = isIframe ? 10 : 150;
+
     const data = {
         datasets: [
             {
@@ -38,33 +43,21 @@ function Home() {
                 borderColor: chartColors.blue,
                 fill: false,
                 lineTension: 0,
-                borderDash: [2, 1],
+                borderDash: [2 * size , 1 * size],
                 pointStyle: 'rect',
-                radius: 4,
+                radius: 4 * size,
                 data: [],
                 order: 1,
             },
-            // {
-            //     label: 'Low tariff',
-            //     data: [],
-            //     backgroundColor: color(chartColors.green).alpha(0.2).rgbString(),
-            //     borderColor: 0,
-            //     borderWidth: 0,
-            //     fill: true,
-            //     lineTension: 0,
-            //     pointStyle: 'line',
-            //     type: 'line',
-            //     order: 2
-            // },
             {
                 label: 'Charging threshold',
                 backgroundColor: chartColors.green,
                 borderColor: chartColors.green,
                 fill: false,
                 lineTension: 0,
-                borderDash: [4, 2],
+                borderDash: [4 * size, 2 * size],
                 pointStyle: 'rect',
-                radius: 6,
+                radius: 6  * size,
                 data: [],
                 order: 3
             },
@@ -74,16 +67,32 @@ function Home() {
                 borderColor: chartColors.red,
                 fill: false,
                 lineTension: 0,
-                borderDash: [4, 2],
+                borderDash: [2 * size, 1 * size],
                 pointStyle: 'rect',
-                radius: 6,
+                radius: 6 * size,
                 data: [],
                 order: 4
             },
         ]
     };
+
+    if (!isIframe) {
+        data.datasets.push({
+            label: 'Low tariff',
+            data: [],
+            backgroundColor: color(chartColors.green).alpha(0.2).rgbString(),
+            borderColor: 0,
+            borderWidth: 0,
+            fill: true,
+            lineTension: 0,
+            pointStyle: 'line',
+            type: 'line',
+            order: 2
+        });
+    }
     const options = {
         maintainAspectRatio: false,
+        responsive: true,
         elements: {
             line: {
                 tension: 10
@@ -91,10 +100,10 @@ function Home() {
         },
         layout: {
             padding: {
-                left: 10,
-                right: 10,
+                left: padding,
+                right: padding,
                 top: 10,
-                bottom:10
+                bottom: paddingBottom
             }
         },
         scales: {
@@ -108,10 +117,6 @@ function Home() {
                                 x: moment(),
                                 y: number
                             });
-                            // chart.data.datasets[1].data.push({
-                            //     x: moment(),
-                            //     y: 10
-                            // });
                             chart.data.datasets[1].data.push({
                                 x: moment(),
                                 y: 8
@@ -120,6 +125,12 @@ function Home() {
                                 x: moment(),
                                 y: 20
                             });
+                            if (!isIframe) {
+                                chart.data.datasets[3].data.push({
+                                    x: moment(),
+                                    y: 10
+                                });
+                            }
                         },
                         duration: 20000,
                         refresh: 100,
@@ -178,7 +189,6 @@ function Home() {
 
     };
 
-    const isIframe = searchParams.get("type") === 'iframe';
     return (
         <div className={`chart-wrapper ${isIframe ? 'iframe' : ''}`}>
             {!isIframe ? <div className={"header"}>

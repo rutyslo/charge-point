@@ -110,33 +110,12 @@ const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
             }
         }, 3000);
 
-        // setInterval(() => {
-        //     if (isSimulatorPlay) {
-        //         const tariff = hourDay > 12 ? 11 : 8;
-        //         const isNewCycle = hourDay % 12 === 0;
-        //         longTermParking.tick(tariff, isNewCycle);
-        //         wss.clients.forEach(function (client) {
-        //             client.send(JSON.stringify({type: "logTermParking" , value : {
-        //                     currentIndex: longTermParking.getCurrentIndex(),
-        //                     newIndex: longTermParking.getNewIndex(),
-        //                     removeIndex: longTermParking.getRemoveIndex(),
-        //                     dateNow: longTermParking.getDate(),
-        //                     cpList : longTermParking.get() }}));
-        //         });
-        //         hourDay+= 0.5;
-        //         if (hourDay >= 24) {
-        //             hourDay = 0;
-        //         }
-        //     }
-        // }, 2000);
-
 });
 
 const express = require('express');
 const app = express();
 const cors = require("cors");
 const axios = require("axios");
-const moment = require("moment");
 
 const whitelist = ["http://iltlvmac0171.intl.att.com:3001", "http://iltlvmac0171.intl.att.com:3002", "http://localhost:3001","http://localhost:3002"]
 const corsOptions = {
