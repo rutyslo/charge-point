@@ -80,7 +80,7 @@ const longTermParking = {
                         .add(getRandomArbitrary(0, 59),'minute');
                     cpList[timesRun].status = 3;
                     cpList[timesRun].licensePlate = new RandExp(/^[0-9]{1}[A-Z]{3}[0-9]{3}$/).gen();
-                    if (timesRun != 3 && timesRun !== 6 && timesRun !== 11) {
+                    if (timesRun !== 3 && timesRun !== 6 && timesRun !== 11) {
                         cpList[timesRun].attuid = new RandExp(/^[0-9]{9}$/).gen();
                     }
                     cpList[timesRun].currentBattery = Math.ceil(getRandomArbitrary(40, 70)/5)*5;
