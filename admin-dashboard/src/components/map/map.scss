@@ -670,9 +670,9 @@
     height: calc((100vh - (80vh - 65px - 200px - 120px) - 65px - 200px ) / 2);
   }
   .map-area .map .map-wrapper .parking{
-    //height: calc(80vh - 65px - 200px - 120px);
+    height: calc(80vh - 65px - 200px - 120px);
     width: 1019px;
-    height: 525px;
+    //height: 525px;
   }
   .map-area .map .road-half .msg:last-child {
     bottom: 0;
