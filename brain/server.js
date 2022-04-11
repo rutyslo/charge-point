@@ -75,12 +75,19 @@ const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
                 wss.clients.forEach(function (client) {
                     client.send(JSON.stringify({type: "electricity", value: {isPower: isPower, cent: centPrice , highPrice: highPrice, lowPrice, lowPrice}}));
                 });
-                //isNewCycle = ((hourDay >= 17) && (hourDay <= 21)) || ((hourDay >= 24.5)  && (hourDay < 30));
+
                 isNewCycle = hourDay === 17 || hourDay === 24.5;
                 console.log(`Send message cent : =>  ${centPrice} , hour : ${hourDay} isNewCycle: ${isNewCycle} prevCycle: ${prevCycle}`);
 
+                if (hourDay === 19) {
+                    longTermParking.earlierPickup();
+                }
+
                 longTermParking.tick(centPrice, lowPrice, highPrice, prevCycle === false && isNewCycle === true);
 
+                if (hourDay === 19) {
+                    longTermParking.setIsSimulatorPlay(false);
+                }
                 wss.clients.forEach(function (client) {
                     client.send(JSON.stringify({type: "logTermParking" , value : {
                             currentIndex: longTermParking.getCurrentIndex(),

@@ -1,0 +1,19 @@
+.electricity-buy-rates{
+
+  .now-line{
+    position: absolute;
+    right: 49px;
+    background: black;
+    color: white;
+    padding: 5px;
+    font-weight: 600;
+    &:after {
+      content: " ";
+      height: 180px;
+      width: 4px;
+      position: absolute;
+      background: black;
+
+    }
+  }
+}

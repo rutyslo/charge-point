@@ -40,10 +40,10 @@ const longTermParking = {
                     .add(getRandomArbitrary(0, 59),'minute');
                 cpList[timesRun].status = 3;
                 cpList[timesRun].licensePlate = new RandExp(/^[0-9]{1}[A-Z]{3}[0-9]{3}$/).gen();
-                if (timesRun != 3 && timesRun !== 6 && timesRun !== 11) {
+                if (timesRun !== 3 && timesRun !== 6 && timesRun !== 11) {
                     cpList[timesRun].attuid = new RandExp(/^[0-9]{9}$/).gen();
                 }
-                cpList[timesRun].currentBattery = Math.ceil(getRandomArbitrary(10, 70)/5)*5;
+                cpList[timesRun].currentBattery = Math.ceil(getRandomArbitrary(40, 70)/5)*5;
                 cpList[timesRun].maxBattery = 80;
                 cpList[timesRun].leaveTime = leaveTime.format('MM-DD-YYYY HH:mm');
                 cpList[timesRun].arrivalTime = dateNow.valueOf();
@@ -83,7 +83,7 @@ const longTermParking = {
                     if (timesRun != 3 && timesRun !== 6 && timesRun !== 11) {
                         cpList[timesRun].attuid = new RandExp(/^[0-9]{9}$/).gen();
                     }
-                    cpList[timesRun].currentBattery = Math.ceil(getRandomArbitrary(10, 70)/5)*5;
+                    cpList[timesRun].currentBattery = Math.ceil(getRandomArbitrary(40, 70)/5)*5;
                     cpList[timesRun].maxBattery = 80;
                     cpList[timesRun].leaveTime = leaveTime.format('MM-DD-YYYY HH:mm');
                     cpList[timesRun].arrivalTime = dateNow.valueOf();
@@ -108,6 +108,15 @@ const longTermParking = {
 
         }, 4000);
     },
+    earlierPickup: function() {
+        let bigOffset = cpList.findIndex(x => x.offsetTime > 100);
+        console.log('bigOffset', bigOffset)
+        const leaveTime = moment(dateNow).add(2,'hour');
+        cpList[bigOffset].status = 5;
+        cpList[bigOffset].leaveTime = leaveTime.format('MM-DD-YYYY HH:mm');
+        cpList[bigOffset].offsetTime = 2;
+
+    },
     tick: function (centPrice, lowPrice, highPrice, isNewCycle) {
         tickInterval++;
         dateNow.add(0.5, 'hour');
@@ -126,6 +135,12 @@ const longTermParking = {
             if (cpList[index].offsetTime <= 0) {
                 isRemoveList.push(index);
                 continue;
+            }
+            if (statusCharging === 2 && cpList[index].status === 5) {
+                if (cpList[index].currentBattery < cpList[index].maxBattery) {
+                    chargeList.push(index);
+                    continue;
+                }
             }
             if (!statusCharging && (cpList[index].offsetTime < 8)) {
                 if (cpList[index].currentBattery < cpList[index].maxBattery) {
@@ -187,7 +202,6 @@ const longTermParking = {
             if (chargeList.length > 10) {
                 walt = (limitConsumption / chargeList.length / 2);
                 walt = Math.round(walt * 10) / 10;
-                console.log('walt', walt)
             }
             for (let index = 0; index < chargeList.length; index++) {
                 if ((cpList[chargeList[index]].currentBattery + walt) > cpList[chargeList[index]].maxBattery) {

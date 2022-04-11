@@ -9,7 +9,7 @@ const ChargeStatus = (props: any) => {
 
   return (
     <div className={"charge-status"}>
-      {cellValue === 1 && <Charging />}
+      {(cellValue === 1 || cellValue === 5) && <Charging />}
       {cellValue === 2 && <Discharging />}
       {cellValue === 3 &&  <Idle />}
       {cellValue === 4 &&  <Done />}

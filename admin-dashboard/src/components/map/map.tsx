@@ -16,8 +16,8 @@ const Map = (props: any) => {
   const currentIndex: number = props.currentIndex;
 
   const [isSimulatorPlay, setIsSimulatorPlay] = useState(true);
-  const statusArray = ['disabled', 'charged', 'discharged', 'idle', 'pickup' ];
-  const statusNames = ['Available', 'Charging', 'Discharging', 'idle',  'Waiting for pickup'];
+  const statusArray = ['disabled', 'charged', 'discharged', 'idle', 'pickup', 'earlier-pickup' ];
+  const statusNames = ['Available', 'Charging', 'Discharging', 'Idle',  'Waiting for pickup', 'Earlier Pickup'];
 
     const sendIsSimulatorPlay = () => {
         axios.post(`${BE_URL}/is-simulator-play`, { isSimulatorPlay : !isSimulatorPlay })

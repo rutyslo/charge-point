@@ -81,8 +81,11 @@
             &.pickup {
               background: #75EBE4;
             }
+            &.earlier-pickup {
+              background: #FF585D;
+            }
 
-            &.charged, &.discharged, &.idle, &.pickup {
+            &.charged, &.discharged, &.idle, &.pickup, &.earlier-pickup {
 
               .item-1 {
                 background-image: url("./images/Car_3.svg");
@@ -441,6 +444,11 @@
         &.pickup {
           &:before {
             background: #75EBE4;
+          }
+        }
+        &.earlier-pickup{
+          &:before {
+            background: #FF585D;
           }
         }
       }
