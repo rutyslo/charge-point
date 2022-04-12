@@ -92,6 +92,7 @@ const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
                     client.send(JSON.stringify({type: "logTermParking" , value : {
                             currentIndex: longTermParking.getCurrentIndex(),
                             currentConsumption: longTermParking.getCurrentConsumption(),
+                            isPlay: longTermParking.getIsSimulatorPlay(),
                             newIndex: longTermParking.getNewIndex(),
                             removeIndex: longTermParking.getRemoveIndex(),
                             dateNow: longTermParking.getDate(),

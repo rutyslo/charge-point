@@ -20,7 +20,7 @@ const Map = (props: any) => {
   const statusNames = ['Available', 'Charging', 'Discharging', 'Idle',  'Waiting for pickup', 'Earlier Pickup'];
 
     const sendIsSimulatorPlay = () => {
-        axios.post(`${BE_URL}/is-simulator-play`, { isSimulatorPlay : !isSimulatorPlay })
+        axios.post(`${BE_URL}/is-simulator-play`, { isSimulatorPlay : !(isSimulatorPlay && props.isPlay) })
             .then((response: any) => {
                 setIsSimulatorPlay(response.data.isSimulatorPlay);
             });
@@ -48,7 +48,7 @@ const Map = (props: any) => {
                   </div>
                   <div className={"button-wrapper"}>
                       <Start onClick={startAgain} />
-                      {!isSimulatorPlay ? <Play className={"icon"} onClick={sendIsSimulatorPlay} /> : <Pause className={"icon"} onClick={sendIsSimulatorPlay}/>}
+                      {(!isSimulatorPlay || !props.isPlay) ? <Play className={"icon"} onClick={sendIsSimulatorPlay} /> : <Pause className={"icon"} onClick={sendIsSimulatorPlay}/>}
                   </div>
               </div>
           <div className={"map-area"}>

@@ -110,7 +110,6 @@ const longTermParking = {
     },
     earlierPickup: function() {
         let bigOffset = cpList.findIndex(x => x.offsetTime > 100);
-        console.log('bigOffset', bigOffset)
         const leaveTime = moment(dateNow).add(2,'hour');
         cpList[bigOffset].status = 5;
         cpList[bigOffset].leaveTime = leaveTime.format('MM-DD-YYYY HH:mm');
@@ -217,7 +216,6 @@ const longTermParking = {
             if (disChargeList.length > 10) {
                 walt = (limitConsumption / disChargeList.length / 2);
                 walt = Math.round(walt * 10) / 10;
-                console.log('walt', walt)
             }
             for (let index = 0; index < disChargeList.length; index++) {
                 if ((cpList[disChargeList[index]].currentBattery - walt) >= 30) {

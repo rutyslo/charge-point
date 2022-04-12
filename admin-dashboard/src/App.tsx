@@ -19,6 +19,7 @@ function App() {
   const [removeIndex, setRemoveIndex] = useState<number>(0);
   const [currentIndex, setCurrentIndex] = useState<number>(-1);
   const [currentConsumption, setCurrentConsumption] = useState<number>(0);
+  const [isPlay, setIsPlay] = useState<boolean>(false);
 
   socket.onopen = function(evt) {
     console.log("onopen");
@@ -33,6 +34,7 @@ function App() {
       setRemoveIndex(message.value.removeIndex)
       setCurrentIndex(message.value.currentIndex);
       setCurrentConsumption(message.value.currentConsumption);
+      setIsPlay(message.value.isPlay);
     }
   };
 
@@ -51,7 +53,7 @@ function App() {
             <Route path="consumption" />
             <Route path="expenses" />
             <Route path="map" element={<Map rowData={rowData} dateNow={dateNow} newIndex={newIndex}
-                 currentIndex={currentIndex} removeIndex={removeIndex}/>} />
+                 currentIndex={currentIndex} removeIndex={removeIndex} isPlay={isPlay}/>} />
           </Routes>
         </div>
       </HashRouter>
