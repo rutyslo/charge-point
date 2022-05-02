@@ -13,7 +13,7 @@ const hourStart = 6;
 let hourDay = hourStart;
 let hourIndex = 0;
 longTermParking.start();
-//const costs = [12,12,12,12,12,12,12,11,11,10,10,9,9,10,10,11,12,12,12,11,12,12,11,10,9,9,9,9,10,11,12];
+const costs = [12,12,12,12,12,12,12,11,11,10,10,9,9,10,10,11,12,12,12,11,12,12,11,10,9,9,9,9,10,11,12];
 const morning = [9,10, 11,12, 13,14, 14,15, 16,17, 15,16, 17,18, 16,15, 14,15, 16,17, 18,19];
 const afternoon = [20,21, 21,22, 21,22, 21,20];
 const evening = [19,18, 19,17, 15,12];
@@ -41,21 +41,21 @@ const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
 
     ws.on('message', message => {
         console.log(`Received message => ${message}`);
-        try {
-            const object = JSON.parse(message);
-            const url = object["ChargeNotification"] ? 'RemoteStartTransaction' : 'RemoteStopTransaction';
-            console.log(`url => ${url}`);
-            axios.post(STEVE_URL + url, {
-                "chargePointId": "CP01",
-                "connectorId": 1,
-                "idTag": "tag1"
-            }).then(response => {
-                console.log("Charging response status", response.status)
-            });
-
-        } catch (err) {
-            console.log('Error: ', err.message);
-        }
+        // try {
+        //     const object = JSON.parse(message);
+        //     const url = object["ChargeNotification"] ? 'RemoteStartTransaction' : 'RemoteStopTransaction';
+        //     console.log(`url => ${url}`);
+        //     axios.post(STEVE_URL + url, {
+        //         "chargePointId": "CP01",
+        //         "connectorId": 1,
+        //         "idTag": "tag1"
+        //     }).then(response => {
+        //         console.log("Charging response status", response.status)
+        //     });
+        //
+        // } catch (err) {
+        //     console.log('Error: ', err.message);
+        // }
     });
 
         let isNewCycle = false;
@@ -63,31 +63,37 @@ const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
 
         setInterval(() => {
 
-            if (autoToggle && longTermParking.getIsSimulatorPlay()) {
+            if (autoToggle && (longTermParking.getIsSimulatorPlay() || demoName === 'cp')) {
                 // FOR First DEmo
-                // if (counter > 30) {
-                //     counter = 0;
-                //     console.log(`counter : => 0`);
-                // }
+                if (demoName === 'cp' && counter > 30) {
+                    counter = 0;
+                    console.log(`counter : => 0`);
+                }
 
-                centPrice = allDay[hourIndex];
+                if (demoName === 'parking') {
+                    centPrice = allDay[hourIndex];
+                } else {
+                    centPrice = costs[counter];
+                }
+
 
                 wss.clients.forEach(function (client) {
-                    client.send(JSON.stringify({type: "electricity", value: {isPower: isPower, cent: centPrice , highPrice: highPrice, lowPrice, lowPrice}}));
+                    client.send(JSON.stringify({type: "electricity", value: {isPower: isPower, cent: centPrice , highPrice: highPrice, lowPrice: lowPrice}}));
                 });
 
                 isNewCycle = hourDay === 17 || hourDay === 24.5;
                 console.log(`Send message cent : =>  ${centPrice} , hour : ${hourDay} isNewCycle: ${isNewCycle} prevCycle: ${prevCycle}`);
 
-                if (hourDay === 19) {
-                    longTermParking.earlierPickup();
-                }
+                // if (hourDay === 19) {
+                //     longTermParking.earlierPickup();
+                // }
 
                 longTermParking.tick(centPrice, lowPrice, highPrice, prevCycle === false && isNewCycle === true);
 
-                if (hourDay === 19) {
-                    longTermParking.setIsSimulatorPlay(false);
-                }
+                // if (hourDay === 19) {
+                //     longTermParking.setIsSimulatorPlay(false);
+                // }
+
                 wss.clients.forEach(function (client) {
                     client.send(JSON.stringify({type: "logTermParking" , value : {
                             currentIndex: longTermParking.getCurrentIndex(),
@@ -106,7 +112,9 @@ const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
                     hourIndex = 0;
                 }
 
-                //counter++;
+                if (demoName === 'cp') {
+                    counter++;
+                }
             } else {
                 let rate = allDay[hourIndex];
                 if (autoToggle === false) {
@@ -183,4 +191,7 @@ app.post('/set-current-index', (req, res) => {
 
 const port = 4000;
 app.listen(port);
+
+const nodeArgs = process.argv.slice(2);
+const demoName = nodeArgs[0];
 console.log(`Listening at http://localhost:${port}`);
