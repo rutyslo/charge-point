@@ -18,6 +18,8 @@ const morning = [9,10, 11,12, 13,14, 14,15, 16,17, 15,16, 17,18, 16,15, 14,15, 1
 const afternoon = [20,21, 21,22, 21,22, 21,20];
 const evening = [19,18, 19,17, 15,12];
 const night = [10,8, 7,6, 5,5, 5,5, 6,6, 7,8];
+let apiPrice;
+let apiIsPower;
 
 const allDay = morning.concat(afternoon).concat(evening).concat(night);
 const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
@@ -25,6 +27,8 @@ const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
     wss.on('connection', ws => {
         console.log(`Connection`);
         console.log(`Send message cent : =>  ${allDay[hourIndex]} , hour : ${hourDay} `);
+        apiPrice = allDay[hourIndex];
+        apiIsPower = true;
         ws.send(JSON.stringify({type: "electricity", value: {isPower: true, cent : allDay[hourIndex], highPrice: highPrice, lowPrice, lowPrice}}));
         wss.clients.forEach(function (client) {
             client.send(JSON.stringify({type: "logTermParking" , value : {
@@ -76,7 +80,8 @@ const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
                     centPrice = costs[counter];
                 }
 
-
+                apiPrice = centPrice;
+                apiIsPower = isPower;
                 wss.clients.forEach(function (client) {
                     client.send(JSON.stringify({type: "electricity", value: {isPower: isPower, cent: centPrice , highPrice: highPrice, lowPrice: lowPrice}}));
                 });
@@ -120,11 +125,13 @@ const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
                 if (autoToggle === false) {
                     rate = price;
                 }
+                apiPrice = rate;
+                apiIsPower = isPower;
                 wss.clients.forEach(function (client) {
                     client.send(JSON.stringify({type: "electricity", value: {isPower: isPower, cent: rate, highPrice: highPrice, lowPrice, lowPrice}}));
                 });
             }
-        }, 3000);
+        }, interval);
 
 });
 
@@ -152,12 +159,14 @@ app.use(cors(corsOptions));
 app.post('/power', (req, res) => {
     console.log('power', req.body);
     isPower = req.body.isPower;
+    apiIsPower = isPower;
     res.send({ isPower: req.body.isPower });
 })
 
 app.post('/price', (req, res) => {
     console.log('price', req.body);
     price = req.body.price;
+    apiPrice = price;
     res.send({ price: req.body.price });
 })
 
@@ -189,9 +198,19 @@ app.post('/set-current-index', (req, res) => {
     res.send({ currentIndex: req.body.currentIndex });
 })
 
+app.get('/electric-info', (req, res) => {
+    res.send({ apiPrice: apiPrice, apiIsPower: apiIsPower});
+})
+
 const port = 4000;
 app.listen(port);
 
 const nodeArgs = process.argv.slice(2);
 const demoName = nodeArgs[0];
+let interval = 3000;
+console.log('nodeArgs[1]',nodeArgs[1])
+if (demoName === 'cp' && nodeArgs[1]) {
+    interval = parseInt(nodeArgs[1]);
+    console.log('interval', interval);
+}
 console.log(`Listening at http://localhost:${port}`);
