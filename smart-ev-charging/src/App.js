@@ -4,7 +4,7 @@ import { Routes, Route} from "react-router-dom";
 import Status from "./components/settings/status/status";
 import {useState} from "react";
 
-const ENDPOINT = "ws://iltlvmac0171.intl.att.com:7000/";
+const ENDPOINT = "ws://localhost:7000/";
 const socket = new WebSocket(ENDPOINT);
 function App() {
 

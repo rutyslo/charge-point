@@ -6,9 +6,9 @@ import Charging from "./components/charging/charging";
 import Map from "./components/map/map";
 import Home from "./components/home/home";
 
-export const BE_URL = 'http://iltlvmac0171.intl.att.com:4000';
+export const BE_URL = 'http://localhost:4000';
 
-const ENDPOINT = "ws://iltlvmac0171.intl.att.com:7000/";
+const ENDPOINT = "ws://localhost:7000/";
 const socket = new WebSocket(ENDPOINT);
 
 function App() {
@@ -20,6 +20,14 @@ function App() {
   const [currentIndex, setCurrentIndex] = useState<number>(-1);
   const [currentConsumption, setCurrentConsumption] = useState<number>(0);
   const [isPlay, setIsPlay] = useState<boolean>(false);
+
+  const [rowDataShort, setRowDataShort] = useState<any[]>([]);
+  const [dateNowShort, setDateNowShort] = useState<string>('');
+  const [newIndexShort, setNewIndexShort] = useState<number>(0);
+  const [removeIndexShort, setRemoveIndexShort] = useState<number>(0);
+  const [currentIndexShort, setCurrentIndexShort] = useState<number>(-1);
+  const [currentConsumptionShort, setCurrentConsumptionShort] = useState<number>(0);
+  const [isPlayShort, setIsPlayShort] = useState<boolean>(false);
 
   socket.onopen = function(evt) {
     console.log("onopen");
@@ -53,7 +61,10 @@ function App() {
             <Route path="consumption" />
             <Route path="expenses" />
             <Route path="map" element={<Map rowData={rowData} dateNow={dateNow} newIndex={newIndex}
-                 currentIndex={currentIndex} removeIndex={removeIndex} isPlay={isPlay}/>} />
+                 currentIndex={currentIndex} removeIndex={removeIndex} isPlay={isPlay} isLongTerm={true}/>} />
+
+            <Route path="map-short-term" element={<Map rowData={rowDataShort} dateNow={dateNowShort} newIndex={newIndexShort}
+                   currentIndex={currentIndexShort} removeIndex={removeIndexShort} isPlay={isPlayShort} isLongTerm={false}/>} />
           </Routes>
         </div>
       </HashRouter>

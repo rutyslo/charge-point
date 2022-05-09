@@ -59,7 +59,6 @@ const longTermParking = {
                 cpList[timesRun].currentCycle = 0;
                 cpList[timesRun].isNewCycle = true;
         }
-        console.log('cpList', cpList);
     },
     init: function() {
 

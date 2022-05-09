@@ -4,7 +4,7 @@ import axios from "axios";
 import './electric-region.scss';
 import {ReactComponent as Icon} from "../../assets/images/power-outage.svg";
 
-const BE_URL = 'http://iltlvmac0171.intl.att.com:4000';
+const BE_URL = 'http://localhost:4000';
 
 const ElectricRegion = memo(({props}) => {
 
@@ -13,6 +13,13 @@ const ElectricRegion = memo(({props}) => {
     const [price, setPrice] = useState(true);
 
     const sendIsPower = () => {
+        axios.get(`${BE_URL}/tesla`)
+            .then(res => {
+               console.log('res', res)
+            }).catch(res => {
+            console.log('error', res)
+        })
+
         axios.post(`${BE_URL}/power`, { isPower : !isPowerToggle })
             .then(response => {
                 setIsPowerToggle(response.data.isPower);

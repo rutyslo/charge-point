@@ -7,7 +7,7 @@ import ElectricRegion from "../electric-region/electric-region";
 import {ReactComponent as Logo} from "../../assets/images/logo-con.svg";
 import {useSearchParams} from "react-router-dom";
 
-const ENDPOINT = "ws://iltlvmac0171.intl.att.com:7000/";
+const ENDPOINT = "ws://localhost:7000/";
 
 const Chart = require("react-chartjs-2").Chart;
 

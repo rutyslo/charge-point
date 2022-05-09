@@ -20,6 +20,7 @@ const evening = [19,18, 19,17, 15,12];
 const night = [10,8, 7,6, 5,5, 5,5, 6,6, 7,8];
 let apiPrice;
 let apiIsPower;
+let currentStatus = '';
 
 const allDay = morning.concat(afternoon).concat(evening).concat(night);
 const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
@@ -45,6 +46,12 @@ const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
 
     ws.on('message', message => {
         console.log(`Received message => ${message}`);
+        try{
+            const object = JSON.parse(message);
+            currentStatus = object["ChargeNotification"] ? 'StartCharging' : 'StopCharging';
+        } catch (err) {
+            console.log('Error: ', err.message);
+        }
         // try {
         //     const object = JSON.parse(message);
         //     const url = object["ChargeNotification"] ? 'RemoteStartTransaction' : 'RemoteStopTransaction';
@@ -200,6 +207,10 @@ app.post('/set-current-index', (req, res) => {
 
 app.get('/electric-info', (req, res) => {
     res.send({ apiPrice: apiPrice, apiIsPower: apiIsPower});
+})
+
+app.get('/current-status', (req, res) => {
+    res.send({ currentStatus: currentStatus, apiPrice: apiPrice, apiIsPower: apiIsPower});
 })
 
 const port = 4000;
