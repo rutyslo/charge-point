@@ -147,7 +147,8 @@ const app = express();
 const cors = require("cors");
 const axios = require("axios");
 
-const whitelist = ["http://iltlvmac0171.intl.att.com:3001", "http://iltlvmac0171.intl.att.com:3002", "http://localhost:3001","http://localhost:3002"]
+const whitelist = ["http://iltlvmac0171.intl.att.com:3001", "http://iltlvmac0171.intl.att.com:3002", "http://localhost:3001",
+    "http://localhost:3002", "http://20.230.116.80:3001","http://20.230.116.80:3002"]
 const corsOptions = {
     origin: function (origin, callback) {
         if (!origin || whitelist.indexOf(origin) !== -1) {

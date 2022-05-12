@@ -13,13 +13,6 @@ const ElectricRegion = memo(({props}) => {
     const [price, setPrice] = useState(true);
 
     const sendIsPower = () => {
-        axios.get(`${BE_URL}/tesla`)
-            .then(res => {
-               console.log('res', res)
-            }).catch(res => {
-            console.log('error', res)
-        })
-
         axios.post(`${BE_URL}/power`, { isPower : !isPowerToggle })
             .then(response => {
                 setIsPowerToggle(response.data.isPower);
