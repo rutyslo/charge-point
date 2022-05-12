@@ -6,9 +6,9 @@ import Charging from "./components/charging/charging";
 import Map from "./components/map/map";
 import Home from "./components/home/home";
 
-export const BE_URL = 'http://localhost:4000';
+export const BE_URL = 'http://20.230.116.80:4000';
 
-const ENDPOINT = "ws://localhost:7000/";
+const ENDPOINT = "ws://20.230.116.80:7000/";
 const socket = new WebSocket(ENDPOINT);
 
 function App() {

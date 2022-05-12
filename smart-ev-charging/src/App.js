@@ -4,7 +4,7 @@ import { Routes, Route} from "react-router-dom";
 import Status from "./components/settings/status/status";
 import {useState} from "react";
 
-const ENDPOINT = "ws://localhost:7000/";
+const ENDPOINT = "ws://20.230.116.80:7000/";
 const socket = new WebSocket(ENDPOINT);
 function App() {
 

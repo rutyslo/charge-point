@@ -4,7 +4,7 @@ import axios from "axios";
 import './electric-region.scss';
 import {ReactComponent as Icon} from "../../assets/images/power-outage.svg";
 
-const BE_URL = 'http://localhost:4000';
+const BE_URL = 'http://20.230.116.80:4000';
 
 const ElectricRegion = memo(({props}) => {
 
