@@ -1,0 +1,18 @@
+.config-wrapper {
+  display: flex;
+  justify-content: center;
+
+  .label{
+    display: block;
+    margin: 10px;
+    cursor: pointer;
+  }
+  .toggle-wrapper {
+    display: flex;
+    justify-content: center;
+    .toggle{
+      display: inline-block;
+      margin: 5px;
+    }
+  }
+}
