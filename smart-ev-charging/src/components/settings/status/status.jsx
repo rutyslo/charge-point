@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import './status.scss'
-import {useLocation, useNavigate} from "react-router-dom";
+import {useLocation, useNavigate, useParams, useSearchParams} from "react-router-dom";
 import {ReactComponent as BatteryLines} from "../../../assets/images/battery-lines.svg";
 import Switch from "react-switch";
 import SuperSimple from "../../range/SuperSimple";
@@ -10,13 +10,15 @@ import appState from "../../../app.state";
 
 function Status(props) {
     const { state } = useLocation();
+    const [searchParams, setSearchParams] = useSearchParams();
+    const demo = searchParams.get('demo');
     const navigate = useNavigate();
     const car = appState.carList[appState.carIndex];
     const [isCharged, setIsCharged] = useState(car.isCharged);
     const [minutesLeft, setMinutesLeft] = useState(car.minutesLeft);
     const [isSmartCharging, setIsSmartCharging] = useState(car.isSmartCharging);
     const [isHomeCharging, setIsHomeCharging] = useState(car.isHomeCharging);
-    const [percent, setPercent] = useState(car.percent);
+    const [percent, setPercent] = useState(props.batteryLevel);
     const [kw, setKw] = useState(car.kw);
     const [price, setPrice] = useState(car.price);
     const [mile, setMile] = useState(car.mile);
@@ -70,12 +72,15 @@ function Status(props) {
         const timerId = setInterval(() => {
             if (props.isPower) {
                 if (isCharged && (percent < maxBattery)) {
-                    setPercent(percent + 1);
-                    setKw(kw + 0.75);
-                    setPrice(price + ((props.electric / 100) * 0.13));
-                    setMile(mile + 4);
-                    setHours(hours + 4);
-                    setMinutesLeft(minutesLeft - (400 / maxBattery));
+                    if (demo === 'cp') {
+                        setPercent(percent + 1);
+                        setKw(kw + 0.75);
+                        setPrice(price + ((props.electric / 100) * 0.13));
+                        setMile(mile + 4);
+                        setHours(hours + 4);
+                        setMinutesLeft(minutesLeft - (400 / maxBattery));
+                    }
+
                 } else {
                     clearInterval(timerId);
                     if (maxBattery >= percent) {
@@ -84,10 +89,12 @@ function Status(props) {
                 }
             } else {
                 if (isHomeCharging && (percent > minBattery)) {
-                    setPercent(percent - 1);
-                    setMile(mile - 4);
-                    setHours(hours - 4);
-                    setMinutesLeft(minutesLeft + (400 / maxBattery));
+                    if (demo === 'cp') {
+                        setPercent(percent - 1);
+                        setMile(mile - 4);
+                        setHours(hours - 4);
+                        setMinutesLeft(minutesLeft + (400 / maxBattery));
+                    }
                 }
             }
 

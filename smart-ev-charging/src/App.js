@@ -10,17 +10,18 @@ function App() {
 
     const [electric, setElectric] = useState(0);
     const [isPower, setIsPower] = useState(true);
+    const [batteryLevel, setBatteryLevel] = useState(55);
 
     socket.onopen = function(evt) {
         console.log("onOpen");
     }
 
     socket.onmessage = function(msg) {
-        console.log("RECEIVE");
         const object = JSON.parse(msg.data);
         if (object.type === 'electricity') {
             setElectric(parseInt(object.value.cent));
             setIsPower(Boolean(object.value.isPower));
+            setBatteryLevel(parseInt(object.value.batteryLevel));
         }
     };
 
@@ -29,7 +30,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Settings isPower={isPower} electric={electric}/>} />
-          <Route path="/info" element={<Status socket={socket} isPower={isPower} electric={electric}/>} />
+          <Route path="/info" element={<Status socket={socket} isPower={isPower} electric={electric} batteryLevel={batteryLevel}/>}/>
       </Routes>
     </div>
   );

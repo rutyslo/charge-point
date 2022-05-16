@@ -1,11 +1,13 @@
 import React, {useEffect} from 'react';
 import './car-detail.scss';
 import {ReactComponent as LightningIcon} from './../../../assets/images/lightning.svg';
-import { useNavigate } from "react-router-dom";
+import {useNavigate, useParams, useSearchParams} from "react-router-dom";
 import appState from "../../../app.state";
 import {observer} from "mobx-react-lite";
 
 const CarDetail = observer((props) => {
+    const [searchParams, setSearchParams] = useSearchParams();
+    const demo = searchParams.get('demo');
     const car = appState.carList[props.index];
     const minutesLeft = car.minutesLeft;
     const hours = Math.floor(car.hours/ 60);
@@ -46,7 +48,7 @@ const CarDetail = observer((props) => {
     return (
         <div className={`car-detail ${appState.carList[props.index].isCharged ? 'charging' : 'available'}`} onClick={() => {
             appState.setIndex(props.index);
-            navigate("../info", { replace: true})
+            navigate(`../info?demo=${demo}`, { replace: true})
             }}>
             <div className="left">
                 <div className="car-name">{car.name}</div>

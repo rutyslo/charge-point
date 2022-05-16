@@ -6,6 +6,7 @@ import moment from "moment";
 import ElectricRegion from "../electric-region/electric-region";
 import {ReactComponent as Logo} from "../../assets/images/logo-con.svg";
 import {useSearchParams} from "react-router-dom";
+import ConfigRegion from "../config-region/config-region";
 
 const ENDPOINT = "ws://20.230.116.80:7000/";
 
@@ -201,6 +202,8 @@ function Home() {
             </div> : <></>}
 
             <Bubble data={data} options={options}/>
+
+            {!isIframe ? <ConfigRegion /> : <></>}
         </div>
     );
 };

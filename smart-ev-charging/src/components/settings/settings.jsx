@@ -6,8 +6,8 @@ import appState from "../../app.state";
 
 const Settings = observer((props) => {
 
-    const properties  = { my_charging_station  : [ { key : 'Address', value : '1938 Fairburn Ave. L.A. California 12345-1234'},
-                                      { key : 'Operator', value : 'California Energy'}],
+    const properties  = { my_charging_station  : [ { key : 'Address', value : '1938 Fairburn Ave. Minneapolis, MN'},
+                                      { key : 'Operator', value : 'Minnesota Energy'}],
                          billing : [  { key : 'Paying method', value : 'AT&T Card'},
                                       { key : 'Billing History', value : ''}]
     }

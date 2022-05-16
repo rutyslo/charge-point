@@ -13,7 +13,7 @@ const hourStart = 6;
 let hourDay = hourStart;
 let hourIndex = 0;
 longTermParking.start();
-const costs = [12,12,12,12,12,12,12,11,11,10,10,9,9,10,10,11,12,12,12,11,12,12,11,10,9,9,9,9,10,11,12];
+const costs = [11,11,12,12,12,12,11,11,11,11,10,10,10,9,9,10,10,9,9,10];
 const morning = [9,10, 11,12, 13,14, 14,15, 16,17, 15,16, 17,18, 16,15, 14,15, 16,17, 18,19];
 const afternoon = [20,21, 21,22, 21,22, 21,20];
 const evening = [19,18, 19,17, 15,12];
@@ -21,6 +21,7 @@ const night = [10,8, 7,6, 5,5, 5,5, 6,6, 7,8];
 let apiPrice;
 let apiIsPower;
 let currentStatus = '';
+let batteryLevel = 55;
 
 const allDay = morning.concat(afternoon).concat(evening).concat(night);
 const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
@@ -30,7 +31,7 @@ const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
         console.log(`Send message cent : =>  ${allDay[hourIndex]} , hour : ${hourDay} `);
         apiPrice = allDay[hourIndex];
         apiIsPower = true;
-        ws.send(JSON.stringify({type: "electricity", value: {isPower: true, cent : allDay[hourIndex], highPrice: highPrice, lowPrice, lowPrice}}));
+        ws.send(JSON.stringify({type: "electricity", value: {isPower: true, cent : allDay[hourIndex], highPrice: highPrice, lowPrice, batteryLevel: batteryLevel}}));
         wss.clients.forEach(function (client) {
             client.send(JSON.stringify({type: "logTermParking" , value : {
                     currentIndex: longTermParking.getCurrentIndex(),
@@ -76,7 +77,7 @@ const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
 
             if (autoToggle && (longTermParking.getIsSimulatorPlay() || demoName === 'cp')) {
                 // FOR First DEmo
-                if (demoName === 'cp' && counter > 30) {
+                if (demoName === 'cp' && counter >= costs.length) {
                     counter = 0;
                     console.log(`counter : => 0`);
                 }
@@ -90,7 +91,7 @@ const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
                 apiPrice = centPrice;
                 apiIsPower = isPower;
                 wss.clients.forEach(function (client) {
-                    client.send(JSON.stringify({type: "electricity", value: {isPower: isPower, cent: centPrice , highPrice: highPrice, lowPrice: lowPrice}}));
+                    client.send(JSON.stringify({type: "electricity", value: {isPower: isPower, cent: centPrice , highPrice: highPrice, lowPrice: lowPrice, batteryLevel: batteryLevel}}));
                 });
 
                 isNewCycle = hourDay === 17 || hourDay === 24.5;
@@ -100,7 +101,9 @@ const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
                 //     longTermParking.earlierPickup();
                 // }
 
-                longTermParking.tick(centPrice, lowPrice, highPrice, prevCycle === false && isNewCycle === true);
+                if (longTermParking.getIsSimulatorPlay()) {
+                    longTermParking.tick(centPrice, lowPrice, highPrice, prevCycle === false && isNewCycle === true);
+                }
 
                 // if (hourDay === 19) {
                 //     longTermParking.setIsSimulatorPlay(false);
@@ -116,9 +119,12 @@ const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
                             dateNow: longTermParking.getDate(),
                             cpList : longTermParking.get() }}));
                 });
-                hourDay+= 0.5;
-                hourIndex++;
-                prevCycle = isNewCycle;
+                if (longTermParking.getIsSimulatorPlay()) {
+                    hourDay+= 0.5;
+                    hourIndex++;
+                    prevCycle = isNewCycle;
+                }
+
                 if (hourIndex >= 48) {
                     hourDay = hourStart;
                     hourIndex = 0;
@@ -135,7 +141,7 @@ const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
                 apiPrice = rate;
                 apiIsPower = isPower;
                 wss.clients.forEach(function (client) {
-                    client.send(JSON.stringify({type: "electricity", value: {isPower: isPower, cent: rate, highPrice: highPrice, lowPrice, lowPrice}}));
+                    client.send(JSON.stringify({type: "electricity", value: {isPower: isPower, cent: rate, highPrice: highPrice, lowPrice, batteryLevel: batteryLevel}}));
                 });
             }
         }, interval);
@@ -169,6 +175,28 @@ app.post('/power', (req, res) => {
     isPower = req.body.isPower;
     apiIsPower = isPower;
     res.send({ isPower: req.body.isPower });
+})
+
+app.post('/is-cp', (req, res) => {
+    console.log('is-cp', req.body);
+    demoName = req.body.isCpToggle ? 'cp' : 'parking';
+    console.log('demoName', demoName);
+    if (demoName === 'cp') {
+        counter = 0;
+        longTermParking.setIsSimulatorPlay(false);
+    } else if (demoName === 'parking') {
+        console.log('start-long-parking');
+        hourDay = 6.5;
+        hourIndex = 1;
+        longTermParking.start();
+        longTermParking.init();
+    }
+    res.send({isCpToggle : req.body.isCpToggle});
+})
+
+app.post('/set-battery-level', (req, res) => {
+    console.log('batteryLevel', req.body.batteryLevel);
+    batteryLevel = req.body.batteryLevel;
 })
 
 app.post('/price', (req, res) => {
@@ -217,12 +245,14 @@ app.get('/current-status', (req, res) => {
 const port = 4000;
 app.listen(port);
 
-const nodeArgs = process.argv.slice(2);
-const demoName = nodeArgs[0];
+let demoName = 'cp';
 let interval = 3000;
-console.log('nodeArgs[1]',nodeArgs[1])
-if (demoName === 'cp' && nodeArgs[1]) {
-    interval = parseInt(nodeArgs[1]);
-    console.log('interval', interval);
-}
+
+// const nodeArgs = process.argv.slice(2);
+// demoName = nodeArgs[0];
+// console.log('nodeArgs[1]',nodeArgs[1])
+// if (demoName === 'cp' && nodeArgs[1]) {
+//     interval = parseInt(nodeArgs[1]);
+//     console.log('interval', interval);
+// }
 console.log(`Listening at http://localhost:${port}`);
