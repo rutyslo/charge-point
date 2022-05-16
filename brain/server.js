@@ -70,83 +70,86 @@ const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
         // }
     });
 
-        let isNewCycle = false;
-        let prevCycle = false;
 
-        setInterval(() => {
+    });
+let isNewCycle = false;
+let prevCycle = false;
 
-            if (autoToggle && (longTermParking.getIsSimulatorPlay() || demoName === 'cp')) {
-                // FOR First DEmo
-                if (demoName === 'cp' && counter >= costs.length) {
-                    counter = 0;
-                    console.log(`counter : => 0`);
-                }
+let demoName = 'cp';
+let interval = 3000;
 
-                if (demoName === 'parking') {
-                    centPrice = allDay[hourIndex];
-                } else {
-                    centPrice = costs[counter];
-                }
+const timer = setInterval(() => {
 
-                apiPrice = centPrice;
-                apiIsPower = isPower;
-                wss.clients.forEach(function (client) {
-                    client.send(JSON.stringify({type: "electricity", value: {isPower: isPower, cent: centPrice , highPrice: highPrice, lowPrice: lowPrice, batteryLevel: batteryLevel}}));
-                });
+    if (autoToggle && (longTermParking.getIsSimulatorPlay() || demoName === 'cp')) {
+        // FOR First DEmo
+        if (demoName === 'cp' && counter >= costs.length) {
+            counter = 0;
+            console.log(`counter : => 0`);
+        }
 
-                isNewCycle = hourDay === 17 || hourDay === 24.5;
-                console.log(`Send message cent : =>  ${centPrice} , hour : ${hourDay} isNewCycle: ${isNewCycle} prevCycle: ${prevCycle}`);
+        if (demoName === 'parking') {
+            centPrice = allDay[hourIndex];
+        } else {
+            centPrice = costs[counter];
+        }
 
-                // if (hourDay === 19) {
-                //     longTermParking.earlierPickup();
-                // }
+        apiPrice = centPrice;
+        apiIsPower = isPower;
+        wss.clients.forEach(function (client) {
+            client.send(JSON.stringify({type: "electricity", value: {isPower: isPower, cent: centPrice , highPrice: highPrice, lowPrice: lowPrice, batteryLevel: batteryLevel}}));
+        });
 
-                if (longTermParking.getIsSimulatorPlay()) {
-                    longTermParking.tick(centPrice, lowPrice, highPrice, prevCycle === false && isNewCycle === true);
-                }
+        isNewCycle = hourDay === 17 || hourDay === 24.5;
+        console.log(`Send message cent : =>  ${centPrice} , hour : ${hourDay} isNewCycle: ${isNewCycle} prevCycle: ${prevCycle}`);
 
-                // if (hourDay === 19) {
-                //     longTermParking.setIsSimulatorPlay(false);
-                // }
+        // if (hourDay === 19) {
+        //     longTermParking.earlierPickup();
+        // }
 
-                wss.clients.forEach(function (client) {
-                    client.send(JSON.stringify({type: "logTermParking" , value : {
-                            currentIndex: longTermParking.getCurrentIndex(),
-                            currentConsumption: longTermParking.getCurrentConsumption(),
-                            isPlay: longTermParking.getIsSimulatorPlay(),
-                            newIndex: longTermParking.getNewIndex(),
-                            removeIndex: longTermParking.getRemoveIndex(),
-                            dateNow: longTermParking.getDate(),
-                            cpList : longTermParking.get() }}));
-                });
-                if (longTermParking.getIsSimulatorPlay()) {
-                    hourDay+= 0.5;
-                    hourIndex++;
-                    prevCycle = isNewCycle;
-                }
+        if (longTermParking.getIsSimulatorPlay()) {
+            longTermParking.tick(centPrice, lowPrice, highPrice, prevCycle === false && isNewCycle === true);
+        }
 
-                if (hourIndex >= 48) {
-                    hourDay = hourStart;
-                    hourIndex = 0;
-                }
+        // if (hourDay === 19) {
+        //     longTermParking.setIsSimulatorPlay(false);
+        // }
 
-                if (demoName === 'cp') {
-                    counter++;
-                }
-            } else {
-                let rate = allDay[hourIndex];
-                if (autoToggle === false) {
-                    rate = price;
-                }
-                apiPrice = rate;
-                apiIsPower = isPower;
-                wss.clients.forEach(function (client) {
-                    client.send(JSON.stringify({type: "electricity", value: {isPower: isPower, cent: rate, highPrice: highPrice, lowPrice, batteryLevel: batteryLevel}}));
-                });
-            }
-        }, interval);
+        wss.clients.forEach(function (client) {
+            client.send(JSON.stringify({type: "logTermParking" , value : {
+                    currentIndex: longTermParking.getCurrentIndex(),
+                    currentConsumption: longTermParking.getCurrentConsumption(),
+                    isPlay: longTermParking.getIsSimulatorPlay(),
+                    newIndex: longTermParking.getNewIndex(),
+                    removeIndex: longTermParking.getRemoveIndex(),
+                    dateNow: longTermParking.getDate(),
+                    cpList : longTermParking.get() }}));
+        });
+        if (longTermParking.getIsSimulatorPlay()) {
+            hourDay+= 0.5;
+            hourIndex++;
+            prevCycle = isNewCycle;
+        }
 
-});
+        if (hourIndex >= 48) {
+            hourDay = hourStart;
+            hourIndex = 0;
+        }
+
+        if (demoName === 'cp') {
+            counter++;
+        }
+    } else {
+        let rate = allDay[hourIndex];
+        if (autoToggle === false) {
+            rate = price;
+        }
+        apiPrice = rate;
+        apiIsPower = isPower;
+        wss.clients.forEach(function (client) {
+            client.send(JSON.stringify({type: "electricity", value: {isPower: isPower, cent: rate, highPrice: highPrice, lowPrice, batteryLevel: batteryLevel}}));
+        });
+    }
+}, interval);
 
 const express = require('express');
 const app = express();
@@ -245,8 +248,6 @@ app.get('/current-status', (req, res) => {
 const port = 4000;
 app.listen(port);
 
-let demoName = 'cp';
-let interval = 3000;
 
 // const nodeArgs = process.argv.slice(2);
 // demoName = nodeArgs[0];
