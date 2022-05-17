@@ -19,12 +19,14 @@ const CarDetail = observer((props) => {
             let carCopy = {...car}
             if (props.isPower) {
                 if (car.isCharged && (car.percent < car.maxBattery)) {
-                    carCopy.percent = (car.percent + 1);
-                    carCopy.kw = (car.kw + 0.75);
-                    carCopy.price = (car.price + ((props.electric / 100) * 0.13));
-                    carCopy.mile = (car.mile + 4);
-                    carCopy.hours = (car.hours + 4);
-                    carCopy.minutesLeft = (car.minutesLeft - (400 / car.maxBattery));
+                    if (demo === 'cp') {
+                        carCopy.percent = (car.percent + 1);
+                        carCopy.kw = (car.kw + 0.75);
+                        carCopy.price = (car.price + ((props.electric / 100) * 0.13));
+                        carCopy.mile = (car.mile + 4);
+                        carCopy.hours = (car.hours + 4);
+                        carCopy.minutesLeft = (car.minutesLeft - (400 / car.maxBattery));
+                    }
                 } else {
                     clearInterval(timerId);
                     if ( car.maxBattery >= car.percent) {
@@ -33,10 +35,12 @@ const CarDetail = observer((props) => {
                 }
             } else {
                 if (car.isHomeCharging && (car.percent > car.minBattery)) {
-                    carCopy.percent = (car.percent - 1);
-                    carCopy.mile = (car.mile - 4);
-                    carCopy.hours = (car.hours - 4);
-                    carCopy.minutesLeft = (car.minutesLeft + (400 / car.maxBattery));
+                    if (demo === 'cp') {
+                        carCopy.percent = (car.percent - 1);
+                        carCopy.mile = (car.mile - 4);
+                        carCopy.hours = (car.hours - 4);
+                        carCopy.minutesLeft = (car.minutesLeft + (400 / car.maxBattery));
+                    }
                 }
             }
             appState.setCar(carCopy, props.index);
