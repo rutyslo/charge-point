@@ -163,7 +163,7 @@ function Status(props) {
                     <div className="car-type">{car.type}</div>
                 </div>
                 <div className="image">
-                    <img src={car.image} height={70} width={130}/>
+                    <img src={car.image}/>
                 </div>
             </div>
             <div className="switch-wrapper">

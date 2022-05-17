@@ -76,7 +76,7 @@ let isNewCycle = false;
 let prevCycle = false;
 
 let demoName = 'cp';
-let interval = 3000;
+let interval = 1000;
 
 const timer = setInterval(() => {
 
