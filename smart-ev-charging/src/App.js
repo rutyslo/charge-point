@@ -10,8 +10,8 @@ function App() {
 
     const [electric, setElectric] = useState(0);
     const [isPower, setIsPower] = useState(true);
-    const [batteryLevel, setBatteryLevel] = useState(70);
-    const [timeToFullCharge, setTimeToFullCharge] = useState(2.01);
+    const [batteryLevel, setBatteryLevel] = useState(55);
+    const [timeToFullCharge, setTimeToFullCharge] = useState(3.01);
 
     socket.onopen = function(evt) {
         console.log("onOpen");
