@@ -22,6 +22,7 @@ let apiPrice;
 let apiIsPower;
 let currentStatus = '';
 let batteryLevel = 55;
+let timeToFullCharge = 3.01;
 
 const allDay = morning.concat(afternoon).concat(evening).concat(night);
 const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
@@ -31,7 +32,7 @@ const STEVE_URL = "http://135.76.132.224:8080/steve/rest/operations/v1.6/";
         console.log(`Send message cent : =>  ${allDay[hourIndex]} , hour : ${hourDay} `);
         apiPrice = allDay[hourIndex];
         apiIsPower = true;
-        ws.send(JSON.stringify({type: "electricity", value: {isPower: true, cent : allDay[hourIndex], highPrice: highPrice, lowPrice, batteryLevel: batteryLevel}}));
+        ws.send(JSON.stringify({type: "electricity", value: {isPower: true, cent : allDay[hourIndex], highPrice: highPrice, lowPrice, batteryLevel: batteryLevel, timeToFullCharge: timeToFullCharge}}));
         wss.clients.forEach(function (client) {
             client.send(JSON.stringify({type: "logTermParking" , value : {
                     currentIndex: longTermParking.getCurrentIndex(),
@@ -96,7 +97,7 @@ const timer = setInterval(() => {
         apiPrice = centPrice;
         apiIsPower = isPower;
         wss.clients.forEach(function (client) {
-            client.send(JSON.stringify({type: "electricity", value: {isPower: isPower, cent: centPrice , highPrice: highPrice, lowPrice: lowPrice, batteryLevel: batteryLevel}}));
+            client.send(JSON.stringify({type: "electricity", value: {isPower: isPower, cent: centPrice , highPrice: highPrice, lowPrice: lowPrice, batteryLevel: batteryLevel, timeToFullCharge: timeToFullCharge}}));
         });
 
         isNewCycle = hourDay === 17 || hourDay === 24.5;
@@ -146,7 +147,7 @@ const timer = setInterval(() => {
         apiPrice = rate;
         apiIsPower = isPower;
         wss.clients.forEach(function (client) {
-            client.send(JSON.stringify({type: "electricity", value: {isPower: isPower, cent: rate, highPrice: highPrice, lowPrice, batteryLevel: batteryLevel}}));
+            client.send(JSON.stringify({type: "electricity", value: {isPower: isPower, cent: rate, highPrice: highPrice, lowPrice, batteryLevel: batteryLevel, timeToFullCharge: timeToFullCharge}}));
         });
     }
 }, interval);
@@ -200,6 +201,7 @@ app.post('/is-cp', (req, res) => {
 app.post('/set-battery-level', (req, res) => {
     console.log('batteryLevel', req.body.batteryLevel);
     batteryLevel = req.body.batteryLevel;
+    timeToFullCharge = req.body.timeToFullCharge;
 })
 
 app.post('/price', (req, res) => {
