@@ -18,7 +18,7 @@ function Status(props) {
     const [minutesLeft, setMinutesLeft] = useState(car.minutesLeft);
     const [isSmartCharging, setIsSmartCharging] = useState(car.isSmartCharging);
     const [isHomeCharging, setIsHomeCharging] = useState(car.isHomeCharging);
-    const [percent, setPercent] = useState(props.batteryLevel);
+    const [percent, setPercent] = useState(car.percent);
     const [kw, setKw] = useState(car.kw);
     const [price, setPrice] = useState(car.price);
     const [mile, setMile] = useState(car.mile);
@@ -49,7 +49,17 @@ function Status(props) {
     }, [props.electric, props.isPower]);
 
     useEffect(() => {
-        setMinutesLeft(Math.ceil(400 / maxBattery) * maxBattery * (maxBattery - percent) / 100);
+        if (demo !== 'cp') {
+            setMinutesLeft(props.timeToFullCharge);
+            setPercent(props.batteryLevel);
+        }
+
+    }, [props.timeToFullCharge, props.batteryLevel]);
+
+    useEffect(() => {
+        if (demo === 'cp') {
+            setMinutesLeft(Math.ceil(400 / maxBattery) * maxBattery * (maxBattery - percent) / 100);
+        }
     }, [isSmartCharging, maxBattery]);
 
     useEffect(() => {
@@ -127,8 +137,16 @@ function Status(props) {
     };
 
     const minLeftFormat = () => {
-        const hour = Math.floor(minutesLeft / 60) ;
-        return `${hour > 0 ? `${hour}h` : `` } ${Math.floor(minutesLeft % 60 > 0 ? minutesLeft % 60 : 0)}m left`;
+        let hour, mins;
+        if (demo === 'cp') {
+             hour = Math.floor(minutesLeft / 60);
+             mins = Math.floor(minutesLeft % 60 > 0 ? minutesLeft % 60 : 0);
+        } else {
+            hour = Math.floor(minutesLeft);
+            mins = Math.round((minutesLeft - hour) * 60);
+            console.log('mins', mins)
+        }
+        return `${hour > 0 ? `${hour}h` : `` } ${mins}m left`;
     }
 
     const goBack = () => {

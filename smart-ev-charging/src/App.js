@@ -11,6 +11,7 @@ function App() {
     const [electric, setElectric] = useState(0);
     const [isPower, setIsPower] = useState(true);
     const [batteryLevel, setBatteryLevel] = useState(55);
+    const [timeToFullCharge, setTimeToFullCharge] = useState(3.01);
 
     socket.onopen = function(evt) {
         console.log("onOpen");
@@ -22,6 +23,7 @@ function App() {
             setElectric(parseInt(object.value.cent));
             setIsPower(Boolean(object.value.isPower));
             setBatteryLevel(parseInt(object.value.batteryLevel));
+            setTimeToFullCharge(parseFloat(object.value.timeToFullCharge));
         }
     };
 
@@ -30,7 +32,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Settings isPower={isPower} electric={electric}/>} />
-          <Route path="/info" element={<Status socket={socket} isPower={isPower} electric={electric} batteryLevel={batteryLevel}/>}/>
+          <Route path="/info" element={<Status socket={socket} isPower={isPower} electric={electric} batteryLevel={batteryLevel} timeToFullCharge={timeToFullCharge}/>}/>
       </Routes>
     </div>
   );
