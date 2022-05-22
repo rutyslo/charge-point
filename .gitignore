@@ -21,3 +21,19 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+/tesla-app/build/
+
+/tesla-app/.gradle
+/tesla-app/local.properties
+
+
+# CocoaPods
+/tesla-app/ios/Pods/
+
+# Expo
+/tesla-app/.expo/
+/tesla-app/web-build/
+/tesla-app/dist/
+
+/tesla-app/android/app/build-old
