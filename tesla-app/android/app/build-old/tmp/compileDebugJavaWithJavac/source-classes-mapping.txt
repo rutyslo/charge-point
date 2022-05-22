@@ -1,0 +1,14 @@
+com/teslaapp/MainActivity.java
+ com.teslaapp.MainActivity
+com/teslaapp/MainApplication.java
+ com.teslaapp.MainApplication
+ com.teslaapp.MainApplication$1
+com/teslaapp/ReactNativeFlipper.java
+ com.teslaapp.ReactNativeFlipper
+ com.teslaapp.ReactNativeFlipper$1
+ com.teslaapp.ReactNativeFlipper$2
+ com.teslaapp.ReactNativeFlipper$2$1
+com/teslaapp/BuildConfig.java
+ com.teslaapp.BuildConfig
+com/facebook/react/PackageList.java
+ com.facebook.react.PackageList

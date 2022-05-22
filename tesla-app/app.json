@@ -1,0 +1,14 @@
+{
+  "expo": {
+    "name": "tesla-app",
+    "slug": "tesla-app",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "android": {
+      "package": "com.tesla_app"
+    }
+  },
+  "name": "tesla-app"
+}

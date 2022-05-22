@@ -1,0 +1,50 @@
+[
+    {
+        "merged": "/Users/rs282j/Documents/Dev/charge-point/tesla-app/android/app/build/intermediates/res/merged/release/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "/Users/rs282j/Documents/Dev/charge-point/tesla-app/android/app/src/main/res/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/rs282j/Documents/Dev/charge-point/tesla-app/android/app/build/intermediates/res/merged/release/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "/Users/rs282j/Documents/Dev/charge-point/tesla-app/android/app/src/main/res/mipmap-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/rs282j/Documents/Dev/charge-point/tesla-app/android/app/build/intermediates/res/merged/release/mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "/Users/rs282j/Documents/Dev/charge-point/tesla-app/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "/Users/rs282j/Documents/Dev/charge-point/tesla-app/android/app/build/intermediates/res/merged/release/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "/Users/rs282j/Documents/Dev/charge-point/tesla-app/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/rs282j/Documents/Dev/charge-point/tesla-app/android/app/build/intermediates/res/merged/release/mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "/Users/rs282j/Documents/Dev/charge-point/tesla-app/android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "/Users/rs282j/Documents/Dev/charge-point/tesla-app/android/app/build/intermediates/res/merged/release/drawable_splashscreen.xml.flat",
+        "source": "/Users/rs282j/Documents/Dev/charge-point/tesla-app/android/app/src/main/res/drawable/splashscreen.xml"
+    },
+    {
+        "merged": "/Users/rs282j/Documents/Dev/charge-point/tesla-app/android/app/build/intermediates/res/merged/release/mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "/Users/rs282j/Documents/Dev/charge-point/tesla-app/android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "/Users/rs282j/Documents/Dev/charge-point/tesla-app/android/app/build/intermediates/res/merged/release/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "/Users/rs282j/Documents/Dev/charge-point/tesla-app/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/rs282j/Documents/Dev/charge-point/tesla-app/android/app/build/intermediates/res/merged/release/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "/Users/rs282j/Documents/Dev/charge-point/tesla-app/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/rs282j/Documents/Dev/charge-point/tesla-app/android/app/build/intermediates/res/merged/release/drawable_splashscreen_image.png.flat",
+        "source": "/Users/rs282j/Documents/Dev/charge-point/tesla-app/android/app/src/main/res/drawable/splashscreen_image.png"
+    },
+    {
+        "merged": "/Users/rs282j/Documents/Dev/charge-point/tesla-app/android/app/build/intermediates/res/merged/release/mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "/Users/rs282j/Documents/Dev/charge-point/tesla-app/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "/Users/rs282j/Documents/Dev/charge-point/tesla-app/android/app/build/intermediates/res/merged/release/mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "/Users/rs282j/Documents/Dev/charge-point/tesla-app/android/app/src/main/res/mipmap-mdpi/ic_launcher_round.png"
+    }
+]

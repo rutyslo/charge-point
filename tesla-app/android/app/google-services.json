@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "119833206886",
+    "project_id": "fir-e3d18",
+    "storage_bucket": "fir-e3d18.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:119833206886:android:7b411a6f55507b1f0dcda7",
+        "android_client_info": {
+          "package_name": "com.tesla_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "119833206886-o0a6qs6h4bnv4r40ebfu9j1v3mfh3h84.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxnSvanq4PF7vMwwW5ecxdPWumHGn8UNM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "119833206886-o0a6qs6h4bnv4r40ebfu9j1v3mfh3h84.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
